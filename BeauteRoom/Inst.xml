@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--Необходимо заполнить оба бота и указать  IsDebugDiferent если 
+    для релиза и для дебага используются разные данны если нет заполнить одинаковыми данными.
+    В данном случае у меня отдельная бд и отдельный бот для дебага и для релиза-->
+    
+    <!--NeedToUpdate - отметка о необходимость обнавить бд. предполагаю что это поле будет 
+    изменятся динамически и к нему мы будем обращаться часто  -->
+<BotInst
+    
+    DebagDBname="NewStartBD"
+    DebugToken="6240171220:AAHfx5pWo1auNgBvbPENlGiVDn7b7bJZctI"
+    
+    ReliseDBName="Hr_req_db"
+    ReliseToken="6483803548:AAGhFhu1Wgzh__g06q-6n36Sbq8L5Z_P9Ts"
+   
+   
+
+    IsDebugDiferent="True"
+    NeedToUpdate="False">
+   
+
+    <!--UserType типы пользователей которые будут в боте -->
+    <UserType>
+        <Type Name="Администратор" CodeType="admin" Description="Пользователи с этим типом могут модерировать и отслеживать новые обращения" />
+        <Type Name="Неавторизованный пользователь" CodeType="user" Description="Пользователи с этим типом могут оставлять обращения" />
+        <Type Name="Авторизованный пользователь" CodeType="regularUser" Description="Пользователи с этим типом могут оставлять обращения" />
+    </UserType>
+
+
+    <!--MenuType типы меню возможно внесем и внутрь программы тут они просто для того чтобы обозначить их -->
+    <MenuType>
+        <Type Name="Статичный список кнопок" CodeType="StaticListButtons"/>
+        <Type Name="Сообщение" CodeType="Message"/>
+        <Type Name="Динамический список кнопок" CodeType="DinamickListButtons"/>
+    
+    </MenuType>
+
+
+    <!--ButtonType типы кнопок тут для того чтобы просто обозначить их.  -->
+    <ButtonType>
+        <Type Name="Обычная кнопка" CodeType="RegularButtonClick"/>
+        <Type Name="При получении текста" CodeType="GetText"/>
+    </ButtonType>
+
+
+
+    <MenuProces Name="Процесс пользователя" UserType="regularUser">
+       
+        <Menu 
+            Name="Start Menu" 
+            MenuType="StaticListButtons" 
+            MenuCode="StartMenu"
+            Navigation="StartMenu"
+            Content="🤖 : Чем я могу помочь? ⬇️" 
+            IsAwaytingText="False">
+
+            <Buttons Name="💡 Предложение" NextMenuNameCode="OfferInputMenu" ButtonType="RegularButtonClick"></Buttons>
+        </Menu>
+
+
+        <Menu 
+            Name="Application on offer" 
+            MenuType="StaticListButtons" 
+            MenuCode="OfferInputMenu"
+            Navigation="StartMenu/OfferInputMenu"
+            Content="🤖:  💡 Опишите ваше предложение ниже ⌨️" 
+            IsAwaytingText="True">
+           
+            <Buttons Name="⬅️ Назад" NextMenuNameCode="StartMenu"  ButtonType="RegularButtonClick"></Buttons>
+            <Buttons Name="Получение текста" NextMenuNameCode="OfferConferm"  ButtonType="GetText"></Buttons>
+        </Menu>
+
+        <Menu 
+            Name="Offer application confirmation" 
+            MenuType="StaticListButtons" 
+            MenuCode="OfferConferm"
+            Navigation="StartMenu/OfferInputMenu/OfferConferm"
+            Content="🤖:Хотите отправить ваше предложение?\nВаше предложение 💡: " 
+            IsAwaytingText="False">
+           
+            <Buttons Name="⬅️ Назад" NextMenuNameCode="StartMenu"  ButtonType="RegularButtonClick"></Buttons>
+            <Buttons Name="Получение текста" NextMenuNameCode="StartMenu"  ButtonType="GetText"></Buttons>
+        </Menu>
+
+
+
+    
+    </MenuProces>
+
+
+
+
+</BotInst>

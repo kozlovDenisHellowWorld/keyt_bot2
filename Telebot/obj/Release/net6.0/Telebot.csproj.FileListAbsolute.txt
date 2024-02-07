@@ -1,0 +1,48 @@
+D:\BeauteRoom\Telebot\bin\Release\net6.0\Telebot.deps.json
+D:\BeauteRoom\Telebot\bin\Release\net6.0\Telebot.dll
+D:\BeauteRoom\Telebot\bin\Release\net6.0\Telebot.pdb
+D:\BeauteRoom\Telebot\obj\Release\net6.0\Telebot.csproj.AssemblyReference.cache
+D:\BeauteRoom\Telebot\obj\Release\net6.0\Telebot.GeneratedMSBuildEditorConfig.editorconfig
+D:\BeauteRoom\Telebot\obj\Release\net6.0\Telebot.AssemblyInfoInputs.cache
+D:\BeauteRoom\Telebot\obj\Release\net6.0\Telebot.AssemblyInfo.cs
+D:\BeauteRoom\Telebot\obj\Release\net6.0\Telebot.csproj.CoreCompileInputs.cache
+D:\BeauteRoom\Telebot\obj\Release\net6.0\Telebot.dll
+D:\BeauteRoom\Telebot\obj\Release\net6.0\refint\Telebot.dll
+D:\BeauteRoom\Telebot\obj\Release\net6.0\Telebot.pdb
+D:\BeauteRoom\Telebot\obj\Release\net6.0\ref\Telebot.dll
+D:\Volody\Telebot\obj\Release\net6.0\Telebot.csproj.AssemblyReference.cache
+D:\Volody\Telebot\obj\Release\net6.0\Telebot.GeneratedMSBuildEditorConfig.editorconfig
+D:\Volody\Telebot\obj\Release\net6.0\Telebot.AssemblyInfoInputs.cache
+D:\Volody\Telebot\obj\Release\net6.0\Telebot.AssemblyInfo.cs
+D:\Volody\Telebot\obj\Release\net6.0\Telebot.csproj.CoreCompileInputs.cache
+D:\Volody\Telebot\obj\Release\net6.0\Telebot.dll
+D:\Volody\Telebot\obj\Release\net6.0\refint\Telebot.dll
+D:\Volody\Telebot\obj\Release\net6.0\Telebot.pdb
+D:\Volody\Telebot\bin\Release\net6.0\Telebot.deps.json
+D:\Volody\Telebot\bin\Release\net6.0\Telebot.dll
+D:\Volody\Telebot\bin\Release\net6.0\Telebot.pdb
+D:\Volody\Telebot\obj\Release\net6.0\ref\Telebot.dll
+D:\заного  все\Telebot\bin\Release\net6.0\Telebot.deps.json
+D:\заного  все\Telebot\bin\Release\net6.0\Telebot.dll
+D:\заного  все\Telebot\bin\Release\net6.0\Telebot.pdb
+D:\заного  все\Telebot\obj\Release\net6.0\Telebot.csproj.AssemblyReference.cache
+D:\заного  все\Telebot\obj\Release\net6.0\Telebot.GeneratedMSBuildEditorConfig.editorconfig
+D:\заного  все\Telebot\obj\Release\net6.0\Telebot.AssemblyInfoInputs.cache
+D:\заного  все\Telebot\obj\Release\net6.0\Telebot.AssemblyInfo.cs
+D:\заного  все\Telebot\obj\Release\net6.0\Telebot.csproj.CoreCompileInputs.cache
+D:\заного  все\Telebot\obj\Release\net6.0\Telebot.dll
+D:\заного  все\Telebot\obj\Release\net6.0\refint\Telebot.dll
+D:\заного  все\Telebot\obj\Release\net6.0\Telebot.pdb
+D:\заного  все\Telebot\obj\Release\net6.0\ref\Telebot.dll
+D:\kelevroRepostAssistant — Катя\Telebot\bin\Release\net6.0\Telebot.deps.json
+D:\kelevroRepostAssistant — Катя\Telebot\bin\Release\net6.0\Telebot.dll
+D:\kelevroRepostAssistant — Катя\Telebot\bin\Release\net6.0\Telebot.pdb
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\Telebot.csproj.AssemblyReference.cache
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\Telebot.GeneratedMSBuildEditorConfig.editorconfig
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\Telebot.AssemblyInfoInputs.cache
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\Telebot.AssemblyInfo.cs
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\Telebot.csproj.CoreCompileInputs.cache
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\Telebot.dll
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\refint\Telebot.dll
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\Telebot.pdb
+D:\kelevroRepostAssistant — Катя\Telebot\obj\Release\net6.0\ref\Telebot.dll

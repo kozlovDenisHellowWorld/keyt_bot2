@@ -1,0 +1,297 @@
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\BeauteRoom.exe
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\BeauteRoom.deps.json
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\BeauteRoom.runtimeconfig.json
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\BeauteRoom.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\BeauteRoom.pdb
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Azure.Core.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Azure.Identity.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Data.SqlClient.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Logging.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Options.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Primitives.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Identity.Client.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.SqlServer.Server.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Newtonsoft.Json.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\System.Configuration.ConfigurationManager.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\System.Drawing.Common.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\System.Memory.Data.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\System.Runtime.Caching.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\System.Security.Permissions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\System.Windows.Extensions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Telegram.Bot.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Telebot.dll
+D:\BeauteRoom\BeauteRoom\bin\Release\net6.0\Telebot.pdb
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.AssemblyReference.cache
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.GeneratedMSBuildEditorConfig.editorconfig
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.AssemblyInfoInputs.cache
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.AssemblyInfo.cs
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.CoreCompileInputs.cache
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.CopyComplete
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.dll
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\refint\BeauteRoom.dll
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.pdb
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\BeauteRoom.genruntimeconfig.cache
+D:\BeauteRoom\BeauteRoom\obj\Release\net6.0\ref\BeauteRoom.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\BeauteRoom.exe
+D:\Volody\BeauteRoom\bin\Release\net6.0\BeauteRoom.deps.json
+D:\Volody\BeauteRoom\bin\Release\net6.0\BeauteRoom.runtimeconfig.json
+D:\Volody\BeauteRoom\bin\Release\net6.0\BeauteRoom.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\BeauteRoom.pdb
+D:\Volody\BeauteRoom\bin\Release\net6.0\Azure.Core.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Azure.Identity.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Data.SqlClient.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Logging.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Options.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Primitives.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Identity.Client.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.SqlServer.Server.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Newtonsoft.Json.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.Configuration.ConfigurationManager.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.Drawing.Common.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.Memory.Data.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.Runtime.Caching.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.Security.Permissions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.Windows.Extensions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Telegram.Bot.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Telebot.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Telebot.pdb
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.AssemblyReference.cache
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.GeneratedMSBuildEditorConfig.editorconfig
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.AssemblyInfoInputs.cache
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.AssemblyInfo.cs
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.CoreCompileInputs.cache
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.CopyComplete
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.dll
+D:\Volody\BeauteRoom\obj\Release\net6.0\refint\BeauteRoom.dll
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.pdb
+D:\Volody\BeauteRoom\obj\Release\net6.0\BeauteRoom.genruntimeconfig.cache
+D:\Volody\BeauteRoom\obj\Release\net6.0\ref\BeauteRoom.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Castle.Core.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\System.Diagnostics.EventLog.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
+D:\Volody\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\BeauteRoom.exe
+D:\заного  все\BeauteRoom\bin\Release\net6.0\BeauteRoom.deps.json
+D:\заного  все\BeauteRoom\bin\Release\net6.0\BeauteRoom.runtimeconfig.json
+D:\заного  все\BeauteRoom\bin\Release\net6.0\BeauteRoom.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\BeauteRoom.pdb
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Azure.Core.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Azure.Identity.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Castle.Core.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Data.SqlClient.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Logging.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Options.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Primitives.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Identity.Client.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.SqlServer.Server.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Newtonsoft.Json.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.Configuration.ConfigurationManager.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.Diagnostics.EventLog.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.Drawing.Common.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.Memory.Data.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.Runtime.Caching.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.Security.Permissions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\System.Windows.Extensions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Telegram.Bot.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Telebot.dll
+D:\заного  все\BeauteRoom\bin\Release\net6.0\Telebot.pdb
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.AssemblyReference.cache
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.GeneratedMSBuildEditorConfig.editorconfig
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.AssemblyInfoInputs.cache
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.AssemblyInfo.cs
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.CoreCompileInputs.cache
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.CopyComplete
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.dll
+D:\заного  все\BeauteRoom\obj\Release\net6.0\refint\BeauteRoom.dll
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.pdb
+D:\заного  все\BeauteRoom\obj\Release\net6.0\BeauteRoom.genruntimeconfig.cache
+D:\заного  все\BeauteRoom\obj\Release\net6.0\ref\BeauteRoom.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\BeauteRoom.exe
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\BeauteRoom.deps.json
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\BeauteRoom.runtimeconfig.json
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\BeauteRoom.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\BeauteRoom.pdb
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Azure.Core.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Azure.Identity.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Castle.Core.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\EPPlus.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\EPPlus.Interfaces.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\EPPlus.System.Drawing.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\HtmlAgilityPack.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Data.SqlClient.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Configuration.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Configuration.Json.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.FileProviders.Physical.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Logging.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Options.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Extensions.Primitives.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Identity.Client.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.IO.RecyclableMemoryStream.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.SqlServer.Server.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Newtonsoft.Json.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\OpenAI-DotNet.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Configuration.ConfigurationManager.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Diagnostics.EventLog.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Drawing.Common.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Memory.Data.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Runtime.Caching.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Security.Permissions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\System.Windows.Extensions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Telegram.Bot.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Telebot.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\bin\Release\net6.0\Telebot.pdb
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.AssemblyReference.cache
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.GeneratedMSBuildEditorConfig.editorconfig
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.AssemblyInfoInputs.cache
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.AssemblyInfo.cs
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.CoreCompileInputs.cache
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.csproj.CopyComplete
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\refint\BeauteRoom.dll
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.pdb
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\BeauteRoom.genruntimeconfig.cache
+D:\kelevroRepostAssistant — Катя\BeauteRoom\obj\Release\net6.0\ref\BeauteRoom.dll

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeauteRoom", "BeauteRoom\BeauteRoom.csproj", "{37B32D13-A83F-4DB9-94BE-BC7AF18914E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telebot", "Telebot\Telebot.csproj", "{EF167A61-7737-487D-8827-BEE920BD4B66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37B32D13-A83F-4DB9-94BE-BC7AF18914E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B32D13-A83F-4DB9-94BE-BC7AF18914E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B32D13-A83F-4DB9-94BE-BC7AF18914E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B32D13-A83F-4DB9-94BE-BC7AF18914E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF167A61-7737-487D-8827-BEE920BD4B66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF167A61-7737-487D-8827-BEE920BD4B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF167A61-7737-487D-8827-BEE920BD4B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF167A61-7737-487D-8827-BEE920BD4B66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DED61697-CBBF-4C4F-A1CF-550BC344D55F}
+	EndGlobalSection
+EndGlobal
