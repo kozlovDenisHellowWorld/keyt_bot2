@@ -28,6 +28,8 @@ namespace Telebot
 
         private string Token;
 
+        private string BDName;
+
         static public TelegramBotClient myClient;
 
         static CancellationTokenSource myCansToken = new CancellationTokenSource();
@@ -66,7 +68,10 @@ namespace Telebot
         {
 
 
-            XmlMenus(@"D:\\kelevroRepostAssistant — Катя\\BeauteRoom\\Inst.xml");
+            XmlMenus(@"E:\Den\kate_2bot\keyt_bot2\BeauteRoom\Inst.xml");
+
+
+            new context2(dbName: BDName);
 
 
 
@@ -234,14 +239,17 @@ namespace Telebot
 
 
 
-                List<UserTypes> userTypes = new List<UserTypes>();
+                List<User_Types> userTypes = new List<User_Types>();
                 XmlNodeList usertypeNodes = xmlDoc.SelectNodes("//UserType/Type");
                 foreach (XmlNode node in usertypeNodes)
                 {
-                    var type = new UserTypes();
+                    var type = new User_Types();
                     type.TypeCode = node.Attributes["CodeType"]?.Value;
                     type.MyName = node.Attributes["Name"]?.Value;
                     type.MyDescription = node.Attributes["Description"]?.Value;
+                    type.BotClientId = myClient.BotId;
+                    type.IsDelite = false;
+                    type.dateTimeCreation= DateTime.Now;
                     userTypes.Add(type);
 
                 }
@@ -249,23 +257,37 @@ namespace Telebot
 
 
                 XmlNodeList menuTypesNodes = xmlDoc.SelectNodes("//MenuType/Type");
-                Dictionary<string, string> menuTypes = new Dictionary<string, string>();
+                List<Menu_ProcessType> menuTypes = new List<Menu_ProcessType>();
+
                 foreach (XmlNode node in menuTypesNodes)
                 {
-                    var typeCode = node.Attributes["CodeType"]?.Value;
-                    var name = node.Attributes["Name"]?.Value;
+                    var type=new Menu_ProcessType();
+
+                    type.Code = node.Attributes["CodeType"]?.Value;
+                    type.MyName= node.Attributes["Name"]?.Value;
+                    type.dateTimeCreation= DateTime.Now;
+                    type.IsDelite = false;
+                    type.BotClientId=myClient.BotId;
+                    type.MyDescription = "Вид меню";
                   
-                    menuTypes.Add(typeCode,name);
+                    menuTypes.Add(type);
                 }
 
 
+
                 XmlNodeList buttonTypesNodes = xmlDoc.SelectNodes("//InputType/Type");
-                Dictionary<string, string> buttonTypes = new Dictionary<string, string>();
+                List<Input_Type> buttonTypes = new List<Input_Type>();
                 foreach (XmlNode node in buttonTypesNodes)
                 {
-                    var typeCode = node.Attributes["CodeType"]?.Value;
-                    var name = node.Attributes["Name"]?.Value;
-                    buttonTypes.Add(typeCode, name);
+                    var type = new Input_Type();
+
+                    type.Code = node.Attributes["CodeType"]?.Value;
+                    type.MyName = node.Attributes["Name"]?.Value;
+                    type.dateTimeCreation = DateTime.Now;
+                    type.IsDelite = false;
+                    type.BotClientId = myClient.BotId;
+                    type.MyDescription = "Вид инпута";
+                    buttonTypes.Add(type);
                 }
 
 
@@ -305,12 +327,12 @@ namespace Telebot
                 if (Debugger.IsAttached)
                 {
                     Token = debugToken;
-                    
+                    BDName = debagDBname;
                 }
                 else
                 {
                     Token = reliseToken;
-
+                    BDName = reliseDBName;
                 }
 
                     // Выводим содержимое файла

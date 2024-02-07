@@ -58,7 +58,6 @@
             <Buttons Name="💡 Предложение" NextMenuNameCode="OfferInputMenu" ButtonType="RegularButtonClick"></Buttons>
         </Menu>
 
-
         <Menu 
             Name="Application on offer" 
             MenuType="StaticListButtons" 
@@ -70,19 +69,6 @@
             <Buttons Name="⬅️ Назад" NextMenuNameCode="StartMenu"  ButtonType="RegularButtonClick"></Buttons>
             <Buttons Name="Получение текста" NextMenuNameCode="OfferConferm"  ButtonType="GetText"></Buttons>
         </Menu>
-
-        <Menu 
-            Name="Offer application confirmation" 
-            MenuType="StaticListButtons" 
-            MenuCode="OfferConferm"
-            Navigation="StartMenu/OfferInputMenu/OfferConferm"
-            Content="🤖:Хотите отправить ваше предложение?\nВаше предложение 💡: " 
-            IsAwaytingText="False">
-           
-            <Buttons Name="⬅️ Назад" NextMenuNameCode="StartMenu"  ButtonType="RegularButtonClick"></Buttons>
-            <Buttons Name="Получение текста" NextMenuNameCode="StartMenu"  ButtonType="GetText"></Buttons>
-        </Menu>
-
 
         <Menu 
             Name="Offer application confirmation" 

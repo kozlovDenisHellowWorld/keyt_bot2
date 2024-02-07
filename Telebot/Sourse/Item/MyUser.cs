@@ -39,6 +39,15 @@ namespace Telebot.Sourse.Item
 
 
 
+
+        public int Type_id { set; get; }
+        /// <summary>
+        /// Новый тип  для пользователей 
+        /// </summary>
+        virtual public User_Types Type { set; get; }
+
+
+
         public MyUser()
         { }
 
