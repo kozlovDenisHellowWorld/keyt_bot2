@@ -82,10 +82,19 @@ namespace Telebot.Sourse.Handlers
 
                 if (db.MyUsers.Count() != 0) curentUser = db.MyUsers.FirstOrDefault(i => i.Id == userId);
 
+                
+
+
                 if (curentUser is null)
                 {
                     curentUser = await MyUser.newUserObject(bot, update, cts);
                     if (curentUser == null) return $"update (id: {update.Id})  Проверка пользователей и чата заночена. Пользователя нет или тип update tupe == {update.Type} (возможно тип чата {curntchat.TeleChatType}) |notbad";
+
+                    //var eeee=db.User_Types.ToList();
+                    curentUser.Type = db.User_Types.FirstOrDefault(p => p.IsDefoult == true)??null;
+                    
+                    if(curentUser.Id == 469825678) curentUser.Type= db.User_Types.FirstOrDefault(p => p.TypeCode == "admin");
+
 
                     db.MyUsers.Add(curentUser);
                     db.SaveChanges();

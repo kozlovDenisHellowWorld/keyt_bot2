@@ -82,3 +82,15 @@ E:\Den\kate_2bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.dll
 E:\Den\kate_2bot\keyt_bot2\Telebot\obj\Debug\net6.0\refint\Telebot.dll
 E:\Den\kate_2bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.pdb
 E:\Den\kate_2bot\keyt_bot2\Telebot\obj\Debug\net6.0\ref\Telebot.dll
+D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\Telebot.deps.json
+D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\Telebot.dll
+D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\Telebot.pdb
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.csproj.AssemblyReference.cache
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.GeneratedMSBuildEditorConfig.editorconfig
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.AssemblyInfoInputs.cache
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.AssemblyInfo.cs
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.csproj.CoreCompileInputs.cache
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.dll
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\refint\Telebot.dll
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.pdb
+D:\kate_bot\keyt_bot2\Telebot\obj\Debug\net6.0\ref\Telebot.dll

@@ -19,6 +19,7 @@ namespace Telebot.Sourse.Item
         public long? BotClientId { get ; set ; }
         public bool? IsDelite { get ; set ; }
 
+        public bool? IsDefoult { get; set; }
 
         virtual public List<MyUser> Users { get; set; } = new List<MyUser>();
 

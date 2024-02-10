@@ -1,4 +1,4 @@
-﻿using OpenAI.Chat;
+﻿//using OpenAI.Chat;
 using Telebot.Sourse.Item;
 using Telegram.Bot;
 using Telegram.Bot.Types;

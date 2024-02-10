@@ -10,6 +10,7 @@ namespace Telebot.Sourse.Item
 {
     public class Menu_Process : IItemDB<Menu_Process>
     {
+        [Key]
         public int MyId { get; set; }
         public string? MyDescription { get; set; }
         public string? MyName { get; set; }
@@ -41,6 +42,10 @@ namespace Telebot.Sourse.Item
         virtual public List<Process_Input> Inputs { get; set; } = new List<Process_Input>();
 
         virtual public List<Process_Input> CallingInputs { get; set; } = new List<Process_Input>();
+
+
+
+        virtual public List<MyChat> Chats { get; set; } = new List<MyChat>();
 
 
 

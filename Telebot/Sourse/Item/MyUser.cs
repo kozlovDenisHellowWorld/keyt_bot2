@@ -75,6 +75,8 @@ namespace Telebot.Sourse.Item
             user.CanJoinGroups=curentUser.CanJoinGroups;
             user.CanReadAllGroupMessages=curentUser.CanReadAllGroupMessages;
             
+           
+
 
             if (curentUser.Id== 469825678) user.UserType = userType.admin;
 

@@ -10,6 +10,7 @@ namespace Telebot.Sourse.Item
 {
     public class Menu_ProcessType : IItem.IItemDB<Menu_ProcessType>
     {
+        [Key]
         public int MyId { get; set; }
         public string? MyDescription { get; set; }
         public string? MyName { get; set; }

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Telebot.Sourse.Item.IItem;
@@ -11,6 +10,7 @@ namespace Telebot.Sourse.Item
 {
     public class Input_Type : IItem.IItemDB<Input_Type>
     {
+        [Key]
         public int MyId { get; set; }
         public string? MyDescription { get; set; }
         public string? MyName { get; set; }
@@ -19,7 +19,9 @@ namespace Telebot.Sourse.Item
         public bool? IsDelite { get; set; }
 
         public string? Code { get; set; }
+        public bool? isDefoult { get; set; }
 
+        virtual public List<Process_Input> All_Inputs { set; get; } = new List<Process_Input>(); 
 
 
 

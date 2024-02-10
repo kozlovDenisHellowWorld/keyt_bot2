@@ -61,9 +61,63 @@ namespace Telebot.Sourse
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
-          
 
+            modelBuilder
+.Entity<Menu_Process>()
+.HasMany(u => u.Chats)
+.WithOne(p => p.CurentProcess)
+.HasForeignKey(p => p.CurentProcessId);
+
+
+
+
+            modelBuilder
+      .Entity<Input_Type>()
+      .HasMany(u => u.All_Inputs)
+      .WithOne(p => p.input_Type)
+      .HasForeignKey(p => p.input_TypeId);
+
+
+
+            modelBuilder
+        .Entity<Menu_ProcessType>()
+        .HasMany(u => u.Menus)
+        .WithOne(p => p.ProcessType)
+        .HasForeignKey(p => p.ProcessTypeId);
+
+
+
+            modelBuilder
+        .Entity<User_Types>()
+        .HasMany(u => u.Users)
+        .WithOne(p => p.Type)
+        .HasForeignKey(p => p.Type_id);
+
+
+
+
+
+            modelBuilder
+        .Entity<Menu_Process>()
+        .HasMany(u => u.Inputs)
+        .WithOne(p => p.MenuProcess)
+        .HasForeignKey(p => p.MenuProcessId);
+
+
+            modelBuilder
+        .Entity<Menu_Process>()
+        .HasMany(u => u.CallingInputs)
+        .WithOne(p => p.NextProcessMenu)
+        .HasForeignKey(p => p.NextProcessMenuId);
+
+
+
+
+
+
+
+
+            //----
 
 
 
@@ -256,6 +310,16 @@ namespace Telebot.Sourse
         public DbSet<requst> Requst { set; get; }
 
         public DbSet<myPhoto> myPhotoes { set; get; }
+
+
+
+
+
+        public DbSet<User_Types> User_Types { set; get; }
+        public DbSet<Input_Type> Input_Types { set; get; }
+        public DbSet<Menu_Process> Menu_Proceses { set; get; }
+        public DbSet<Menu_ProcessType> Menu_ProcessTypes { set; get; }
+        public DbSet<Process_Input> Inputs { set; get; }
 
         //public DbSet<myPhoto> myPhotoes { set; get; }
 

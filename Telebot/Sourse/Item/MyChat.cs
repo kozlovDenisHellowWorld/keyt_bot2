@@ -35,6 +35,25 @@ namespace Telebot.Sourse.Item.IItem
 
         public virtual List<requst> Requsts { set; get; } = new List<requst>();
 
+
+        public int? CurentProcessId { set; get; }
+
+        virtual public Menu_Process? CurentProcess { set; get; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public static async Task <MyChat> newChatObject(ITelegramBotClient bot, Update update, CancellationToken cts)
         {
             Chat? curentChat = null;
