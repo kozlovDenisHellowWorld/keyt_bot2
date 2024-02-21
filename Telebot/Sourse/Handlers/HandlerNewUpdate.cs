@@ -1,4 +1,5 @@
-﻿using Telebot.Sourse.Item;
+﻿using System.Windows.Markup;
+using Telebot.Sourse.Item;
 using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -46,7 +47,7 @@ namespace Telebot.Sourse.Handlers
 
             //====== Собщения ========
 
-            //чат 
+            //чат - обработка чата - есть ли такой чат и создание если есть
             using (var db = new context())
             {
                 var botProps = db.BotProperties.FirstOrDefault(i => i.BotClientId == bot.BotId);
@@ -62,7 +63,7 @@ namespace Telebot.Sourse.Handlers
                     curnchat = await MyChat.newChatObject(bot, update, cts);
                     db.myChats.Add(curnchat);
                     db.SaveChanges();
-                     concoldebuger.goodMSG($"Добавлен новый чат (id BD: {curnchat.MyId}): {curnchat.MyDescription}", bot,cts);
+                    concoldebuger.goodMSG($"Добавлен новый чат (id BD: {curnchat.MyId}): {curnchat.MyDescription}", bot, cts);
                 }
             }
 
@@ -70,7 +71,7 @@ namespace Telebot.Sourse.Handlers
             if (userId == 0) return $"update ({update.Id})  Проверка пользователей и чата заночена. Пользователя нет.  Возможно тип update tupe == callback или тип чата == \"Канал\"|notbad";
 
 
-            //пользователь 
+            //пользователь - обработка пользователя если такой пользователь или нет
             using (var db = new context())
             {
                 var botProps = db.BotProperties.FirstOrDefault(i => i.BotClientId == bot.BotId);
@@ -82,7 +83,7 @@ namespace Telebot.Sourse.Handlers
 
                 if (db.MyUsers.Count() != 0) curentUser = db.MyUsers.FirstOrDefault(i => i.Id == userId);
 
-                
+
 
 
                 if (curentUser is null)
@@ -91,9 +92,9 @@ namespace Telebot.Sourse.Handlers
                     if (curentUser == null) return $"update (id: {update.Id})  Проверка пользователей и чата заночена. Пользователя нет или тип update tupe == {update.Type} (возможно тип чата {curntchat.TeleChatType}) |notbad";
 
                     //var eeee=db.User_Types.ToList();
-                    curentUser.Type = db.User_Types.FirstOrDefault(p => p.IsDefoult == true)??null;
-                    
-                    if(curentUser.Id == 469825678) curentUser.Type= db.User_Types.FirstOrDefault(p => p.TypeCode == "admin");
+                    curentUser.Type = db.User_Types.FirstOrDefault(p => p.IsDefoult == true) ?? null;
+
+                    if (curentUser.Id == 469825678) curentUser.Type = db.User_Types.FirstOrDefault(p => p.TypeCode == "admin");
 
 
                     db.MyUsers.Add(curentUser);
@@ -107,17 +108,24 @@ namespace Telebot.Sourse.Handlers
             }
 
 
-
-            using (var db=new context())
+            //добавлние в чат пользователя
+            using (var db = new context())
             {
-                var curentChat = db.myChats.FirstOrDefault(i=>i.ChatId==chatId);
+                var curentChat = db.myChats.FirstOrDefault(i => i.ChatId == chatId);
                 var curetnUser = db.MyUsers.FirstOrDefault(i => i.Id == userId);
 
-                if (curentChat.AllChatUsers.FirstOrDefault(i => i.Id == curetnUser.Id)is not null) return "update ({update.Id})  Проверка пользователей и чата заночена успешна|true";
+                if (curentChat.AllChatUsers.FirstOrDefault(i => i.Id == curetnUser.Id) is not null) return "update ({update.Id})  Проверка пользователей и чата заночена успешна|true";
                 curentChat.AllChatUsers.Add(curetnUser);
                 concoldebuger.goodMSG($"Был добавлен пользователь (id db: {curetnUser.MyId}) c Tele user id:{curetnUser.Id} в чат (id db: {curentChat.MyId}) c Tele chat id:{curentChat.ChatId}", bot, cts);
+                if (curentChat.CurentProcess == null)
+                {
+                    //curentChat.CurentProcess = db.Menu_Proceses.FirstOrDefault(p =>p.UserType==curetnUser.Type&&p.ProcessMenuCode== "StartMenu");
+                    curentChat.CurentProcess = curetnUser.Type.Processes.FirstOrDefault(p => p.ProcessMenuCode == "StartMenu");
+
+                }
+
                 db.SaveChanges();
-             }
+            }
 
 
 
@@ -130,11 +138,11 @@ namespace Telebot.Sourse.Handlers
         {
             try
             {
-                using (var db= new context())
+                using (var db = new context())
                 {
-                    
+
                     var botProps = db.BotProperties.FirstOrDefault(i => i.BotClientId == bot.BotId);
-                    botProps.LastUpdateId=update.Id;
+                    botProps.LastUpdateId = update.Id;
                     db.SaveChanges();
                     return $"last updateId  новый {botProps.LastUpdateId} |true";
 
@@ -142,11 +150,11 @@ namespace Telebot.Sourse.Handlers
 
 
             }
-            catch 
+            catch
             {
-                return "last updateId не изменен|false"; 
+                return "last updateId не изменен|false";
             }
-                    
+
         }
 
 
@@ -156,16 +164,17 @@ namespace Telebot.Sourse.Handlers
             if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message) curentChat = update.Message.Chat;
             if (update.Type is Telegram.Bot.Types.Enums.UpdateType.ChannelPost) curentChat = update.ChannelPost.Chat;
             if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) curentChat = update.CallbackQuery.Message.Chat;
+            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.EditedMessage) curentChat = update.EditedMessage.Chat;
 
 
             var myupdate = await MyUserUpdates.createNewObj(bot, update, cts);
 
-            using (var db= new context())
+            using (var db = new context())
             {
                 db.myUserUpdates.Add(myupdate);
                 db.SaveChanges();
 
-                var chat= db.myChats.FirstOrDefault(i=>i.ChatId==curentChat.Id);// вот тут фиаско при изменение сообщения 
+                var chat = db.myChats.FirstOrDefault(i => i.ChatId == curentChat.Id);// вот тут фиаско при изменение сообщения 
                 chat.Update.Add(myupdate);
                 db.SaveChanges();
 
@@ -217,27 +226,88 @@ namespace Telebot.Sourse.Handlers
         {
             string result = "";
 
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery || update.Type is Telegram.Bot.Types.Enums.UpdateType.Message)
+            using (var db = new context())
             {
-                Chat curentChat = null;
-                Message curentMessage = null;
+                Chat curentTeletChat = null;
+                Message curentTeleMessage = null;
+                string data = "";
                 if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery)
                 {
-                    curentChat = update.CallbackQuery.Message.Chat;
-                    curentMessage = update.CallbackQuery.Message;
+                    curentTeletChat = update.CallbackQuery.Message.Chat;
+                    curentTeleMessage = update.CallbackQuery.Message;
+                    data = update.CallbackQuery?.Data;
                 }
                 else if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message)
                 {
-                    curentChat = update.Message.Chat;
-                    curentMessage = update.Message;
+                    curentTeletChat = update.Message.Chat;
+                    curentTeleMessage = update.Message;
+                    data = update.Message.Text;
+
+
                 }
-              if (curentChat is null||curentMessage is null)  return "Не очень |false";
+                else if (update.Type is Telegram.Bot.Types.Enums.UpdateType.EditedMessage)
+                {
+                    return "Коректировка сообщений";
+                }
+                var thisChat = db.myChats.FirstOrDefault(ch => ch.ChatId == curentTeletChat.Id) as MyChat;
+
+                // тут нужна проверке на повторный приход того же callback
+
+
+                //обработка StaticListButtonsCallbackQuery  - Статичный список кнопок, которые располагаются внутри чата
+
+                var staticTypemenu = db.Menu_ProcessTypes.FirstOrDefault(t => t.Code == "StaticListButtonsCallbackQuery");
+                Menu_Process nextProcess = null;
+
+                if (data == "/start")
+                {
+                    nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m=>m.ProcessMenuCode== "StartMenu");
+
+                }
+
+                
+
+                if (thisChat.CurentProcess.ProcessType == staticTypemenu)
+                {
+                    if (thisChat.CurentProcess.IsAwaytingText == true)
+                    { 
+                        
+                    
+                    }
+
+                }
+
+
+
+                
+
+
+
+
+
+
+
             }
+
+
+
+
+
+
 
 
 
 
             return result;
         }
+
+
+
+
+
+
+
+
+        
     }
 }

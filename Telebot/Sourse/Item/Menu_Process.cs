@@ -49,5 +49,10 @@ namespace Telebot.Sourse.Item
 
 
 
+
+        public int? UserTypeId { get; set; }
+        virtual public User_Types? UserType { get; set; }
+
+
     }
 }

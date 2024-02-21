@@ -20,14 +20,10 @@ namespace Telebot.Sourse.Handlers
 
 
 
-        public void GetNewUpdate(ITelegramBotClient client, CancellationToken cancellation)
-        {
-            CnsToken=cancellation;
-            Client = client;
 
-        }
 
-        public bool chekingUpdate()
+
+        private  bool chekingUpdate()
         { 
             bool result=true;
             using (var db= new context())
@@ -37,9 +33,6 @@ namespace Telebot.Sourse.Handlers
 
 
             }
-
-
-
 
             return result;
         }

@@ -15,7 +15,7 @@ namespace Telebot
     public class TeleClient
     {
 
-        static bool needToUpdate = false;
+        static bool needToUpdate = true;
 
         private string Token;
 
@@ -35,6 +35,9 @@ namespace Telebot
 
         bool isstarted = false;
 
+
+        //string pathXML = @"E:\Den\kate_2bot\keyt_bot2\BeauteRoom\Inst.xml";
+        string pathXML = @"D:\kate_bot\keyt_bot2\BeauteRoom\Inst.xml";
 
 
         public TeleClient(string token)
@@ -60,8 +63,8 @@ namespace Telebot
 
             //D:\kate_bot\keyt_bot2\BeauteRoom\Inst.xml
             //E:\Den\kate_2bot\keyt_bot2\BeauteRoom\Inst.xml
-            XmlMenus(@"D:\kate_bot\keyt_bot2\BeauteRoom\Inst.xml");
-
+            XmlMenus(pathXML);
+            //pathXML
 
             //  new context2(dbName: BDName);
 
@@ -92,11 +95,13 @@ namespace Telebot
             {
 
                 db.reSetBD(needToUpdate, myClient, myCansToken.Token);
-                if (needToUpdate==true) XmlMenus(@"D:\kate_bot\keyt_bot2\BeauteRoom\Inst.xml");
                 concoldebuger.notifMSG($"Имя базы данных: {db.databaseName}", myClient, myCansToken.Token);
 
             }
-           
+
+            if (needToUpdate == true) XmlMenus(pathXML);
+
+
             myClient.StartReceiving(
                 myUpdate,
                 myErrohendler,
@@ -321,7 +326,9 @@ namespace Telebot
                     {
                         XmlNodeList menus = menuProcess.SelectNodes("Menu") ?? null;
 
+                        var userTcode= menuProcess.Attributes["UserType"]?.Value ?? string.Empty;
 
+                        var thisUserType = userTypes.FirstOrDefault(t => t.TypeCode == userTcode);
 
                         if (menus is null) break;
 
@@ -332,7 +339,7 @@ namespace Telebot
 
                             var _curentMenu = new Menu_Process();
                             _curentMenu.MyName = menu.Attributes["Name"]?.Value ?? string.Empty;
-
+                            _curentMenu.UserType = thisUserType;
                             string menuType = menu.Attributes["MenuType"]?.Value ?? string.Empty;
                             _curentMenu.ProcessType = menuTypes?.FirstOrDefault(type => type.Code == menuType);
 
@@ -457,8 +464,7 @@ namespace Telebot
 
             if (isUpdateValide == false) return;
 
-
-
+           
 
             concoldebuger.notifMSG($"\n========================= Новое Update {DateTime.Now} =========================", iClient, cancellationToken);
             concoldebuger.notifMSG($"Update - id: {update.Id}| Type: {update.Type}", iClient, cancellationToken);
@@ -466,6 +472,12 @@ namespace Telebot
 
 
 
+
+
+
+
+
+         
             //новый update и создание пользователей если их нет 
             string newUpdateResult = await HandlerNewUpdate.newUpdateHendler(iClient, update, cancellationToken);
             concoldebuger.sistemMSG(newUpdateResult, iClient, cancellationToken);
@@ -475,8 +487,9 @@ namespace Telebot
             concoldebuger.sistemMSG(updateresult, iClient, cancellationToken);
 
 
+
+
             //Обробка пришедшего сообшения 
-            string processHendler = await HandlerNewUpdate.processHendler(iClient, update, cancellationToken);
 
 
 
@@ -487,8 +500,14 @@ namespace Telebot
             long teleUserId = TeleTools.GetTeleUserId(update);
             MyUser.userType? usertype = MyUser.userTypeById(teleUserId);
 
+
+
             if (usertype == MyUser.userType.admin) new adminHendlerHR().adminHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
             if (usertype == MyUser.userType.regulareUser) new userHendlerHR().regularUserHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
+
+
+
+            string processHendler = await HandlerNewUpdate.processHendler(iClient, update, cancellationToken);
 
 
 

@@ -62,6 +62,15 @@ namespace Telebot.Sourse
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+
+            modelBuilder
+.Entity<User_Types>()
+.HasMany(u => u.Processes)
+.WithOne(p => p.UserType)
+.HasForeignKey(p => p.UserTypeId);
+
+
+
             modelBuilder
 .Entity<Menu_Process>()
 .HasMany(u => u.Chats)

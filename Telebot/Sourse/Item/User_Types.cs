@@ -24,7 +24,7 @@ namespace Telebot.Sourse.Item
         virtual public List<MyUser> Users { get; set; } = new List<MyUser>();
 
 
-
+        virtual public List<Menu_Process> Processes { get; set; } = new List<Menu_Process>();
 
 
 

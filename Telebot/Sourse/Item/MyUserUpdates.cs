@@ -41,50 +41,30 @@ namespace Telebot.Sourse.Item
         public async static Task<MyUserUpdates> createNewObj(ITelegramBotClient bot, Update update, CancellationToken cts)
         {
             User? curentUser = null;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message) curentUser = update.Message.From;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.ChannelPost) curentUser = update.ChannelPost.From;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) curentUser = update.CallbackQuery.Message.From;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.EditedMessage) curentUser = update.EditedMessage.From;
-
             Chat? curentChat = null;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message) curentChat = update.Message.Chat;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.ChannelPost) curentChat = update.ChannelPost.Chat;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) curentChat = update.CallbackQuery.Message.Chat;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.EditedMessage) curentChat = update.EditedMessage.Chat;
-
             string data = "";
-
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message) data = update.Message.Text;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.ChannelPost) data = update.ChannelPost.Text;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) data = update.CallbackQuery.Data;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.EditedMessage) data = update?.EditedMessage?.EditDate?.ToString();
-
-            if (curentChat == null) return null;
-
             long? curentMessageId = null;
-
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message) curentMessageId = update.Message.MessageId;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.ChannelPost) curentMessageId = update.ChannelPost.MessageId;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) curentMessageId = update.CallbackQuery.Message.MessageId;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.EditedMessage) curentMessageId = update.EditedMessage.MessageId;
-
-
             MessageType? curentMessageType = null;
-
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message) curentMessageType = update.Message.Type;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.ChannelPost) curentMessageType = null;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) curentMessageType = update.CallbackQuery.Message.Type;
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.EditedMessage) curentMessageType = update.EditedMessage.Type;
-
             List<myPhoto> photoInfo = new List<myPhoto>();
 
-            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message && curentMessageType is MessageType.Photo)
-            {
-                //  photoInfo 
-                //photoInfo = $"Hight:{update.Message.Photo[3].Height}|Width:{update.Message.Photo[3].Width}|FileId:{update.Message.Photo[3].FileId}|FileUniqueId:{update.Message.Photo[3].FileUniqueId}|FileSize:{update.Message.Photo[3].FileSize}|";
 
-                var photo = update.Message.Photo.Last();
+            if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message)
+            {
+                curentUser = update.Message?.From;
+                curentChat = update.Message?.Chat;
+                data = update.Message?.Text ?? string.Empty;
+                curentMessageId = update.Message.MessageId;
                 
+                curentMessageType = update.Message.Type;
+
+
+                if (curentMessageType is MessageType.Photo)
+                {
+                    //  photoInfo 
+                    //photoInfo = $"Hight:{update.Message.Photo[3].Height}|Width:{update.Message.Photo[3].Width}|FileId:{update.Message.Photo[3].FileId}|FileUniqueId:{update.Message.Photo[3].FileUniqueId}|FileSize:{update.Message.Photo[3].FileSize}|";
+
+                    var photo = update.Message.Photo.Last();
+
                     var potoItem = new myPhoto()
                     {
                         BotClientId = bot.BotId,
@@ -102,9 +82,45 @@ namespace Telebot.Sourse.Item
                         $"Tele file Id: {potoItem.FileId}|File size: {potoItem.FileSize}|File un Id:{potoItem.FileUniqueId}|hight: {potoItem.Height}|width: {potoItem.Width}";
                     photoInfo.Add(potoItem);
 
-                
+
+
+                }
 
             }
+            else if (update.Type is Telegram.Bot.Types.Enums.UpdateType.CallbackQuery)
+            {
+                curentUser = update.CallbackQuery?.Message?.From;
+                curentChat = update.CallbackQuery?.Message?.Chat;
+                data = update.CallbackQuery?.Data ?? string.Empty;
+                
+                curentMessageId = update.CallbackQuery.Message.MessageId;
+                curentMessageType = update.CallbackQuery.Message.Type;
+
+            }
+            else if (update.Type is Telegram.Bot.Types.Enums.UpdateType.EditedMessage)
+            {
+                curentUser = update.EditedMessage.From;
+                curentChat = update.EditedMessage.Chat;
+                data = update?.EditedMessage?.Text;
+                curentMessageId = update.EditedMessage.MessageId;
+                curentMessageType = update.EditedMessage.Type;
+
+            }
+            else if (update.Type is Telegram.Bot.Types.Enums.UpdateType.ChannelPost)
+            {
+                curentUser = update.ChannelPost?.From;
+                curentChat = update.ChannelPost?.Chat;
+                data = update.ChannelPost?.Text ?? string.Empty;
+                curentMessageId = update.ChannelPost.MessageId;
+               
+                curentMessageType = update.ChannelPost.Type;
+
+            }
+
+
+
+
+            if (curentChat == null) return null;
 
 
             var result = new MyUserUpdates()
@@ -123,7 +139,7 @@ namespace Telebot.Sourse.Item
                 photoInfo = photoInfo,
             };
 
-            result.MyDescription = $"Obj type: {result.GetType().Name}|User Id from: {result.FromUserId}|Data crea: {result.dateTimeCreation}|" +
+            result.MyDescription = $"Obj type: {result.GetType().Name}|User name: {curentUser.Username??"-"}|User Id from: {result.FromUserId}|Data crea: {result.dateTimeCreation}|" +
                 $"Content: {result.message}|Message Id: {result.messageId}|Chat type: {result.TeleChatType}|" +
                 $"Message type: {result.TeleMessageType}|Update type: {result.UpdateType}|Update id: {result.TeleUpdateId}|Photoes: {result.photoInfo.Count()}";
 
