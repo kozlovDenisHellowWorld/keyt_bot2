@@ -1,5 +1,4 @@
-﻿using System.Windows.Markup;
-using Telebot.Sourse.Item;
+﻿using Telebot.Sourse.Item;
 using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -259,27 +258,29 @@ namespace Telebot.Sourse.Handlers
                 var staticTypemenu = db.Menu_ProcessTypes.FirstOrDefault(t => t.Code == "StaticListButtonsCallbackQuery");
                 Menu_Process nextProcess = null;
 
-                if (data == "/start")
+                if (data == "/start") // если прислали "старт" 
                 {
-                    nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m=>m.ProcessMenuCode== "StartMenu");
-
+                    //ищем в бд процесс по тегу  но в последствие может надо изменить и придумать типо меню п о дефолту 
+                    nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.ProcessMenuCode == "StartMenu");
+                    // если не нашли меню по дефолту возвращаем и заканчиваем обработку 
+                    if (nextProcess is not null) return "Стартовый процесс не найден |false";
+                    // в этот чат высавляем процесс - стартовое меню 
+                    thisChat.SetProcess(nextProcess);
                 }
 
-                
-
-                if (thisChat.CurentProcess.ProcessType == staticTypemenu)
+                // Если  мы ждем текст в меню и пришла месседж 
+                if (thisChat.CurentProcess.IsAwaytingText == true && update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
                 {
-                    if (thisChat.CurentProcess.IsAwaytingText == true)
-                    { 
-                        
                     
-                    }
-
+                }
+                else if (update.Type== Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) // если пришла кнопка 
+                {
+                    
+                    nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.MyId==);
                 }
 
 
 
-                
 
 
 
@@ -308,6 +309,6 @@ namespace Telebot.Sourse.Handlers
 
 
 
-        
+
     }
 }

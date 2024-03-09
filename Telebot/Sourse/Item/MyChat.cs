@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using Telebot.Sourse.Handlers;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace Telebot.Sourse.Item.IItem
-{
+{  
     public class MyChat : IItem.IItemDB<MyChat>
     {
         [Key]
@@ -25,6 +26,8 @@ namespace Telebot.Sourse.Item.IItem
 
       
         public string? processCode { set; get; }
+        public string? processCode2 { set; get; }
+
 
         public virtual List<MyUser>? AllChatUsers { get; set; } = new List<MyUser>();
 
@@ -42,6 +45,24 @@ namespace Telebot.Sourse.Item.IItem
 
 
 
+        public void SetProcess(Menu_Process nextProcess)
+        {
+            CurentProcess = nextProcess;
+
+            if (processCode2 == "")
+            {
+                processCode2 = $"m:{nextProcess.MyId}|";
+            }
+            else if (processCode2.Contains("m:"))
+            {
+                processCode2 = Regex.Replace(processCode2, @"m:\d+", $"m:{nextProcess.MyId}");
+            }
+            else
+            {
+                processCode2 += $"m:{nextProcess.MyId}|";
+            }
+
+        }
 
 
 
