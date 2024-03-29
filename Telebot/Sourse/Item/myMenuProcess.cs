@@ -38,5 +38,15 @@ namespace Telebot.Sourse.Item
         }
 
 
+        /// <summary>
+        /// myMenuProcess - mmp:
+        /// </summary>
+        /// <returns>"mmp:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"mmp:{MyId}|";
+        }
+
+
     }
 }

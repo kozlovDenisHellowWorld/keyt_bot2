@@ -20,10 +20,14 @@ namespace Telebot.Sourse.Item
 
 
 
+
         public int? input_TypeId { get; set; }
         public virtual Input_Type? input_Type { get; set; }
 
 
+        public string? NameIfTrue { get; set; }
+
+        public string? NameIfFalse { get; set; }
 
         public int? NextProcessMenuId { get; set; }
         public virtual Menu_Process? NextProcessMenu { get; set; }
@@ -38,7 +42,14 @@ namespace Telebot.Sourse.Item
         public string? MenuProcessCode { get; set; }
 
 
-
+        /// <summary>
+        /// Process_Input - pmsg:
+        /// </summary>
+        /// <returns>"pin:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"pin:{MyId}|";
+        }
 
     }
 }

@@ -43,13 +43,44 @@ namespace Telebot.Sourse.Item.IItem
 
         virtual public Menu_Process? CurentProcess { set; get; }
 
+        /// <summary>
+        /// Для текста который надо отправить 
+        /// </summary>
+        public string? CurentTexrMessage { set; get; }
 
+        /// <summary>
+        /// кноки для списков 
+        /// </summary>
+        public virtual List<Dinamic_Butons> DinamicButons { set; get; } = new List<Dinamic_Butons>();
 
-        public void SetProcess(Menu_Process nextProcess)
+        /// <summary>
+        /// MyChat - mc:
+        /// </summary>
+        /// <returns>"mc:{MyId}|"</returns>
+        public string GetEntityTypeId()
         {
+            return $"mc:{MyId}|";
+        }
+        public void SetProcess(Menu_Process nextProcess, context db)
+        {
+
+            //if (DinamicButons.Count > 0)
+            //{
+
+            //    // db.dinamic_Butons.RemoveRange(db.dinamic_Butons.Where(p => p.Chat == null).ToList());
+
+            //    db.dinamic_Butons.RemoveRange(DinamicButons);
+
+            //    DinamicButons.Clear();
+
+
+            //    db.SaveChanges();
+            //}
+
+            CurentTexrMessage = null;
             CurentProcess = nextProcess;
 
-            if (processCode2 == "")
+            if (processCode2 == ""|| processCode2 is null)
             {
                 processCode2 = $"m:{nextProcess.MyId}|";
             }
@@ -65,7 +96,18 @@ namespace Telebot.Sourse.Item.IItem
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Возвращает строку сосылкой на 1 пользователя этого чата чеез id</returns>
+        public string GetUserInline()
+        {
 
+
+           return CurentProcess.MyDescription.Replace("{UserName}", $"<a href=\"tg://user?id={(AllChatUsers.FirstOrDefault().Id.ToString()) ?? "-"}\">{AllChatUsers.FirstOrDefault().Username ?? "Пользователь"}</a>");
+
+
+        }
 
 
 

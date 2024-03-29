@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
+using Telebot.Sourse.Handlers;
 using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
-using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 
 namespace Telebot.Sourse.Item
@@ -28,12 +28,118 @@ namespace Telebot.Sourse.Item
 
         public bool? IsAwaytingText { get; set; }
 
+        public bool? NeedToDelite { get; set; }
+
+        MethodInfo? OnLoadHadler { set; get; }
+
+
+        MethodInfo? OnEndHadler { set; get; }
 
 
 
 
+        public Menu_Process()
+        {
 
-        
+            if (ProcessMenuCode != null && ProcessMenuCode != "" && ProcessMenuCode != string.Empty)
+            {
+
+            }
+            else
+            {
+                OnLoadHadler = null;
+                OnEndHadler = null;
+            }
+
+
+
+        }
+
+
+
+
+        public void ExecuteOnLoad(Update update, ITelegramBotClient client, MyChat curentChat,context db, CancellationToken cancellationToken)
+        {
+
+
+
+
+            //поиск метода
+
+            var methods = typeof(MenuProcessor).GetMethods().Where(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnLoad")) == true);
+
+            if (methods.Count() > 1)
+            {
+                OnLoadHadler = typeof(MenuProcessor).GetMethods().FirstOrDefault(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnLoad" + $"_{curentChat.CurentProcess.ProcessType.Code}")) == true);
+
+            }
+            else
+            {
+                OnLoadHadler = typeof(MenuProcessor).GetMethods().FirstOrDefault(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnLoad")) == true);
+            }
+            if (OnLoadHadler != null)
+            {
+                // Исполнение метода
+                MenuProcessor menuProcessor = new MenuProcessor();
+                object[] methodParameters = { update, client, curentChat,db,cancellationToken };
+                OnLoadHadler.Invoke(menuProcessor, methodParameters);
+
+                //Отчет об исполнении CONSOL
+                string textRezult = $"Execute On Load - Process navigation: {this.Navigation}|Discription: был выполнен успешно метод при старте нового меню|true";
+                Sourse.Handlers.concoldebuger.goodMSG(textRezult);
+            }
+            else
+            {
+                //Отчет об исполнении CONSOL
+                string textRezult = $"Execute On Load - null |Discription: метод по атрибуту {this.Navigation} не найден|notbad";
+                Sourse.Handlers.concoldebuger.goodMSG(textRezult);
+            }
+        }
+
+
+        public void ExecuteOnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken cancellationToken)
+        {
+            //поиск метода 
+
+            var methods = typeof(MenuProcessor).GetMethods().Where(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnEnd")) == true);
+
+            if (methods.Count() > 1)
+            {
+
+                OnEndHadler = typeof(MenuProcessor).GetMethods().FirstOrDefault(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnEnd" + $"_{curentChat.CurentProcess.ProcessType.Code}")) == true);
+
+            }
+            else
+            {
+                OnEndHadler = typeof(MenuProcessor).GetMethods().FirstOrDefault(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnEnd")) == true);
+
+
+            }
+
+
+
+            if (OnEndHadler != null)
+            {
+
+                // Исполнение метода
+                MenuProcessor menuProcessor = new MenuProcessor();
+                object[] methodParameters = { update, client, curentChat };
+                OnEndHadler.Invoke(menuProcessor, methodParameters);
+
+                //Отчет об исполнении CONSOL
+                string textRezult = $"Execute On End - Process navigation: {this.Navigation}|Discription: был выполнен успешно метод при старте нового меню|true";
+                Sourse.Handlers.concoldebuger.goodMSG(textRezult);
+
+            }
+            else
+            {
+                //Отчет об исполнении CONSOL
+                string textRezult = $"Execute On End - null |Discription: метод по атрибуту {this.Navigation} не найден|notbad";
+                Sourse.Handlers.concoldebuger.goodMSG(textRezult);
+            }
+        }
+
+
         public int? ProcessTypeId { get; set; }
         virtual public Menu_ProcessType? ProcessType { get; set; }
 
@@ -54,5 +160,39 @@ namespace Telebot.Sourse.Item
         virtual public User_Types? UserType { get; set; }
 
 
+
+
+
+
+        /// <summary>
+        /// Метод для получения MyId из CallbackQuery - расчитываю что в части строки будет update.CallbackQuery.Data.contains(m:(int)|) 
+        /// </summary>
+        /// <param name="update">Обязательно должен быть  тип CallbackQuery</param>
+        /// <returns>Если не смог найти код то возвращаю null</returns>
+        public static int? GetNextProcessIdByCallbak(Update update)
+        {
+
+            if (update.Type != Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) return null;
+
+            string curentCallBakCode = update.CallbackQuery.Data;
+
+            string curentItemCode = curentCallBakCode.Split('|').ToList().FirstOrDefault(s => s.Contains("m:")).Split(':')[1];
+
+            int parsresult = 0;
+            if (int.TryParse(curentItemCode, out parsresult))
+            {
+                return parsresult;
+            }
+            else return null;
+
+        }
+        /// <summary>
+        /// Меню Id
+        /// </summary>
+        /// <returns>"m:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"m:{MyId}|";
+        }
     }
 }

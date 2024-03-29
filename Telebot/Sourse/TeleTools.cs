@@ -1,4 +1,6 @@
-﻿using OpenAI.Chat;
+﻿using System.Diagnostics;
+using System.Xml;
+using Telebot.Sourse.Handlers;
 using Telebot.Sourse.Item;
 using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
@@ -6,17 +8,35 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using Message = Telegram.Bot.Types.Message;
-using System.Xml;
-using System.Diagnostics;
-using System.Threading;
-using Telebot.Sourse.Handlers;
 
 namespace Telebot.Sourse
 {
-    public  class TeleTools
+    public class TeleTools
     {
 
-         public async Task<Message> SendMenu1(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken)
+
+        /// <summary>
+        /// CallbackQuery
+        /// </summary>
+        private string InputType_1 = "CallbackQuery";
+        /// <summary>
+        /// AwaytText
+        /// </summary>
+        private string InputType_2 = "AwaytText";
+        /// <summary>
+        /// ЧТо то делаем DoSmth
+        /// </summary>
+        private string InputType_3 = "DoSmth";
+
+        /// <summary>
+        /// CallbackQueryList
+        /// </summary>
+        private string InputType_4 = "CallbackQueryList";
+
+
+
+
+        public async Task<Message> SendMenu1(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken)
         {
             //  ITelegramBotClient telegramBotClient= client;
 
@@ -31,16 +51,16 @@ namespace Telebot.Sourse
             return null;
         }
 
-         public async Task<Message> SendStaticMenu(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken, List<Buttons> buttons, string menuContetn, List<myPhoto> myPhotos)
+        public async Task<Message> SendStaticMenu(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken, List<Buttons> buttons, string menuContetn, List<myPhoto> myPhotos)
         {
             if (myPhotos is not null) { }
-            List<List< InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>();
+            List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>();
 
 
             foreach (var button in buttons)
             {
-                
-                List<InlineKeyboardButton> lineBTN= new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: button.content, callbackData: button.callBackCode) };
+
+                List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: button.content, callbackData: button.callBackCode) };
 
 
                 inlineKeyboardButtons.Add(lineBTN);
@@ -50,10 +70,10 @@ namespace Telebot.Sourse
             InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
 
             Message sentMessage = await client.SendTextMessageAsync(
-    chatId: _myChat.ChatId, 
+    chatId: _myChat.ChatId,
     text: menuContetn,
     replyMarkup: inlineKeyboardMarkup,
-    parseMode: ParseMode.Html, disableNotification:true,
+    parseMode: ParseMode.Html, disableNotification: true,
     cancellationToken: canslationToken);
 
 
@@ -61,21 +81,21 @@ namespace Telebot.Sourse
         }
 
 
-        public async Task<List< Message>> SendStaticMenualot(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken, List<Buttons> buttons, string menuContetn, List<myPhoto> myPhotos)
+        public async Task<List<Message>> SendStaticMenualot(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken, List<Buttons> buttons, string menuContetn, List<myPhoto> myPhotos)
         {
 
             int i_buttons = 0;
 
 
             List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>();
-            InlineKeyboardMarkup inlineKeyboardMarkup=null;
-            List< Message > messages = new List<Message>();
+            InlineKeyboardMarkup inlineKeyboardMarkup = null;
+            List<Message> messages = new List<Message>();
 
 
 
             foreach (var button in buttons)
             {
-             
+
 
 
                 List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: button.content, callbackData: button.callBackCode) };
@@ -87,7 +107,7 @@ namespace Telebot.Sourse
                 i_buttons++;
 
 
-                if (i_buttons == 90 || buttons.Count()-1 == buttons.IndexOf(button))
+                if (i_buttons == 90 || buttons.Count() - 1 == buttons.IndexOf(button))
                 {
                     i_buttons = 0;
                     inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
@@ -105,7 +125,7 @@ namespace Telebot.Sourse
 
             }
 
-         
+
 
 
             return messages;
@@ -122,17 +142,17 @@ namespace Telebot.Sourse
         {
             if (myPhotos is null) return null;
 
-           // List<InputFileId> photoes = new List<InputFileId>();
-          
+            // List<InputFileId> photoes = new List<InputFileId>();
+
             List<IAlbumInputMedia> albums = new List<IAlbumInputMedia>();
             List<Message> messages = new List<Message>();
             foreach (var photo in myPhotos)
             {
-               // photoes.Add( new InputMediaPhoto( InputFile.FromFileId(photo.FileId)));
+                // photoes.Add( new InputMediaPhoto( InputFile.FromFileId(photo.FileId)));
 
                 albums.Add(new InputMediaPhoto(InputFile.FromFileId(photo.FileId)));
 
-                if (albums.Count() == 10|| myPhotos.Last()== photo)
+                if (albums.Count() == 10 || myPhotos.Last() == photo)
                 {
                     Message[] sentMessage = await client.SendMediaGroupAsync(_myChat.ChatId, media: albums, disableNotification: true, cancellationToken: canslationToken);
                     messages.AddRange(sentMessage.ToList());
@@ -158,10 +178,10 @@ namespace Telebot.Sourse
 
 
 
-         public async Task<Message> SendStaticMSG(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken,  string menuContetn, List<myPhoto> myPhotos)
+        public async Task<Message> SendStaticMSG(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken, string menuContetn, List<myPhoto> myPhotos)
         {
             if (myPhotos is not null) { }
-         
+
 
 
             Message sentMessage = await client.SendTextMessageAsync(
@@ -178,7 +198,7 @@ namespace Telebot.Sourse
 
 
 
-        public  async Task remooveMenu(ITelegramBotClient client, CancellationToken cancellation, MyChat curentChat)
+        public async Task remooveMenu(ITelegramBotClient client, CancellationToken cancellation, MyChat curentChat)
         {
             if (curentChat.PriviosMSGs is null || curentChat.PriviosMSGs.Count() == 0) return;
             List<PriviosMSG> priviosMSGs = curentChat.PriviosMSGs.Where(msg => msg.NedTodelite == true).ToList();
@@ -189,7 +209,7 @@ namespace Telebot.Sourse
                 var lastmsg = priviosMSGs.Last();
                 try
                 {
-                    
+
 
                     int mesgID = lastmsg.MessageId ?? 0;
                     if (mesgID == 0) continue;
@@ -199,13 +219,14 @@ namespace Telebot.Sourse
 
                     priviosMSGs.Remove(lastmsg);
                 }
-                catch {
+                catch
+                {
                     curentChat.PriviosMSGs.Remove(lastmsg);
 
                     priviosMSGs.Remove(lastmsg);
                 }
-               
-               
+
+
 
             }
 
@@ -217,7 +238,7 @@ namespace Telebot.Sourse
 
 
 
-         public static long GetTeleUserId(Update update)
+        public static long GetTeleUserId(Update update)
         {
             long result = 0;
 
@@ -241,7 +262,7 @@ namespace Telebot.Sourse
             return result;
         }
 
-         public static long GetTeleChatId(Update update)
+        public static long GetTeleChatId(Update update)
         {
             long result = 0;
 
@@ -262,7 +283,7 @@ namespace Telebot.Sourse
         {
             string curetnDir = System.IO.Directory.GetCurrentDirectory();
 
-            string filePath=Path.Combine(curetnDir, fileName);
+            string filePath = Path.Combine(curetnDir, fileName);
 
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(filePath);
@@ -302,7 +323,7 @@ namespace Telebot.Sourse
                     if (db.myChats.FirstOrDefault(p => p.ChatId == update.CallbackQuery.Message.Chat.Id) is null)
                     {
                         result = false;
-                        concoldebuger.badMSG($"Update - id: {update.Id}| type: {update.Type}|  - НЕ НАШЕЛ ЧАТ В бд, но тип адейта CallbackQuery", iClient,cancellationToken);
+                        concoldebuger.badMSG($"Update - id: {update.Id}| type: {update.Type}|  - НЕ НАШЕЛ ЧАТ В бд, но тип адейта CallbackQuery", iClient, cancellationToken);
                     }
                 }
             }
@@ -312,12 +333,12 @@ namespace Telebot.Sourse
                 if (update.Message.Chat.Id < 0)
                 {
                     result = false;
-                    concoldebuger.badMSG($"Update - id: {update.Id}| type: {update.Type}|  Этот апдейт из чата ", iClient,cancellationToken);
+                    concoldebuger.badMSG($"Update - id: {update.Id}| type: {update.Type}|  Этот апдейт из чата ", iClient, cancellationToken);
                 }
             }
-           else  if (update.Type == UpdateType.EditedMessage)// тут нажо дописывать  при исправлении месаджа 
+            else if (update.Type == UpdateType.EditedMessage)// тут нажо дописывать  при исправлении месаджа 
             {
-                result=false;// изменить сообщение
+                result = false;// изменить сообщение
                 //using (var db = new context())
                 //{
                 //    if (db.myChats.FirstOrDefault(p => p.ChatId == update.EditedMessage.Chat.Id) is null) return;
@@ -332,6 +353,176 @@ namespace Telebot.Sourse
 
 
 
+        private string FormateText(string textline)
+        {
+
+            string message = textline;
+
+             message = message.Replace("{n}", "\n");
+            message = message.Replace("{t}", "\t");
+            message = message.Replace("{b}", "<b>");
+            message = message.Replace("{eb}", "</b>");
+          
+            message = message.Replace("{code}", "<code>");
+            message = message.Replace("{ecode}", "</code>");
+
+            message = message.Replace("{code}", "<code>");
+            message = message.Replace("{ecode}", "</code>");
+          
+            message = message.Replace("{blockquote}", "<blockquote>");
+            message = message.Replace("{eblockquote}", "</blockquote>");
+
+            message = message.Replace("{pre}", "<pre>");
+            message = message.Replace("{epre}", "</pre>");
+
+            return message;
+        }
+
+
+
+
+
+        public async Task<Message[]> SendStaticMenu_forXMLLoad(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken, Update update, context db)
+        {
+            List<Message> msgResult = new List<Message>();
+
+            if (_myChat.CurentProcess.ProcessType.Code == "StaticListButtonsCallbackQuery")
+            {
+
+                List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>();
+                foreach (var item in _myChat.CurentProcess.Inputs)
+                {
+                    db.Inputs.Update(item);
+                    if (item.input_Type.Code != InputType_1) continue;
+                    //   var callingprocess = _myChat.CurentProcess.ProcessType.Menus.FirstOrDefault(m =>m.ProcessMenuCode == (item?.NextProcessMenu?.ProcessMenuCode?? "StartMenu"));
+                    var callingprocess = item?.NextProcessMenu;
+                    if (callingprocess == null) continue;
+                    List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
+                    inlineKeyboardButtons.Add(lineBTN);
+                }
+                InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
+
+                Message sentMessage = await client.SendTextMessageAsync(chatId: _myChat.ChatId, text: FormateText( _myChat.CurentTexrMessage ?? _myChat.CurentProcess.MenuProcessContent), replyMarkup: inlineKeyboardMarkup, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: canslationToken);
+                msgResult.Add(sentMessage);
+                _myChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(_myChat.BotClientId, _myChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
+
+
+
+            }
+            else if (_myChat.CurentProcess.ProcessType.Code == "Message")
+            {
+
+                Message sentMessage = await client.SendTextMessageAsync(chatId: _myChat.ChatId, text: FormateText(_myChat.CurentTexrMessage ?? _myChat.CurentProcess.MenuProcessContent), parseMode: ParseMode.Html, disableNotification: true, cancellationToken: canslationToken);
+                msgResult.Add(sentMessage);
+
+                _myChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(_myChat.BotClientId, _myChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
+
+                _myChat.SetProcess(_myChat.CurentProcess.Inputs.FirstOrDefault().NextProcessMenu, db);
+
+                await SendStaticMenu_forXMLLoad(_myChat, client, canslationToken, update, db);
+            }
+            else if (_myChat.CurentProcess.ProcessType.Code == "DinamickListButtonsCallbackQuery")
+            {
+                List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>();
+
+                foreach (var item in _myChat.CurentProcess.Inputs)
+                {
+                    if (item.input_Type.Code == InputType_1)
+                    {
+                        var callingprocess = item?.NextProcessMenu;
+                        if (callingprocess == null) continue;
+                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
+                        inlineKeyboardButtons.Add(lineBTN);
+
+                    }
+                    else if (item.input_Type.Code == InputType_4)
+                    {
+
+                        string filteroptions = update.Message?.Text;
+
+
+                        var callingprocess = item?.NextProcessMenu;
+                        if (callingprocess == null) continue;
+
+                        if (filteroptions != null)
+                        {
+                            List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: "Убрать фильтр", callbackData: _myChat.CurentProcess.GetEntityTypeId())};
+                            inlineKeyboardButtons.Add(lineBTN);
+                        }
+
+                        foreach (var dBut in _myChat.DinamicButons)
+                        {
+                            if (filteroptions != null && (!dBut.Content.ToLower().Contains(filteroptions.ToLower()))) continue;
+
+                                List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: dBut.Content, callbackData: $"{dBut.CallbackQwery}") };
+                                inlineKeyboardButtons.Add(lineBTN);
+                         
+
+                        }
+
+
+
+                        if (_myChat.DinamicButons.Count > 0)
+                        {
+
+                            // db.dinamic_Butons.RemoveRange(db.dinamic_Butons.Where(p => p.Chat == null).ToList());
+
+                            db.dinamic_Butons.RemoveRange(_myChat.DinamicButons);
+
+                            _myChat.DinamicButons.Clear();
+
+
+                            db.SaveChanges();
+                        }
+                        //   List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}") };
+                        //  inlineKeyboardButtons.Add(lineBTN);
+
+                    }
+
+
+
+
+
+
+
+
+                }
+                InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
+
+                Message sentMessage = await client.SendTextMessageAsync(chatId: _myChat.ChatId, text: FormateText(_myChat.CurentProcess.MenuProcessContent), replyMarkup: inlineKeyboardMarkup, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: canslationToken);
+                msgResult.Add(sentMessage);
+                _myChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(_myChat.BotClientId, _myChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
+
+
+            }
+
+
+            return msgResult.ToArray();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-   
+
 }

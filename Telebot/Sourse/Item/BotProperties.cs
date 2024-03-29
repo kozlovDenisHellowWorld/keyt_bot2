@@ -25,8 +25,17 @@ namespace Telebot.Sourse.Item
 
         public long? LastUpdateId { get; set; }
 
-        public bool? NeedToUpdate { get; set; } 
+        public bool? NeedToUpdate { get; set; }
 
 
+
+        /// <summary>
+        /// Бот - B
+        /// </summary>
+        /// <returns>"mp:{B:Id}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"B:{MyId}|";
+        }
     }
 }

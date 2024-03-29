@@ -43,6 +43,40 @@ namespace Telebot.Sourse.Handlers
 
         }
 
+        public static async void goodMSG(string msg)
+        {
+            //  await client.SendTextMessageAsync(adminId,("Progra--" + msg), cancellationToken:cts);
+
+
+            if (msg.Contains("true"))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Progra--" + msg);
+                Console.ResetColor();
+            }
+            else if (msg.Contains("false"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Progra--" + msg);
+                Console.ResetColor();
+            }
+            else if (msg.Contains("notbad"))
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("Progra--" + msg);
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Progra--" + msg);
+                Console.ResetColor();
+            }
+
+        }
+
+
+
         public static async void badMSG(string msg, ITelegramBotClient client, CancellationToken cts)
         {
           //  await client.SendTextMessageAsync(adminId, ("Progra--" + msg), cancellationToken: cts);

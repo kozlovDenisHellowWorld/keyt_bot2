@@ -27,7 +27,14 @@ namespace Telebot.Sourse.Item
         virtual public List<Menu_Process> Processes { get; set; } = new List<Menu_Process>();
 
 
-
+        /// <summary>
+        /// User_Types - pmsg:
+        /// </summary>
+        /// <returns>"ut:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"ut:{MyId}|";
+        }
 
     }
 }

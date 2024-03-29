@@ -8,7 +8,7 @@ using Telegram.Bot.Types;
 
 namespace Telebot.Sourse.Item
 {
-    public class myButtons : IItem.IItemDB<myMenuProcess>
+    public class Dinamic_Butons : IItem.IItemDB<myMenuProcess>
     {
         [Key]
         public int MyId { get; set; }
@@ -19,36 +19,21 @@ namespace Telebot.Sourse.Item
         public bool? IsDelite { get; set; }
 
 
-        public bool? isCreated { set; get; }
+        public string? CallbackQwery { set; get; }
 
-        public MyUser.userType? userType {set;get;}
-
-
+        public string? Content { set; get; }
 
 
-
-
-
-
-
-
-        public int CurentMenuId { get; set; }
-        [ForeignKey("CurentMenuId")]
-        public virtual myMenuProcess? CurentMenu { set; get; }
-
-
-
-    
-        public virtual myMenuProcess? NextMenu { set; get; }
-
+        public virtual int? ChatId { set; get; }
+        public virtual MyChat? Chat { set; get; }
 
         /// <summary>
-        /// myButtons - mb:
+        /// Динамические кнопки - db
         /// </summary>
-        /// <returns>"mb:{MyId}|"</returns>
+        /// <returns>"mp:{db:Id}|"</returns>
         public string GetEntityTypeId()
         {
-            return $"mb:{MyId}|";
+            return $"db:{MyId}|";
         }
 
     }

@@ -41,129 +41,324 @@
         <Type Name="Кнопка которая в чате" CodeType="CallbackQuery"/>
         <Type Name="Ожидание получение текста" CodeType="AwaytText"/>
         <Type Name="Производит действие безменю" CodeType="DoSmth"/>
+         <Type Name="Шаблон кнопки для списка" CodeType="CallbackQueryList"/>
     </InputType>
 
 
 
-    <MenuProces Name="Процесс пользователя" UserType="regularUser">
+    <MenuProces Name="Процесс пользователя" UserType="user">
        
-        <!-- Стартовое меню  MenuCode="StartMenu" -->
+        <!-- Стартовое меню  MenuCode="StartMenu_user" -->
 
         <Menu 
-            Name="Start Menu" 
+            Name="Start menu" 
             MenuType="StaticListButtonsCallbackQuery" 
-            MenuCode="StartMenu"
-            Navigation="StartMenu"
+            MenuCode="StartMenu_user"
+            Navigation="StartMenu_user"
             Content="🤖 : Чем я могу помочь? ⬇️" 
             IsAwaytingText="False"
             NeedToDelite="True">
 
-            <Input Name="💡 Предложение" NextMenuNameCode="OfferInputMenu" InputType="CallbackQuery"></Input>
-            <Input Name="❓ Задать вопрос" NextMenuNameCode="QwesInputMenu" InputType="CallbackQuery"></Input>
-            <Input Name="🖍 Ошибка в материалах" NextMenuNameCode="QwesInputMenu" InputType="CallbackQuery"></Input>
+            <Input 
+            Name="💡 Предложение" 
+            NextMenuNameCode="OfferInputMenu" 
+            InputType="CallbackQuery">
+            </Input>
+
+            <Input 
+            Name="❓Задайте вопрос" 
+            NextMenuNameCode="QuestionInputMenu" 
+            InputType="CallbackQuery">
+            </Input>
+            
+            <Input 
+            Name="🖍 Нашли ошибку в материалах" 
+            NextMenuNameCode="ErrorInputMenu" 
+            InputType="CallbackQuery">
+            </Input>
+
         </Menu>
 
 
 
         <!-- Предложение  💡-->
-        <Menu 
-            Name="Application on offer" 
-            MenuType="StaticListButtonsCallbackQuery" 
-            MenuCode="OfferInputMenu"
-            Navigation="StartMenu/OfferInputMenu"
-            Content="🤖:  💡 Опишите ваше предложение ниже ⌨️" 
-            IsAwaytingText="True" 
-            NeedToDelite="True">
-           
-            <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu"  InputType="CallbackQuery"></Input>
-            <Input Name="Получение текста" NextMenuNameCode="OfferConferm"  InputType="AwaytText"></Input>
-        </Menu>
+            <Menu 
+                Name="Application on offer input 💡" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="OfferInputMenu"
+                Navigation="StartMenu_user/OfferInputMenu"
+                Content="🤖:  💡 Опишите ваше предложение ниже ⌨️" 
+                IsAwaytingText="True" 
+                NeedToDelite="True">
+            
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQuery"></Input>
+                <Input Name="Получение текста" NextMenuNameCode="OfferConferm"  InputType="AwaytText"></Input>
+            </Menu>
 
-        <Menu 
-            Name="Offer application confirmation" 
-            MenuType="StaticListButtonsCallbackQuery" 
-            MenuCode="OfferConferm"
-            Navigation="StartMenu/OfferInputMenu/OfferConferm"
-            Content="🤖:Ваше предложение 💡:*text*\n\nХотите отправить ваше предложение? 💡: " 
-            IsAwaytingText="False"
-            NeedToDelite="True">
-           
-            <Input InputType="CallbackQuery" Name="⬅️✏️Вернуться и переписать" NextMenuNameCode="OfferInputMenu"  ></Input>
-            <Input InputType="CallbackQuery" Name="🗑 Забыть" NextMenuNameCode="StartMenu"  ></Input>
-            <Input InputType="CallbackQuery" Name="📥 Отправить ➡️" NextMenuNameCode="SaveOffer"  ></Input>
+            <Menu 
+                Name="Application on offer save or delite💡" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="OfferConferm"
+                Navigation="StartMenu_user/OfferInputMenu/OfferConferm"
+                Content="🤖:Ваше предложение 💡:{text}{n}{n}Хотите отправить ваше предложение? 💡" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+            
+                <Input InputType="CallbackQuery" Name="⬅️✏️Вернуться и переписать" NextMenuNameCode="OfferInputMenu"  ></Input>
+                <Input InputType="CallbackQuery" Name="🗑 Забыть" NextMenuNameCode="OfferDelete"  ></Input>
+                <Input InputType="CallbackQuery" Name="📥 Отправить ➡️" NextMenuNameCode="OfferSave"  ></Input>
 
-        </Menu>
-
-
-
-        <Menu 
-            Name="Offer application save" 
-            MenuType="Message" 
-            MenuCode="SaveOffer"
-            Navigation="StartMenu/OfferInputMenu/OfferConferm/SaveOffer"
-            Content="🤖:Ваше обращение принято.\n🆔:*id req*\nВид:*typeReq*" 
-            IsAwaytingText="False"
-            NeedToDelite="True">
-           
-            <Input InputType="DoSmth" Name="Сохранение 💡 и возврарт в главное меню." NextMenuNameCode="StartMenu"></Input>
-        </Menu>
-
-
-        <Menu 
-            Name="Offer application remoove" 
-            MenuType="Message" 
-            MenuCode="DeliteOffer"
-            Navigation="StartMenu/OfferInputMenu/OfferConferm/DeliteOffer"
-            Content="🤖:Ваше обращение удалено 🗑>." 
-            IsAwaytingText="False"
-            NeedToDelite="True">
-           
-            <Input InputType="DoSmth" Name="Уудаление 💡 и возврарт в главное меню." NextMenuNameCode="StartMenu"></Input>
-        </Menu>
+            </Menu>
 
 
 
+            <Menu 
+                Name="Application on offer delite💡" 
+                MenuType="Message" 
+                MenuCode="OfferDelete"
+                Navigation="StartMenu_user/OfferInputMenu/OfferConferm/OfferDelete"
+                Content="🤖: Кажется, что вы нажали на кнопку 🗑 и ваша заявка на предложение была удалена из системы. Не беспокойтесь, ваше решение уважается, и мы всегда готовы помочь вам с любыми вопросами или проблемами, с которыми вы столкнетесь в будущем. Если у вас возникнут новые идеи или вопросы, не стесняйтесь обратиться к нам снова. Ваше мнение ценно для нас, и мы всегда готовы поддержать вас. Спасибо за обращение!" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+            
+                <Input InputType="DoSmth" Name="Сохранение 💡 и возврарт в главное меню." NextMenuNameCode="StartMenu_user"></Input>
+            </Menu>
 
 
-
+            <Menu 
+                Name="Application on offer save" 
+                MenuType="Message" 
+                MenuCode="OfferSave"
+                Navigation="StartMenu_user/OfferInputMenu/OfferConferm/OfferSave"
+                Content="🤖: Ваше предложение успешно отправлено специалисту HR. Мы свяжемся с вами в ближайшее время для дальнейшего обсуждения. Спасибо!{n}Заявка: {id}{n}Тип заявки: {type}>." 
+                IsAwaytingText="False"
+                NeedToDelite="False">
+            
+                <Input InputType="DoSmth" Name="Удаление 💡 и возврарт в главное меню." NextMenuNameCode="StartMenu_user"></Input>
+            </Menu>
 
 
 
 
         <!-- Вопрос  ❓-->
+            <Menu 
+                Name="Enter your question menu ❓" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="QuestionInputMenu"
+                Navigation="StartMenu_user/QuestionInputMenu"
+                Content="🤖: ❓ Прекрасно! Мы готовы помочь вам с любым вопросом. Пожалуйста, введите свой запрос, и мы постараемся ответить на него как можно скорее." 
+                IsAwaytingText="True"
+                NeedToDelite="True">
+            
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQuery"></Input>
+                <Input Name="Получение текста" NextMenuNameCode="ConfirmQuestionMenu"  InputType="AwaytText"></Input>
+
+            </Menu>
+
+
+
+            <Menu 
+                Name="Confirm or cancel question menu ❓" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="ConfirmQuestionMenu"
+                Navigation="StartMenu_user/QuestionInputMenu/ConfirmQuestionMenu"
+                Content="🤖:  ❓ Вот ваш запрос: {n}{Text}" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+            
+                <Input Name="⬅️ Назад" NextMenuNameCode="QuestionInputMenu"  InputType="CallbackQuery"></Input>
+                <Input Name="📥 Отправить ➡️" NextMenuNameCode="QuestionSave"  InputType="CallbackQuery"></Input>
+                <Input Name="🗑 Забыть" NextMenuNameCode="QuestionDelite"  InputType="CallbackQuery"></Input>
+
+            </Menu>
+
+
+
+
+
+            <Menu 
+                Name="Save question" 
+                MenuType="Message" 
+                MenuCode="QuestionSave"
+                Navigation="StartMenu_user/QuestionInputMenu/ConfirmQuestionMenu/QuestionSave"
+                Content="🤖: Ваш вопрос успешно отправлено специалисту HR. Мы свяжемся с вами в ближайшее время для дальнейшего обсуждения. Спасибо! Заявка: {id} Тип заявки: {type}" 
+                IsAwaytingText="False"
+                NeedToDelite="False">
+            
+                <Input InputType="DoSmth" Name="Сохранение ❓ и возврарт в главное меню." NextMenuNameCode="StartMenu_user"></Input>
+            </Menu>
+
+
+
+            <Menu 
+                Name="Delite question" 
+                MenuType="Message" 
+                MenuCode="QuestionDelite"
+                Navigation="StartMenu_user/QuestionInputMenu/ConfirmQuestionMenu/QuestionDelite"
+                Content="🤖: Кажется, что вы нажали на кнопку 🗑 и ваша вопрос был удален из системы. Не беспокойтесь, ваше решение уважается, и мы всегда готовы помочь вам с любыми вопросами или проблемами, с которыми вы столкнетесь в будущем. Если у вас возникнут новые идеи или вопросы, не стесняйтесь обратиться к нам снова. Ваше мнение ценно для нас, и мы всегда готовы поддержать вас. Спасибо за обращение!" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+            
+                <Input InputType="DoSmth" Name="Удалить ❓ и возврарт в главное меню." NextMenuNameCode="StartMenu_user"></Input>
+            </Menu>
+
+
+
+        <!-- Ошибка  🖍-->
+            <Menu 
+                Name="Input error report 🖍" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="ErrorInputMenu"
+                Navigation="StartMenu_user/ErrorInputMenu"
+                Content="🤖: 🖍 Прекрасно! Расскажите где вы нашли ошибку" 
+                IsAwaytingText="True" 
+                NeedToDelite="True">
+            
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQuery"></Input>
+                <Input Name="Получение текста" NextMenuNameCode="ConfirmErrorMenu"  InputType="AwaytText"></Input>
+            </Menu>
+
+            <Menu 
+                Name="Confirm or cancel error menu 🖍" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="ConfirmErrorMenu"
+                Navigation="StartMenu_user/ErrorInputMenu/ConfirmErrorMenu"
+                Content="🤖:  Отправить ?" 
+                IsAwaytingText="False" 
+                NeedToDelite="True">
+            
+                <Input Name="⬅️ Назад" NextMenuNameCode="ErrorInputMenu"  InputType="CallbackQuery"></Input>
+                <Input Name="📥 Отправить ➡️" NextMenuNameCode="ErrorSave"  InputType="CallbackQuery"></Input>
+                <Input Name="🗑 Забыть" NextMenuNameCode="ErrorDelite"  InputType="CallbackQuery"></Input>
+
+            </Menu>
+
+            <Menu 
+                Name="Save error message" 
+                MenuType="Message" 
+                MenuCode="ErrorSave"
+                Navigation="StartMenu_user/ErrorInputMenu/ConfirmErrorMenu/ErrorSave"
+                Content="🤖: Ваш вопрос успешно отправлено специалисту HR. Мы свяжемся с вами в ближайшее время для дальнейшего обсуждения. Спасибо!{n}Заявка: {id}{n}Тип заявки: {type}" 
+                IsAwaytingText="False" 
+                NeedToDelite="False">
+            
+                <Input Name="Сохранение ошибки" NextMenuNameCode="StartMenu_user"  InputType="DoSmth"></Input>
+                
+            </Menu>
+
+
+
+            <Menu 
+                Name="Delite error message" 
+                MenuType="Message" 
+                MenuCode="ErrorDelite"
+                Navigation="StartMenu_user/ErrorInputMenu/ConfirmErrorMenu/ErrorDelite"
+                Content="🤖: Кажется, что вы нажали на кнопку 🗑 и ваша заявка была удалена из системы. Не беспокойтесь, ваше решение уважается, и мы всегда готовы помочь вам с любыми вопросами или проблемами, с которыми вы столкнетесь в будущем. Если у вас возникнут новые идеи или вопросы, не стесняйтесь обратиться к нам снова. Ваше мнение ценно для нас, и мы всегда готовы поддержать вас. Спасибо за обращение!" 
+                IsAwaytingText="False" 
+                NeedToDelite="True">
+            
+                <Input Name="Удаление ошибки" NextMenuNameCode="StartMenu_user"  InputType="DoSmth"></Input>
+                
+            </Menu>
+
+
+
+
+
+        <!-- Конец  -->
+
+
+
+
+    
+    </MenuProces>
+
+    <MenuProces Name="Процесс администратора" UserType="admin">
+    
+        <!-- Стартовое меню  MenuCode="StartMenu_admin" -->
         <Menu 
-            Name="Submitting an application - Question" 
+            Name="Admin start menu" 
             MenuType="StaticListButtonsCallbackQuery" 
-            MenuCode="QuestionInputMenu"
-            Navigation="StartMenu/QuestionInputMenu"
-            Content="🤖:❓ Опишите ваш вопрос? ⌨️" 
-            IsAwaytingText="True"
-            NeedToDelite="True">
-           
-            <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu"  InputType="CallbackQuery"></Input>
-            <Input Name="Получение текста" NextMenuNameCode="QuestionConferm"  InputType="AwaytText"></Input>
-
-        </Menu>
-
-
-
-        <Menu 
-            Name="Offer application question" 
-            MenuType="StaticListButtonsCallbackQuery" 
-            MenuCode="QuestionConferm"
-            Navigation="StartMenu/QuestionInputMenu/QuestionConfermMenu"
-            Content="🤖:Хотите отправить Ваш вопрос?\nВаш вопрос ❓:" 
+            MenuCode="StartMenu_admin"
+            Navigation="StartMenu_admin"
+            Content="🤖 : Меню администратора ⬇️" 
             IsAwaytingText="False"
             NeedToDelite="True">
-           
-            <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu"  InputType="CallbackQuery"></Input>
-            <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu"  InputType="CallbackQuery"></Input>
-            <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu"  InputType="CallbackQuery"></Input>
+
+            <Input 
+            Name="👥 Управление пользователями" 
+            NextMenuNameCode="UserManagementMenu" 
+            InputType="CallbackQuery">
+            </Input>
+
+            <Input 
+            Name="📋 Все заявки" 
+            NextMenuNameCode="RequestManagementMenu" 
+            InputType="CallbackQuery">
+            </Input>
+            
+
+            <Input 
+            Name="Выгрузка в Excell" 
+            NextMenuNameCode="GetAllRequestsInExcell" 
+            InputType="CallbackQuery">
+            </Input>
+
+            <Input 
+            Name="Загрузить стартовое фото" 
+            NextMenuNameCode="InputStartPhoto" 
+            InputType="CallbackQuery">
+            </Input>
 
         </Menu>
+    
+        <!-- Меню управления пользователями -->
+
+            <Menu 
+                Name="User management menu" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="UserManagementMenu"
+                Navigation="StartMenu_admin/UserManagementMenu"
+                Content="🤖: Что выберешь?" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+            
+                <Input Name="Администраторы" NextMenuNameCode="ListMenuAllAdmins"  InputType="CallbackQuery"></Input>
+                <Input Name="Обычные пользователи" NextMenuNameCode="ListMenuAllUsers"  InputType="CallbackQuery"></Input>
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_admin"  InputType="CallbackQuery"></Input>
+               
+            </Menu>
 
 
 
+            <Menu 
+                Name="Admin list menu" 
+                MenuType="DinamickListButtonsCallbackQuery" 
+                MenuCode="ListMenuAllAdmins"
+                Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins"
+                Content="🤖: Выбери пользователя" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+                
+                <Input Name="⬅️ Назад" NextMenuNameCode="UserManagementMenu"  InputType="CallbackQuery"></Input>
+                <Input Name="{UserName} | {UserID}" NextMenuNameCode="AdminPropsMenu"  InputType="CallbackQueryList"></Input>
+            </Menu>
+
+
+            <Menu 
+                Name="Admin props" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="AdminPropsMenu"
+                Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins/AdminPropsMenu"
+                Content="{b}🤖:{t}Администратор{eb}{n}{b}Имя{eb}:{t}{UserName}{n}{b}🆔{eb}:{t}{teleId}{b}{n}Фамилия{eb}:{t}{firsName}{b}{n}Тип{eb}:{t}{userType}" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+                
+                <Input Name="⬅️ Назад" NextMenuNameCode="ListMenuAllAdmins"  InputType="CallbackQuery"></Input>
+            </Menu>
+
+
+        <!-- Меню управления пользователями  -->
 
 
 
@@ -178,8 +373,6 @@
 
     
     </MenuProces>
-
-
 
 
 </BotInst>

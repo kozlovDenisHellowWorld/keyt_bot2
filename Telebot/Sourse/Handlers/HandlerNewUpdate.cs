@@ -1,7 +1,9 @@
-﻿using Telebot.Sourse.Item;
+﻿using Castle.Components.DictionaryAdapter;
+using Telebot.Sourse.Item;
 using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using static Telebot.Sourse.Item.MyUser;
 
 namespace Telebot.Sourse.Handlers
 {
@@ -255,34 +257,105 @@ namespace Telebot.Sourse.Handlers
 
                 //обработка StaticListButtonsCallbackQuery  - Статичный список кнопок, которые располагаются внутри чата
 
-                var staticTypemenu = db.Menu_ProcessTypes.FirstOrDefault(t => t.Code == "StaticListButtonsCallbackQuery");
+                //var staticTypemenu = db.Menu_ProcessTypes.FirstOrDefault(t => t.Code == "StaticListButtonsCallbackQuery");
                 Menu_Process nextProcess = null;
 
+
+
+
+
+                // если прислали "старт" 
                 if (data == "/start") // если прислали "старт" 
                 {
                     //ищем в бд процесс по тегу  но в последствие может надо изменить и придумать типо меню п о дефолту 
-                    nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.ProcessMenuCode == "StartMenu");
+                    nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.LastOrDefault(m => m.ProcessMenuCode.Contains("StartMenu"));
+
+
                     // если не нашли меню по дефолту возвращаем и заканчиваем обработку 
-                    if (nextProcess is not null) return "Стартовый процесс не найден |false";
+                    if (nextProcess is null) return "Стартовый процесс не найден |false";
                     // в этот чат высавляем процесс - стартовое меню 
-                    thisChat.SetProcess(nextProcess);
-                }
 
-                // Если  мы ждем текст в меню и пришла месседж 
-                if (thisChat.CurentProcess.IsAwaytingText == true && update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
-                {
+                    new TeleTools().remooveMenu(iClient, cancellationToken, thisChat);
+
+                   // thisChat.CurentProcess.ExecuteOnLoad(update, iClient);
+                    thisChat.SetProcess(nextProcess, db);
                     
                 }
-                else if (update.Type== Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) // если пришла кнопка 
+                else if (update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)            // Если  мы ждем текст в меню и пришла месседж------   возможно сюда надо приделать фильтрацию в мменю 
                 {
-                    
-                    nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.MyId==);
+
+                    if (thisChat.CurentProcess == null) return result;
+
+                    if (thisChat.CurentProcess.IsAwaytingText == true)
+                    {
+                        nextProcess = thisChat?.CurentProcess?.Inputs?.FirstOrDefault(input => input.input_Type.Code == "AwaytText")?.NextProcessMenu;
+                        if (nextProcess == null) return null;
+
+                        new TeleTools().remooveMenu(iClient, cancellationToken, thisChat);
+
+                        thisChat.CurentProcess.ExecuteOnEnd(update, iClient, thisChat, db, cancellationToken);//выполняем действия приокнчании предидущего процесса 
+
+                        thisChat.SetProcess(nextProcess, db);
+
+                        db.myChats.Update(thisChat);
+                        db.SaveChanges();
+                    }
+                    else if (thisChat.CurentProcess.ProcessType.Code == "DinamickListButtonsCallbackQuery")
+                    {
+                        nextProcess = thisChat.CurentProcess;
+                        if (nextProcess == null) return null;
+                        new TeleTools().remooveMenu(iClient, cancellationToken, thisChat);
+                        thisChat.CurentProcess.ExecuteOnEnd(update, iClient, thisChat, db, cancellationToken);
+                        thisChat.SetProcess(nextProcess, db);
+
+                        db.myChats.Update(thisChat);
+                        db.SaveChanges();
+                    }
+
+                }
+                else if (update.Type == Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) // если пришла кнопка 
+                {
+                    int? nextMenu_Myid = Menu_Process.GetNextProcessIdByCallbak(update);
+                    if (nextMenu_Myid == null) return null;
+
+                   // nextProcess = thisChat.CurentProcess?.ProcessType?.Menus?.FirstOrDefault(m => m.MyId == nextMenu_Myid)??null;
+
+                    nextProcess= thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.MyId == nextMenu_Myid);
+
+                    if (nextProcess == null) return null;
+
+                    new TeleTools().remooveMenu(iClient, cancellationToken, thisChat);
+                   
+                    thisChat.CurentProcess.ExecuteOnEnd(update, iClient, thisChat,db,cancellationToken);//выполняем действия приокнчании предидущего процесса 
+                   
+                    thisChat.SetProcess(nextProcess, db);
+                 
+                    db.myChats.Update(thisChat);
+                    db.SaveChanges();
+
+                    //   nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.MyId==);
                 }
 
+                // тут выполняю все ччто необходимо выполнить при загрузки менюшки
+
+                thisChat.CurentProcess.ExecuteOnLoad(update, iClient, thisChat, db, cancellationToken);
+
+
+
+                await new TeleTools().SendStaticMenu_forXMLLoad(thisChat,iClient,cancellationToken,update,db);
 
 
 
 
+                //Выше определиле текуше меню которое сейчас будет происходить 
+                //теперь необходимо выполнить код или 
+
+
+               
+
+
+                db.myChats.Update(thisChat);
+                db.SaveChanges();
 
 
 

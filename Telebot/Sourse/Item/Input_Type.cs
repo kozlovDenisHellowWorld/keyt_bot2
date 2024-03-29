@@ -21,9 +21,17 @@ namespace Telebot.Sourse.Item
         public string? Code { get; set; }
         public bool? isDefoult { get; set; }
 
-        virtual public List<Process_Input> All_Inputs { set; get; } = new List<Process_Input>(); 
+        virtual public List<Process_Input> All_Inputs { set; get; } = new List<Process_Input>();
 
 
+        /// <summary>
+        /// Input_Type - it
+        /// </summary>
+        /// <returns>"mp:{it:Id}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"it:{MyId}|";
+        }
 
     }
 }

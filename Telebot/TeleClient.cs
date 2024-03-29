@@ -63,7 +63,7 @@ namespace Telebot
 
             //D:\kate_bot\keyt_bot2\BeauteRoom\Inst.xml
             //E:\Den\kate_2bot\keyt_bot2\BeauteRoom\Inst.xml
-            XmlMenus(pathXML);
+            GetXmlTokens(pathXML);
             //pathXML
 
             //  new context2(dbName: BDName);
@@ -90,13 +90,11 @@ namespace Telebot
 
             Console.WriteLine("Необходимость в обновлении - " + needToUpdate.ToString());
             //  context.RestoreDatabase("NewStartBD_20231220000509.bak");
-            
+
             using (var db = new context())
             {
-
                 db.reSetBD(needToUpdate, myClient, myCansToken.Token);
                 concoldebuger.notifMSG($"Имя базы данных: {db.databaseName}", myClient, myCansToken.Token);
-
             }
 
             if (needToUpdate == true) XmlMenus(pathXML);
@@ -118,11 +116,9 @@ namespace Telebot
 
         }
 
-        private async void backUp(ITelegramBotClient client, Exception exception, CancellationToken arg3)
-        {
 
 
-        }
+
 
         private async Task CheckMessagesPeriodically()
         {
@@ -167,6 +163,95 @@ namespace Telebot
 
 
         }
+
+
+        //___________________________________________________________Load Xml ___________________________________________________________
+
+
+        private void GetXmlTokens(string instansePath)
+        {
+            string curetnDirection = Directory.GetCurrentDirectory();
+
+            string discription = Directory.GetParent(curetnDirection).FullName;
+            discription = Directory.GetParent(discription).FullName;
+            discription = Directory.GetParent(discription).FullName;
+
+
+            //D:\kelevroRepostAssistant — Катя\BeauteRoom\Inst.xml
+
+
+            //D:\kelevroRepostAssistant — Катя\BeauteRoom\Inst.xml
+            // Путь к файлу XML
+            string xmlFile = "Inst.xml";
+
+            string filePath = Path.Combine(discription, xmlFile);
+
+
+            filePath = instansePath;
+
+
+            // Создаем новый XmlDocument
+            XmlDocument xmlDoc = new XmlDocument();
+
+
+            string debagDBname = "";
+
+            string debugToken = "";
+
+            string reliseToken = "";
+
+            string reliseDBName = "";
+
+            bool NeedToUpdate = false;
+
+            bool isDebugDiferent = false;
+
+            try
+            {
+
+
+                // Загружаем XML-файл
+                xmlDoc.Load(filePath);
+
+
+                XmlNodeList nodes = xmlDoc.GetElementsByTagName("BotInst");
+
+                foreach (XmlNode node in nodes)
+                {
+                    if (node is XmlElement elem)
+                    {
+                        debagDBname = elem.GetAttribute("DebagDBname") ?? string.Empty;
+                        debugToken = elem.GetAttribute("DebugToken") ?? string.Empty;
+                        reliseToken = elem.GetAttribute("DebagDBname") ?? string.Empty;
+                        reliseDBName = elem.GetAttribute("ReliseDBName") ?? string.Empty;
+                        isDebugDiferent = bool.Parse(elem.GetAttribute("IsDebugDiferent") ?? "False");
+                        NeedToUpdate = bool.Parse(elem.GetAttribute("NeedToUpdate") ?? "False");
+                    }
+                }
+
+
+                if (Debugger.IsAttached)
+                {
+                    Token = debugToken;
+                    BDName = debagDBname;
+                }
+                else
+                {
+                    Token = reliseToken;
+                    BDName = reliseDBName;
+                }
+
+            }
+            catch 
+            {
+
+                Sourse.Handlers.concoldebuger.goodMSG("Не загрузились токен");
+            }
+
+
+
+        }
+
 
         // загрузка меню 
         private void XmlMenus(string instansePath)
@@ -315,6 +400,8 @@ namespace Telebot
                     db.Input_Types.AddRange(buttonTypes);
                     db.SaveChanges();
 
+
+              
                     XmlNodeList menuProcesses = xmlDoc?.SelectNodes("//MenuProces") ?? null;
                     if (menuProcesses is null) return;
 
@@ -326,13 +413,13 @@ namespace Telebot
                     {
                         XmlNodeList menus = menuProcess.SelectNodes("Menu") ?? null;
 
-                        var userTcode= menuProcess.Attributes["UserType"]?.Value ?? string.Empty;
+                        var userTcode = menuProcess.Attributes["UserType"]?.Value ?? string.Empty;
 
                         var thisUserType = userTypes.FirstOrDefault(t => t.TypeCode == userTcode);
 
                         if (menus is null) break;
 
-
+                        List<Menu_Process> MenussInProces_1 = new List<Menu_Process>();
 
                         foreach (XmlNode menu in menus)
                         {
@@ -350,6 +437,8 @@ namespace Telebot
                             _curentMenu.MenuProcessContent = menu.Attributes["Content"]?.Value ?? string.Empty;
                             _curentMenu.MyDescription = menu.Attributes["Content"]?.Value ?? string.Empty;
 
+                            _curentMenu.NeedToDelite = Convert.ToBoolean(menu.Attributes["NeedToDelite"]?.Value ?? "False"); 
+
                             _curentMenu.IsAwaytingText = Convert.ToBoolean(menu.Attributes["IsAwaytingText"]?.Value ?? "False");
                             _curentMenu.IsDelite = false;
                             _curentMenu.dateTimeCreation = DateTime.Now;
@@ -366,6 +455,8 @@ namespace Telebot
 
                                 _input.MyName = input.Attributes["Name"]?.Value ?? string.Empty;
                                 _input.NextProcessMenuCode = input.Attributes["NextMenuNameCode"]?.Value ?? string.Empty;
+                                _input.NameIfFalse=input.Attributes["NameIfFalse"]?.Value ?? null;
+                                _input.NameIfTrue = input.Attributes["NameIfTrue"]?.Value ?? null;
 
 
                                 string _inpTypr = input.Attributes["InputType"]?.Value ?? string.Empty;
@@ -378,31 +469,46 @@ namespace Telebot
                             }
 
 
-                            MenussInProces.Add(_curentMenu);
+                            MenussInProces_1.Add(_curentMenu);
 
 
 
                         }
 
 
-
-                        db.Menu_Proceses.AddRange(MenussInProces);
+                        MenussInProces.AddRange(MenussInProces_1);
+                        db.Menu_Proceses.AddRange(MenussInProces_1);
                         db.SaveChanges();
-                    }
 
-
-
-                    foreach (var procecc in MenussInProces)
-                    {
-
-                        foreach (var input in procecc.Inputs)
+                        foreach (var procecc in MenussInProces_1)
                         {
-                            input.NextProcessMenu = MenussInProces.FirstOrDefault(p => p.ProcessMenuCode == input.NextProcessMenuCode);
 
+                            foreach (var input in procecc.Inputs)
+                            {
+                                input.NextProcessMenu = MenussInProces_1.FirstOrDefault(p => p.ProcessMenuCode == input.NextProcessMenuCode);
+                                //"QwesInputMenu"
+
+                            }
 
                         }
+                        db.Menu_Proceses.UpdateRange(MenussInProces_1);
+                        db.SaveChanges();
 
                     }
+
+
+
+                    //foreach (var procecc in MenussInProces)
+                    //{
+
+                    //    foreach (var input in procecc.Inputs)
+                    //    {
+                    //        input.NextProcessMenu = MenussInProces.FirstOrDefault(p => p.ProcessMenuCode == input.NextProcessMenuCode);
+                    //        //"QwesInputMenu"
+
+                    //    }
+
+                    //}
 
 
                     db.Menu_Proceses.UpdateRange(MenussInProces);
@@ -420,7 +526,13 @@ namespace Telebot
 
 
 
+            using (var db = new context())
+            {
+                var processs = db.Inputs.ToList(); ;
 
+                
+
+            }
 
 
 
@@ -435,7 +547,7 @@ namespace Telebot
 
 
 
-
+        //__________________________________________________________myErrohendler______________________________________________________
 
         private async Task myErrohendler(ITelegramBotClient client, Exception exception, CancellationToken arg3)
         {
@@ -464,7 +576,7 @@ namespace Telebot
 
             if (isUpdateValide == false) return;
 
-           
+
 
             concoldebuger.notifMSG($"\n========================= Новое Update {DateTime.Now} =========================", iClient, cancellationToken);
             concoldebuger.notifMSG($"Update - id: {update.Id}| Type: {update.Type}", iClient, cancellationToken);
@@ -477,7 +589,7 @@ namespace Telebot
 
 
 
-         
+
             //новый update и создание пользователей если их нет 
             string newUpdateResult = await HandlerNewUpdate.newUpdateHendler(iClient, update, cancellationToken);
             concoldebuger.sistemMSG(newUpdateResult, iClient, cancellationToken);
@@ -502,8 +614,8 @@ namespace Telebot
 
 
 
-            if (usertype == MyUser.userType.admin) new adminHendlerHR().adminHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
-            if (usertype == MyUser.userType.regulareUser) new userHendlerHR().regularUserHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
+           // if (usertype == MyUser.userType.admin) new adminHendlerHR().adminHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
+         //   if (usertype == MyUser.userType.regulareUser) new userHendlerHR().regularUserHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
 
 
 

@@ -17,5 +17,15 @@ namespace Telebot.Sourse.Item
 
         List<myPhoto> photos { set; get; } = new List<myPhoto>();
 
+        /// <summary>
+        /// menuPropsHR - phr
+        /// </summary>
+        /// <returns>"mp:{phr:Id}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"phr:{MyId}|";
+        }
+
+
     }
 }

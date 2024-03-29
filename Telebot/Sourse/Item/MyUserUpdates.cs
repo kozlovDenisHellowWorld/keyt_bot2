@@ -35,7 +35,14 @@ namespace Telebot.Sourse.Item
 
         public ChatType? TeleChatType { get; set; }
 
-
+        /// <summary>
+        /// MyUserUpdates - mph:
+        /// </summary>
+        /// <returns>"muu:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"muu:{MyId}|";
+        }
 
 
         public async static Task<MyUserUpdates> createNewObj(ITelegramBotClient bot, Update update, CancellationToken cts)

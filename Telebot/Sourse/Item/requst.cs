@@ -40,7 +40,14 @@ namespace Telebot.Sourse.Item
 
         public bool? isDone { set;get; }
 
-
+        /// <summary>
+        /// requst - pmsg:
+        /// </summary>
+        /// <returns>"re:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"re:{MyId}|";
+        }
         public static requst createRequst()
         {
             requst result = new requst()

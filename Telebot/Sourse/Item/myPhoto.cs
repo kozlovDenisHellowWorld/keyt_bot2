@@ -55,5 +55,13 @@ namespace Telebot.Sourse.Item
         public virtual requst? Reqst { set; get; }
 
 
+        /// <summary>
+        /// myPhoto - mph:
+        /// </summary>
+        /// <returns>"mph:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"mph:{MyId}|";
+        }
     }
 }

@@ -30,7 +30,14 @@ namespace Telebot.Sourse.Item
         public virtual MyChat? Chat { set; get; }
 
 
-
+        /// <summary>
+        /// PriviosMSG - pmsg:
+        /// </summary>
+        /// <returns>"pmsg:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"pmsg:{MyId}|";
+        }
 
 
         static public PriviosMSG createMessage(long? botClientId, bool needToDelete, Message message,Update update)
@@ -53,6 +60,11 @@ namespace Telebot.Sourse.Item
 
             return priviosMSG;
         }
+
+
+
+
+
 
 
         static public List< PriviosMSG> createMessage(long? botClientId, bool needToDelete, List<Message> messages, Update update)

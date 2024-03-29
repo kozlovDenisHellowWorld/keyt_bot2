@@ -40,6 +40,18 @@ namespace Telebot.Sourse.Item
 
 
 
+        /// <summary>
+        /// MyUser - mph:
+        /// </summary>
+        /// <returns>"mu:{MyId}|"</returns>
+        public string GetEntityTypeId()
+        {
+            return $"mu:{MyId}|";
+        }
+
+
+
+
         public int Type_id { set; get; }
         /// <summary>
         /// Новый тип  для пользователей 

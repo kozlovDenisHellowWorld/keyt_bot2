@@ -321,6 +321,9 @@ namespace Telebot.Sourse
         public DbSet<myPhoto> myPhotoes { set; get; }
 
 
+        public DbSet<Dinamic_Butons> dinamic_Butons { set; get; }
+
+
 
 
 
