@@ -33,6 +33,8 @@
         <Type Name="Статичный список кнопок, которые располагаются внутри чата" CodeType="StaticListButtonsCallbackQuery"/>
         <Type Name="Статическое сообщение" CodeType="Message"/>
         <Type Name="Динамический список кнопок, который находится внутри чата." CodeType="DinamickListButtonsCallbackQuery"/>
+        <Type Name=" Обновление предидущего меню" CodeType="EditMenu"/>
+
     </MenuType>
 
 
@@ -41,7 +43,9 @@
         <Type Name="Кнопка которая в чате" CodeType="CallbackQuery"/>
         <Type Name="Ожидание получение текста" CodeType="AwaytText"/>
         <Type Name="Производит действие безменю" CodeType="DoSmth"/>
-         <Type Name="Шаблон кнопки для списка" CodeType="CallbackQueryList"/>
+        <Type Name="Шаблон кнопки для списка" CodeType="CallbackQueryList"/>
+        <Type Name="Чек бокс" CodeType="CallbackQueryBool"/>
+         <Type Name="Редактировать пред. сообщение" CodeType="EditePrivious"/>
     </InputType>
 
 
@@ -350,12 +354,29 @@
                 MenuType="StaticListButtonsCallbackQuery" 
                 MenuCode="AdminPropsMenu"
                 Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins/AdminPropsMenu"
-                Content="{b}🤖:{t}Администратор{eb}{n}{b}Имя{eb}:{t}{UserName}{n}{b}🆔{eb}:{t}{teleId}{b}{n}Фамилия{eb}:{t}{firsName}{b}{n}Тип{eb}:{t}{userType}" 
+                Content="{b}🤖:{t}Администратор{eb}{n}{b}Имя{eb}:{t}{UserName}{n}{b}🆔{eb}:{t}{teleId}{b}{n}Имя{eb}:{t}{firstName}{b}{n}Фамилия{eb}:{t}{LastName}{b}{n}Тип{eb}:{t}{userType}" 
                 IsAwaytingText="False"
                 NeedToDelite="True">
                 
+                <Input Name="AdminTrueFalse"  NextMenuNameCode="ChangeUserTypeInAdminProps"  InputType="CallbackQueryBool" NameIfTrue="Права администратора 🟢" NameIfFalse="Права администратора ⚪️"></Input>
                 <Input Name="⬅️ Назад" NextMenuNameCode="ListMenuAllAdmins"  InputType="CallbackQuery"></Input>
             </Menu>
+
+
+
+            <Menu 
+                Name="Change user type" 
+                MenuType="EditMenu" 
+                MenuCode="ChangeUserTypeInAdminProps"
+                Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins/AdminPropsMenu/ChangeUserTypeInAdminProps"
+                Content="🤖:⚙️ Был изменен статус пользователя ({UserName}){n}{b}Теперь тип:{eb} {userType}" 
+                IsAwaytingText="False" 
+                NeedToDelite="True">
+            
+                <Input Name="Удаление ошибки" NextMenuNameCode="AdminPropsMenu"  InputType="DoSmth"></Input>
+                
+            </Menu>
+
 
 
         <!-- Меню управления пользователями  -->

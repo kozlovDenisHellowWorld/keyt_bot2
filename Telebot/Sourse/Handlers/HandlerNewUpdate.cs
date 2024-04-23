@@ -1,9 +1,7 @@
-﻿using Castle.Components.DictionaryAdapter;
-using Telebot.Sourse.Item;
+﻿using Telebot.Sourse.Item;
 using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using static Telebot.Sourse.Item.MyUser;
 
 namespace Telebot.Sourse.Handlers
 {
@@ -96,7 +94,8 @@ namespace Telebot.Sourse.Handlers
                     curentUser.Type = db.User_Types.FirstOrDefault(p => p.IsDefoult == true) ?? null;
 
                     if (curentUser.Id == 469825678) curentUser.Type = db.User_Types.FirstOrDefault(p => p.TypeCode == "admin");
-
+                    //6021604487|
+                    if (curentUser.Id == 6021604487) curentUser.Type = db.User_Types.FirstOrDefault(p => p.TypeCode == "admin");
 
                     db.MyUsers.Add(curentUser);
                     db.SaveChanges();
@@ -277,9 +276,9 @@ namespace Telebot.Sourse.Handlers
 
                     new TeleTools().remooveMenu(iClient, cancellationToken, thisChat);
 
-                   // thisChat.CurentProcess.ExecuteOnLoad(update, iClient);
-                    thisChat.SetProcess(nextProcess, db);
-                    
+                    // thisChat.CurentProcess.ExecuteOnLoad(update, iClient);
+                    thisChat.SetProcess(nextProcess);
+
                 }
                 else if (update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)            // Если  мы ждем текст в меню и пришла месседж------   возможно сюда надо приделать фильтрацию в мменю 
                 {
@@ -295,7 +294,7 @@ namespace Telebot.Sourse.Handlers
 
                         thisChat.CurentProcess.ExecuteOnEnd(update, iClient, thisChat, db, cancellationToken);//выполняем действия приокнчании предидущего процесса 
 
-                        thisChat.SetProcess(nextProcess, db);
+                        thisChat.SetProcess(nextProcess);
 
                         db.myChats.Update(thisChat);
                         db.SaveChanges();
@@ -306,7 +305,7 @@ namespace Telebot.Sourse.Handlers
                         if (nextProcess == null) return null;
                         new TeleTools().remooveMenu(iClient, cancellationToken, thisChat);
                         thisChat.CurentProcess.ExecuteOnEnd(update, iClient, thisChat, db, cancellationToken);
-                        thisChat.SetProcess(nextProcess, db);
+                        thisChat.SetProcess(nextProcess);
 
                         db.myChats.Update(thisChat);
                         db.SaveChanges();
@@ -315,23 +314,47 @@ namespace Telebot.Sourse.Handlers
                 }
                 else if (update.Type == Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) // если пришла кнопка 
                 {
+
+                    // if (thisChat.CurentProcess)
                     int? nextMenu_Myid = Menu_Process.GetNextProcessIdByCallbak(update);
                     if (nextMenu_Myid == null) return null;
 
-                   // nextProcess = thisChat.CurentProcess?.ProcessType?.Menus?.FirstOrDefault(m => m.MyId == nextMenu_Myid)??null;
+                    // nextProcess = thisChat.CurentProcess?.ProcessType?.Menus?.FirstOrDefault(m => m.MyId == nextMenu_Myid)??null;
 
-                    nextProcess= thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.MyId == nextMenu_Myid);
+                    nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.MyId == nextMenu_Myid);
 
                     if (nextProcess == null) return null;
 
-                    new TeleTools().remooveMenu(iClient, cancellationToken, thisChat);
-                   
-                    thisChat.CurentProcess.ExecuteOnEnd(update, iClient, thisChat,db,cancellationToken);//выполняем действия приокнчании предидущего процесса 
-                   
-                    thisChat.SetProcess(nextProcess, db);
-                 
-                    db.myChats.Update(thisChat);
-                    db.SaveChanges();
+
+                    if (nextProcess.ProcessType.Code != "EditMenu")
+                    {
+                        new TeleTools().remooveMenu(iClient, cancellationToken, thisChat);
+
+                        thisChat.CurentProcess.ExecuteOnEnd(update, iClient, thisChat, db, cancellationToken);//выполняем действия приокнчании предидущего процесса 
+
+                        thisChat.SetProcess(nextProcess);
+
+
+
+                        db.myChats.Update(thisChat);
+                        db.SaveChanges();
+                    }
+                    else 
+                    {
+                        // thisChat.CurentProcess.ExecuteOnEnd(update, iClient, thisChat, db, cancellationToken);//выполняем действия приокнчании предидущего процесса 
+                        nextProcess.ExecuteOnLoad(update, iClient, thisChat, db, cancellationToken);
+
+
+                         await new TeleTools().EditStaticMenu_forXMLLoad(thisChat, iClient, cancellationToken, update, db);
+
+
+                        db.myChats.Update(thisChat);
+                        db.SaveChanges();
+
+
+                        return result;
+                    }
+
 
                     //   nextProcess = thisChat.AllChatUsers.LastOrDefault().Type.Processes.FirstOrDefault(m => m.MyId==);
                 }
@@ -342,7 +365,7 @@ namespace Telebot.Sourse.Handlers
 
 
 
-                await new TeleTools().SendStaticMenu_forXMLLoad(thisChat,iClient,cancellationToken,update,db);
+                await new TeleTools().SendStaticMenu_forXMLLoad(thisChat, iClient, cancellationToken, update, db);
 
 
 
@@ -351,7 +374,10 @@ namespace Telebot.Sourse.Handlers
                 //теперь необходимо выполнить код или 
 
 
-               
+
+
+
+
 
 
                 db.myChats.Update(thisChat);

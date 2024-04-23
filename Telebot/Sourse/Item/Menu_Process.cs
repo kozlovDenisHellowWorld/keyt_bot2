@@ -60,21 +60,38 @@ namespace Telebot.Sourse.Item
 
         public void ExecuteOnLoad(Update update, ITelegramBotClient client, MyChat curentChat,context db, CancellationToken cancellationToken)
         {
+            if (this.ProcessType.Code != "EditMenu")
+            {
+
+                var dinamibuttons = curentChat.DinamicButons.ToList();
+                //curentChat.CurentTexrMessage = "";
+                try
+                {
+                    db.dinamic_Butons.RemoveRange(db.dinamic_Butons.Where(b => b.ChatId == null));
+                }
+                catch
+                {
 
 
+                }
 
-
+                curentChat.DinamicButons.Clear();
+                db.SaveChanges();
+            }
             //поиск метода
 
             var methods = typeof(MenuProcessor).GetMethods().Where(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnLoad")) == true);
 
             if (methods.Count() > 1)
             {
+                
+                // так если у нас  есть метод который есть у разных видов пользователя (startMenu) то мы должны вырать с учетом доступа для этого я придумал селдуеющее  сто после  _OnLoad еще добавляем тип пользоателя _amin 
+                //но это в том случае если у нас уже есть несколько методов и мы выбираем, а так все по старом переходим в else
                 OnLoadHadler = typeof(MenuProcessor).GetMethods().FirstOrDefault(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnLoad" + $"_{curentChat.CurentProcess.ProcessType.Code}")) == true);
-
             }
             else
             {
+                
                 OnLoadHadler = typeof(MenuProcessor).GetMethods().FirstOrDefault(m => (m.GetCustomAttribute<MenuHandlerAttribute>()?.MenuCode.Contains(ProcessMenuCode + "_OnLoad")) == true);
             }
             if (OnLoadHadler != null)
@@ -116,6 +133,7 @@ namespace Telebot.Sourse.Item
 
             }
 
+          
 
 
             if (OnEndHadler != null)
@@ -194,5 +212,6 @@ namespace Telebot.Sourse.Item
         {
             return $"m:{MyId}|";
         }
+
     }
 }

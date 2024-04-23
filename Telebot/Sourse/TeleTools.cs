@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 using Telebot.Sourse.Handlers;
 using Telebot.Sourse.Item;
@@ -235,9 +237,6 @@ namespace Telebot.Sourse
 
 
 
-
-
-
         public static long GetTeleUserId(Update update)
         {
             long result = 0;
@@ -358,17 +357,17 @@ namespace Telebot.Sourse
 
             string message = textline;
 
-             message = message.Replace("{n}", "\n");
+            message = message.Replace("{n}", "\n");
             message = message.Replace("{t}", "\t");
             message = message.Replace("{b}", "<b>");
             message = message.Replace("{eb}", "</b>");
-          
+
             message = message.Replace("{code}", "<code>");
             message = message.Replace("{ecode}", "</code>");
 
             message = message.Replace("{code}", "<code>");
             message = message.Replace("{ecode}", "</code>");
-          
+
             message = message.Replace("{blockquote}", "<blockquote>");
             message = message.Replace("{eblockquote}", "</blockquote>");
 
@@ -392,17 +391,43 @@ namespace Telebot.Sourse
                 List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>();
                 foreach (var item in _myChat.CurentProcess.Inputs)
                 {
-                    db.Inputs.Update(item);
-                    if (item.input_Type.Code != InputType_1) continue;
-                    //   var callingprocess = _myChat.CurentProcess.ProcessType.Menus.FirstOrDefault(m =>m.ProcessMenuCode == (item?.NextProcessMenu?.ProcessMenuCode?? "StartMenu"));
-                    var callingprocess = item?.NextProcessMenu;
-                    if (callingprocess == null) continue;
-                    List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
-                    inlineKeyboardButtons.Add(lineBTN);
+                    if (item.input_Type.Code == "CallbackQuery")
+                    {
+                        db.Inputs.Update(item);
+                        if (item.input_Type.Code != InputType_1) continue;
+                        //   var callingprocess = _myChat.CurentProcess.ProcessType.Menus.FirstOrDefault(m =>m.ProcessMenuCode == (item?.NextProcessMenu?.ProcessMenuCode?? "StartMenu"));
+                        var callingprocess = item?.NextProcessMenu;
+                        if (callingprocess == null) continue;
+                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
+                        inlineKeyboardButtons.Add(lineBTN);
+                    }
+                    else if (item.input_Type.Code == "CallbackQueryBool")
+                    {
+                        var dinamicBtn = _myChat.DinamicButons.FirstOrDefault(p => p.MyName == item.MyName);
+                        if (dinamicBtn == null)
+                        {
+                            db.Inputs.Update(item);
+                            if (item.input_Type.Code != InputType_1) continue;
+                            //   var callingprocess = _myChat.CurentProcess.ProcessType.Menus.FirstOrDefault(m =>m.ProcessMenuCode == (item?.NextProcessMenu?.ProcessMenuCode?? "StartMenu"));
+                            var callingprocess = item?.NextProcessMenu;
+                            if (callingprocess == null) continue;
+                            List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
+                            inlineKeyboardButtons.Add(lineBTN);
+
+                        }
+                        else
+                        {
+                            List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: dinamicBtn.Content, callbackData: dinamicBtn.CallbackQwery) };
+                            inlineKeyboardButtons.Add(lineBTN);
+
+                        }
+                    }
+
+
                 }
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
 
-                Message sentMessage = await client.SendTextMessageAsync(chatId: _myChat.ChatId, text: FormateText( _myChat.CurentTexrMessage ?? _myChat.CurentProcess.MenuProcessContent), replyMarkup: inlineKeyboardMarkup, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: canslationToken);
+                Message sentMessage = await client.SendTextMessageAsync(chatId: _myChat.ChatId, text: FormateText(_myChat.CurentTexrMessage ?? _myChat.CurentProcess.MenuProcessContent), replyMarkup: inlineKeyboardMarkup, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: canslationToken);
                 msgResult.Add(sentMessage);
                 _myChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(_myChat.BotClientId, _myChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
 
@@ -417,7 +442,7 @@ namespace Telebot.Sourse
 
                 _myChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(_myChat.BotClientId, _myChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
 
-                _myChat.SetProcess(_myChat.CurentProcess.Inputs.FirstOrDefault().NextProcessMenu, db);
+                _myChat.SetProcess(_myChat.CurentProcess.Inputs.FirstOrDefault().NextProcessMenu);
 
                 await SendStaticMenu_forXMLLoad(_myChat, client, canslationToken, update, db);
             }
@@ -446,7 +471,7 @@ namespace Telebot.Sourse
 
                         if (filteroptions != null)
                         {
-                            List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: "Убрать фильтр", callbackData: _myChat.CurentProcess.GetEntityTypeId())};
+                            List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: "Убрать фильтр", callbackData: _myChat.CurentProcess.GetEntityTypeId()) };
                             inlineKeyboardButtons.Add(lineBTN);
                         }
 
@@ -454,9 +479,9 @@ namespace Telebot.Sourse
                         {
                             if (filteroptions != null && (!dBut.Content.ToLower().Contains(filteroptions.ToLower()))) continue;
 
-                                List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: dBut.Content, callbackData: $"{dBut.CallbackQwery}") };
-                                inlineKeyboardButtons.Add(lineBTN);
-                         
+                            List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: dBut.Content, callbackData: $"{dBut.CallbackQwery}") };
+                            inlineKeyboardButtons.Add(lineBTN);
+
 
                         }
 
@@ -508,21 +533,124 @@ namespace Telebot.Sourse
 
 
 
+        public int getentyIdByUpdate(string entyCode, Update update)
+        {
+
+            string parsLine = (update.CallbackQuery?.Data) ?? "";
+
+            if (parsLine == "") return (-1);
+
+            string pattern = @$"{entyCode}:(\d+)";
+
+            // Находим все совпадения с помощью Regex
+            MatchCollection matches = Regex.Matches(parsLine, pattern);
+
+            // Выводим найденные числа
+
+            string numberString = matches.Last().Groups[1].Value; // Получаем значение числа из группы захвата
+            int number;
+            if (int.TryParse(numberString, out number))
+            {
+                Console.WriteLine("Найденное число: " + number);
+            }
+            else
+            {
+                Console.WriteLine("Не удалось преобразовать строку в число.");
+            }
+            return number;
+        }
+
+        public async Task<Message[]> EditStaticMenu_forXMLLoad(MyChat thisChat, ITelegramBotClient iClient, CancellationToken cancellationToken, Update update, context db)
+        {
+            thisChat.CurentProcess.ExecuteOnLoad(update, iClient, thisChat, db, cancellationToken);
+            List<Message> msgResult = new List<Message>();
+
+
+            if (thisChat.CurentProcess.ProcessType.Code == "StaticListButtonsCallbackQuery")
+            {
+
+                List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>();
+                foreach (var item in thisChat.CurentProcess.Inputs)
+                {
+                    if (item.input_Type.Code == "CallbackQuery")
+                    {
+                        db.Inputs.Update(item);
+                        if (item.input_Type.Code != InputType_1) continue;
+                        //   var callingprocess = _myChat.CurentProcess.ProcessType.Menus.FirstOrDefault(m =>m.ProcessMenuCode == (item?.NextProcessMenu?.ProcessMenuCode?? "StartMenu"));
+                        var callingprocess = item?.NextProcessMenu;
+                        if (callingprocess == null) continue;
+                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
+                        inlineKeyboardButtons.Add(lineBTN);
+                    }
+                    else if (item.input_Type.Code == "CallbackQueryBool")
+                    {
+                        var dinamicBtn = thisChat.DinamicButons.FirstOrDefault(p => p.MyName == item.MyName);
+                        if (dinamicBtn == null)
+                        {
+                            db.Inputs.Update(item);
+                            if (item.input_Type.Code != InputType_1) continue;
+                            //   var callingprocess = _myChat.CurentProcess.ProcessType.Menus.FirstOrDefault(m =>m.ProcessMenuCode == (item?.NextProcessMenu?.ProcessMenuCode?? "StartMenu"));
+                            var callingprocess = item?.NextProcessMenu;
+                            if (callingprocess == null) continue;
+                            List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
+                            inlineKeyboardButtons.Add(lineBTN);
+
+                        }
+                        else
+                        {
+                            List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: dinamicBtn.Content, callbackData: dinamicBtn.CallbackQwery) };
+                            inlineKeyboardButtons.Add(lineBTN);
+
+                        }
+                    }
+
+
+                }
+                InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
+
+                if (thisChat.PriviosMSGs.LastOrDefault() is null) return null;
 
 
 
 
 
+                bool isDifferntText = update.CallbackQuery.Message.Text.SequenceEqual(thisChat.CurentTexrMessage);
+                                               
+                    
+                var curentKeyBord = update.CallbackQuery?.Message.ReplyMarkup;
+                bool IsDifferentKeyBord = curentKeyBord.InlineKeyboard.SequenceEqual(inlineKeyboardMarkup.InlineKeyboard);
+
+
+                if (isDifferntText == false && IsDifferentKeyBord == false)
+                {
+                    await iClient.EditMessageTextAsync(thisChat.ChatId, thisChat.PriviosMSGs.LastOrDefault().MessageId ?? 0, FormateText(thisChat.CurentTexrMessage), ParseMode.Html, replyMarkup: inlineKeyboardMarkup);
+
+                }
+                else if (isDifferntText == false && IsDifferentKeyBord == true)
+                {
+                    await iClient.EditMessageTextAsync(thisChat.ChatId, thisChat.PriviosMSGs.LastOrDefault().MessageId ?? 0, FormateText(thisChat.CurentTexrMessage), ParseMode.Html);
+
+                }
+                else if (isDifferntText == true && IsDifferentKeyBord == false)
+                {
+                    await iClient.EditMessageReplyMarkupAsync(thisChat.ChatId, thisChat.PriviosMSGs.LastOrDefault().MessageId ?? 0, replyMarkup: inlineKeyboardMarkup);
+                }
+             
+
+
+                //  if (IsDifferent == true) await iClient.EditMessageReplyMarkupAsync(thisChat.ChatId, thisChat.PriviosMSGs.LastOrDefault().MessageId ?? 0, replyMarkup: inlineKeyboardMarkup);
+
+                    //Message sentMessage = await iClient.SendTextMessageAsync(chatId: thisChat.ChatId, text: FormateText(_myChat.CurentTexrMessage ?? _myChat.CurentProcess.MenuProcessContent), replyMarkup: inlineKeyboardMarkup, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: canslationToken);
+                    //msgResult.Add(sentMessage);
+                    //_myChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(_myChat.BotClientId, _myChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
 
 
 
+            }
 
 
-
-
-
-
-
+            return null;
+        }
     }
 
 }

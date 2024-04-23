@@ -123,13 +123,13 @@ namespace Telebot.Sourse.Item
 
         public string SetUserIncallBack()
         {
-            return $"u:{MyId}|"; 
+            return $"mu:{MyId}|"; 
         
         }
 
         public static int GetUserById(string processCode)
         {
-            if(!processCode.Contains("u:")) return 0;
+            if(!processCode.Contains("mu:")) return 0;
 
             string value = processCode.Split('|').FirstOrDefault(cod => cod.Contains("u")).Split(':')[1];
           
@@ -142,8 +142,19 @@ namespace Telebot.Sourse.Item
         }
 
 
+        public string GetUserLinkInline_Name()
+        {
+            return $"<a href=\"tg://user?id={(Id.ToString()) ?? "-"}\">{Username ?? "ссылка"}</a>";
+        }
 
 
+
+
+        public static int GetUserIdFromUpdate(Update update)
+        {
+            return new TeleTools().getentyIdByUpdate("mu", update);
+
+        }
 
         public enum userType
         {

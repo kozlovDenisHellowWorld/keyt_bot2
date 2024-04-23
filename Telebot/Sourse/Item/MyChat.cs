@@ -20,7 +20,10 @@ namespace Telebot.Sourse.Item.IItem
 
         public long ChatId { set; get; }
 
-       
+        /// <summary>
+        /// Возможно ненужн, пробую сделать обновление
+        /// </summary>
+        public bool? updateMenu { set; get; } = false;
 
         public Telegram.Bot.Types.Enums.ChatType TeleChatType { set; get; }
 
@@ -61,37 +64,42 @@ namespace Telebot.Sourse.Item.IItem
         {
             return $"mc:{MyId}|";
         }
-        public void SetProcess(Menu_Process nextProcess, context db)
+        public void SetProcess(Menu_Process nextProcess)
         {
 
-            //if (DinamicButons.Count > 0)
-            //{
 
-            //    // db.dinamic_Butons.RemoveRange(db.dinamic_Butons.Where(p => p.Chat == null).ToList());
-
-            //    db.dinamic_Butons.RemoveRange(DinamicButons);
-
-            //    DinamicButons.Clear();
-
-
-            //    db.SaveChanges();
-            //}
-
+            DinamicButons.Clear();
             CurentTexrMessage = null;
-            CurentProcess = nextProcess;
 
-            if (processCode2 == ""|| processCode2 is null)
+
+            if (CurentProcess == null)
             {
-                processCode2 = $"m:{nextProcess.MyId}|";
+
+              
+
+
+                CurentProcess = nextProcess;
+
+                if (processCode2 == "" || processCode2 is null)
+                {
+                    processCode2 = $"m:{nextProcess.MyId}|";
+                }
+                else if (processCode2.Contains("m:"))
+                {
+                    processCode2 = Regex.Replace(processCode2, @"m:\d+", $"m:{nextProcess.MyId}");
+                }
+                else
+                {
+                    processCode2 += $"m:{nextProcess.MyId}|";
+                }
             }
-            else if (processCode2.Contains("m:"))
-            {
-                processCode2 = Regex.Replace(processCode2, @"m:\d+", $"m:{nextProcess.MyId}");
+            else {
+             
+                CurentProcess = nextProcess;
+
             }
-            else
-            {
-                processCode2 += $"m:{nextProcess.MyId}|";
-            }
+
+
 
         }
 
@@ -100,13 +108,9 @@ namespace Telebot.Sourse.Item.IItem
         /// 
         /// </summary>
         /// <returns>Возвращает строку сосылкой на 1 пользователя этого чата чеез id</returns>
-        public string GetUserInline()
+        public string GetUserLinkInline()
         {
-
-
-           return CurentProcess.MyDescription.Replace("{UserName}", $"<a href=\"tg://user?id={(AllChatUsers.FirstOrDefault().Id.ToString()) ?? "-"}\">{AllChatUsers.FirstOrDefault().Username ?? "Пользователь"}</a>");
-
-
+           return  $"<a href=\"tg://user?id={(AllChatUsers.FirstOrDefault().Id.ToString()) ?? "-"}\">{AllChatUsers.FirstOrDefault().Username ?? "Пользователь"}</a>";
         }
 
 

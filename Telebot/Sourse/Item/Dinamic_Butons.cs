@@ -24,6 +24,8 @@ namespace Telebot.Sourse.Item
         public string? Content { set; get; }
 
 
+       
+
         public virtual int? ChatId { set; get; }
         public virtual MyChat? Chat { set; get; }
 
