@@ -51,5 +51,14 @@ namespace Telebot.Sourse.Item
             return $"pin:{MyId}|";
         }
 
+        public static int GetIdFromUpdate(Update update)
+        {
+
+            return new TeleTools().getentyIdByUpdate("pin", update);
+
+
+        }
+
+
     }
 }

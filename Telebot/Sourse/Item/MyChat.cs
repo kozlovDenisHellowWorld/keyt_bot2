@@ -18,6 +18,8 @@ namespace Telebot.Sourse.Item.IItem
         public bool? IsDelite { set; get; }
 
 
+
+
         public long ChatId { set; get; }
 
         /// <summary>
@@ -49,12 +51,15 @@ namespace Telebot.Sourse.Item.IItem
         /// <summary>
         /// Для текста который надо отправить 
         /// </summary>
-        public string? CurentTexrMessage { set; get; }
+        public  string? CurentTexrMessage { set; get; } 
 
         /// <summary>
         /// кноки для списков 
         /// </summary>
         public virtual List<Dinamic_Butons> DinamicButons { set; get; } = new List<Dinamic_Butons>();
+
+
+        public string? bsckInformation { set; get; }
 
         /// <summary>
         /// MyChat - mc:
@@ -70,7 +75,7 @@ namespace Telebot.Sourse.Item.IItem
 
             DinamicButons.Clear();
             CurentTexrMessage = null;
-
+            bsckInformation = "";
 
             if (CurentProcess == null)
             {

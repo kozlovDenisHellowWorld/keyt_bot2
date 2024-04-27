@@ -22,18 +22,18 @@
 
     <!--UserType типы пользователей которые будут в боте -->
     <UserType>
-        <Type Name="Администратор" CodeType="admin" Description="Пользователи с этим типом могут модерировать и отслеживать новые обращения"  />
-        <Type Name="Неавторизованный пользователь" CodeType="user" Description="Пользователи с этим типом могут оставлять обращения"  />
-        <Type Name="Авторизованный пользователь" CodeType="regularUser" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
+        <Type Name="👮🏻‍♀️Администратор" CodeType="admin" Description="Пользователи с этим типом могут модерировать и отслеживать новые обращения"  />
+        <Type Name="👨🏻‍💼Авторизованный пользователь" CodeType="user" Description="Пользователи с этим типом могут оставлять обращения"  />
+        <Type Name="🥷🏼Неавторизованный пользователь" CodeType="regularUser" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
     </UserType>
 
 
     <!--MenuType типы меню возможно внесем и внутрь программы тут они просто для того чтобы обозначить их -->
     <MenuType>
-        <Type Name="Статичный список кнопок, которые располагаются внутри чата" CodeType="StaticListButtonsCallbackQuery"/>
-        <Type Name="Статическое сообщение" CodeType="Message"/>
-        <Type Name="Динамический список кнопок, который находится внутри чата." CodeType="DinamickListButtonsCallbackQuery"/>
-        <Type Name=" Обновление предидущего меню" CodeType="EditMenu"/>
+        <Type Name="🔽Статичный список кнопок, которые располагаются внутри чата" CodeType="StaticListButtonsCallbackQuery"/>
+        <Type Name="✉️Статическое сообщение" CodeType="Message"/>
+        <Type Name="⏬Динамический список кнопок, который находится внутри чата." CodeType="DinamickListButtonsCallbackQuery"/>
+        <Type Name="🔄Обновление предидущего меню" CodeType="EditMenu"/>
 
     </MenuType>
 
@@ -45,7 +45,9 @@
         <Type Name="Производит действие безменю" CodeType="DoSmth"/>
         <Type Name="Шаблон кнопки для списка" CodeType="CallbackQueryList"/>
         <Type Name="Чек бокс" CodeType="CallbackQueryBool"/>
-         <Type Name="Редактировать пред. сообщение" CodeType="EditePrivious"/>
+        <Type Name="Редактировать пред. сообщение" CodeType="EditePrivious"/>
+        <Type Name="Кнопка назд" CodeType="CallbackQueryBack"/>
+
     </InputType>
 
 
@@ -95,7 +97,7 @@
                 IsAwaytingText="True" 
                 NeedToDelite="True">
             
-                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQuery"></Input>
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQueryBack"></Input>
                 <Input Name="Получение текста" NextMenuNameCode="OfferConferm"  InputType="AwaytText"></Input>
             </Menu>
 
@@ -154,7 +156,7 @@
                 IsAwaytingText="True"
                 NeedToDelite="True">
             
-                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQuery"></Input>
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQueryBack"></Input>
                 <Input Name="Получение текста" NextMenuNameCode="ConfirmQuestionMenu"  InputType="AwaytText"></Input>
 
             </Menu>
@@ -170,7 +172,7 @@
                 IsAwaytingText="False"
                 NeedToDelite="True">
             
-                <Input Name="⬅️ Назад" NextMenuNameCode="QuestionInputMenu"  InputType="CallbackQuery"></Input>
+                <Input Name="⬅️ Назад" NextMenuNameCode="QuestionInputMenu"  InputType="CallbackQueryBack"></Input>
                 <Input Name="📥 Отправить ➡️" NextMenuNameCode="QuestionSave"  InputType="CallbackQuery"></Input>
                 <Input Name="🗑 Забыть" NextMenuNameCode="QuestionDelite"  InputType="CallbackQuery"></Input>
 
@@ -218,7 +220,7 @@
                 IsAwaytingText="True" 
                 NeedToDelite="True">
             
-                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQuery"></Input>
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_user"  InputType="CallbackQueryBack"></Input>
                 <Input Name="Получение текста" NextMenuNameCode="ConfirmErrorMenu"  InputType="AwaytText"></Input>
             </Menu>
 
@@ -231,7 +233,7 @@
                 IsAwaytingText="False" 
                 NeedToDelite="True">
             
-                <Input Name="⬅️ Назад" NextMenuNameCode="ErrorInputMenu"  InputType="CallbackQuery"></Input>
+                <Input Name="⬅️ Назад" NextMenuNameCode="ErrorInputMenu"  InputType="CallbackQueryBack"></Input>
                 <Input Name="📥 Отправить ➡️" NextMenuNameCode="ErrorSave"  InputType="CallbackQuery"></Input>
                 <Input Name="🗑 Забыть" NextMenuNameCode="ErrorDelite"  InputType="CallbackQuery"></Input>
 
@@ -314,6 +316,12 @@
             InputType="CallbackQuery">
             </Input>
 
+              <Input 
+            Name="🗄Меню, действия и активности" 
+            NextMenuNameCode="MenuItemPropsMenu" 
+            InputType="CallbackQuery">
+            </Input>
+
         </Menu>
     
         <!-- Меню управления пользователями -->
@@ -328,61 +336,215 @@
                 NeedToDelite="True">
             
                 <Input Name="Администраторы" NextMenuNameCode="ListMenuAllAdmins"  InputType="CallbackQuery"></Input>
-                <Input Name="Обычные пользователи" NextMenuNameCode="ListMenuAllUsers"  InputType="CallbackQuery"></Input>
-                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_admin"  InputType="CallbackQuery"></Input>
+                <Input Name="Все пользователи" NextMenuNameCode="ListMenuAllUsers"  InputType="CallbackQuery"></Input>
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_admin"  InputType="CallbackQueryBack"></Input>
                
             </Menu>
 
 
+            <!-- НАСТРОЙКИ АДМИНИСТРАТОРОВ-->
+                <!-- Список администраторов -->
+                <Menu 
+                    Name="Admin list menu" 
+                    MenuType="DinamickListButtonsCallbackQuery" 
+                    MenuCode="ListMenuAllAdmins"
+                    Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins"
+                    Content="🤖: Выбери администратора" 
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                    
+                    <Input Name="⬅️ Назад" NextMenuNameCode="UserManagementMenu"  InputType="CallbackQueryBack"></Input>
+                    <Input Name="{UserName} | {UserID}" NextMenuNameCode="AdminPropsMenu"  InputType="CallbackQueryList"></Input>
+                </Menu>
 
-            <Menu 
-                Name="Admin list menu" 
-                MenuType="DinamickListButtonsCallbackQuery" 
-                MenuCode="ListMenuAllAdmins"
-                Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins"
-                Content="🤖: Выбери пользователя" 
-                IsAwaytingText="False"
-                NeedToDelite="True">
+                <!-- Информации об администраторе -->
+                <Menu 
+                    Name="Admin props" 
+                    MenuType="StaticListButtonsCallbackQuery" 
+                    MenuCode="AdminPropsMenu"
+                    Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins/AdminPropsMenu"
+                    Content="{b}🤖:{t}Администратор{eb}{n}{b}Имя{eb}:{t}{UserName}{n}{b}🆔{eb}:{t}{teleId}{b}{n}Имя{eb}:{t}{firstName}{b}{n}Фамилия{eb}:{t}{LastName}{b}{n}Тип{eb}:{t}{userType}" 
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                    
+                    <Input Name="AdminTrueFalse"  NextMenuNameCode="ChangeUserTypeInAdminProps"  InputType="CallbackQueryBool" NameIfTrue="Права администратора 🟢" NameIfFalse="Права администратора ⚪️"></Input>
+                    <Input Name="⬅️ Назад" NextMenuNameCode="ListMenuAllAdmins"  InputType="CallbackQueryBack"></Input>
+                </Menu>
+
+
+                <!-- Изменение статуча администратора -->
+                <Menu 
+                    Name="Change user type" 
+                    MenuType="EditMenu" 
+                    MenuCode="ChangeUserTypeInAdminProps"
+                    Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins/AdminPropsMenu/ChangeUserTypeInAdminProps"
+                    Content="🤖:⚙️ Был изменен статус пользователя ({UserName}){n}{b}Теперь тип:{eb} {userType}" 
+                    IsAwaytingText="False" 
+                    NeedToDelite="True">
                 
-                <Input Name="⬅️ Назад" NextMenuNameCode="UserManagementMenu"  InputType="CallbackQuery"></Input>
-                <Input Name="{UserName} | {UserID}" NextMenuNameCode="AdminPropsMenu"  InputType="CallbackQueryList"></Input>
-            </Menu>
+                    <Input Name="Удаление ошибки" NextMenuNameCode="AdminPropsMenu"  InputType="DoSmth"></Input>
+                    
+                </Menu>
 
-
-            <Menu 
-                Name="Admin props" 
-                MenuType="StaticListButtonsCallbackQuery" 
-                MenuCode="AdminPropsMenu"
-                Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins/AdminPropsMenu"
-                Content="{b}🤖:{t}Администратор{eb}{n}{b}Имя{eb}:{t}{UserName}{n}{b}🆔{eb}:{t}{teleId}{b}{n}Имя{eb}:{t}{firstName}{b}{n}Фамилия{eb}:{t}{LastName}{b}{n}Тип{eb}:{t}{userType}" 
-                IsAwaytingText="False"
-                NeedToDelite="True">
-                
-                <Input Name="AdminTrueFalse"  NextMenuNameCode="ChangeUserTypeInAdminProps"  InputType="CallbackQueryBool" NameIfTrue="Права администратора 🟢" NameIfFalse="Права администратора ⚪️"></Input>
-                <Input Name="⬅️ Назад" NextMenuNameCode="ListMenuAllAdmins"  InputType="CallbackQuery"></Input>
-            </Menu>
-
-
-
-            <Menu 
-                Name="Change user type" 
-                MenuType="EditMenu" 
-                MenuCode="ChangeUserTypeInAdminProps"
-                Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins/AdminPropsMenu/ChangeUserTypeInAdminProps"
-                Content="🤖:⚙️ Был изменен статус пользователя ({UserName}){n}{b}Теперь тип:{eb} {userType}" 
-                IsAwaytingText="False" 
-                NeedToDelite="True">
+            <!-- КОНЕЦ НАСТРОЙКИ АДМИНИСТРАТОРОВ -->
             
-                <Input Name="Удаление ошибки" NextMenuNameCode="AdminPropsMenu"  InputType="DoSmth"></Input>
+            
+            <!-- НАСТРОЙКА ПОЛЬЗОВАТЕЛЕЙ -->
+                <!-- Список пользоватей -->
+                <Menu 
+                    Name="User list menu" 
+                    MenuType="DinamickListButtonsCallbackQuery" 
+                    MenuCode="ListMenuAllUsers"
+                    Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllUsers"
+                    Content="🤖: Выбери пользователя" 
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                    
+                    <Input Name="⬅️ Назад" NextMenuNameCode="UserManagementMenu"  InputType="CallbackQueryBack"></Input>
+                    <Input Name="{UserName} | {UserID}" NextMenuNameCode="UserPropsMenu"  InputType="CallbackQueryList"></Input>
+                </Menu>
+            
+
+                <!-- Информация о пользователе -->
+                <Menu 
+                    Name="User props" 
+                    MenuType="StaticListButtonsCallbackQuery" 
+                    MenuCode="UserPropsMenu"
+                    Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllUsers/UserPropsMenu"
+                    Content="{b}🤖:{t}Пользователь{eb}{n}{b}Имя{eb}:{t}{UserName}{n}{b}🆔{eb}:{t}{teleId}{b}{n}Имя{eb}:{t}{firstName}{b}{n}Фамилия{eb}:{t}{LastName}{b}{n}Тип{eb}:{t}{userType}" 
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                   
+                    <Input Name="AdminTrueFalse_userProps"  NextMenuNameCode="ChangeUserTypeInUserProps"  InputType="CallbackQueryBool" NameIfTrue="Права администратора 🟢" NameIfFalse="Права администратора ⚪️"></Input>
+                    <Input Name="⬅️ Назад" NextMenuNameCode="ListMenuAllUsers"  InputType="CallbackQueryBack"></Input>
+                </Menu>
+
+
+
+                <!-- Изменение статуча пользователя -->
+                <Menu 
+                    Name="Change user type" 
+                    MenuType="EditMenu" 
+                    MenuCode="ChangeUserTypeInUserProps"
+                    Navigation="StartMenu_admin/UserManagementMenu/ListMenuAllAdmins/AdminPropsMenu/UserPropsMenu/ChangeUserTypeInUserProps"
+                    Content="🤖:⚙️ Был изменен статус пользователя ({UserName}){n}{b}Теперь тип:{eb} {userType}" 
+                    IsAwaytingText="False" 
+                    NeedToDelite="True">
                 
-            </Menu>
-
-
+                    <Input Name="Удаление ошибки" NextMenuNameCode="UserPropsMenu"  InputType="DoSmth"></Input>
+                    
+                </Menu>
+            <!-- КОНЕЦ НАСТРОЙКИ ПОЛЬЗОВАТЕЛЕЙ -->
 
         <!-- Меню управления пользователями  -->
 
 
+        <!-- Информация о меню -->
+           
 
+
+            <Menu 
+                Name="Menu management menu" 
+                MenuType="StaticListButtonsCallbackQuery" 
+                MenuCode="MenuItemPropsMenu"
+                Navigation="StartMenu_admin/MenuItemPropsMenu"
+                Content="🤖: Что выберешь?" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+
+                <Input Name="Список меню и действий" NextMenuNameCode="MenuPropsListMenu"  InputType="CallbackQuery"></Input>
+                <Input Name="Список инпутов" NextMenuNameCode="InputPropsListMenu"  InputType="CallbackQuery"></Input>
+                <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_admin"  InputType="CallbackQueryBack"></Input>
+
+            </Menu>
+                
+
+
+                <!-- Список менюшек и активностей -->
+                <Menu 
+                    Name="Menus and actions list menu" 
+                    MenuType="DinamickListButtonsCallbackQuery" 
+                    MenuCode="MenuPropsListMenu"
+                    Navigation="StartMenu_admin/MenuItemPropsMenu/MenuPropsListMenu"
+                    Content="🤖: Список меню и action" 
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                
+
+                    <Input Name="⬅️ Назад" NextMenuNameCode="MenuItemPropsMenu"  InputType="CallbackQueryBack"></Input>
+                    <Input Name="{MenuName}" NextMenuNameCode="MenuAndActionProps"  InputType="CallbackQueryList"></Input>
+                
+                </Menu>
+
+
+
+
+                <!-- Информация о меню  -->
+                <Menu 
+                    Name="Menu props" 
+                    MenuType="StaticListButtonsCallbackQuery" 
+                    MenuCode="MenuAndActionProps"
+                    Navigation="StartMenu_admin/MenuItemPropsMenu/MenuPropsListMenu/MenuAndActionProps"
+                    Content="{b}🤖:{t}Меню{eb}{n}{b}Menu code{eb}:{t}{pre}{MenuCode}{epre}{n}{b}Name{eb}:{t}{pre}{Name}{epre}{n}{b}Menu type{eb}:{t}{pre}{MenuType}{epre}{n}{b}User type{eb}:{t}{pre}{UserType}{epre}{n}{b}Is awayting text{eb}:{t}{IsAwaytingText}{n}{b}Need to delite{eb}:{t}{NeedToDelite}{b}{n}Inputs{eb}:{t}{Ninput}{n}{n}{b}Navigation{eb}:{t}{pre}{Navigation}{epre}{n}{n}{b}Content{eb}:{t}{pre}{Content}{epre}"
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                
+                    <Input Name="⬅️ Назад" NextMenuNameCode="MenuPropsListMenu"  InputType="CallbackQueryBack"></Input>
+                </Menu>
+
+
+                <!-- Список input -->
+                <Menu 
+                    Name="Inputs list menu" 
+                    MenuType="DinamickListButtonsCallbackQuery" 
+                    MenuCode="InputPropsListMenu"
+                    Navigation="StartMenu_admin/MenuItemPropsMenu/InputPropsListMenu"
+                    Content="🤖: Список кнопок и переходов" 
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                
+
+                    <Input Name="⬅️ Назад" NextMenuNameCode="MenuItemPropsMenu"  InputType="CallbackQueryBack"></Input>
+                    <Input Name="📍{InputName}" NextMenuNameCode="InputProps"  InputType="CallbackQueryList"></Input>
+                </Menu>
+
+               
+                <!-- Информация о кнопках-->
+                <Menu 
+                    Name="Input props" 
+                    MenuType="DinamickListButtonsCallbackQuery" 
+                    MenuCode="InputProps"
+                    Navigation="StartMenu_admin/MenuItemPropsMenu/InputPropsListMenu/InputProps"
+                    Content="{b}🤖:{t}Input{eb}{n}{b}Текст кнопки{eb}:{t}{pre}{InputName}{epre}{n}{b}Тип input{eb}:{t}{pre}{InputType}{epre}{n}{b}Родительское меню{eb}:{t}{pre}{MenuBelow}{epre}{n}{b}Вызываемое меню{eb}:{t}{pre}{NextMenu}{epre}"
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                    
+                    
+                    <Input Name="Родитель - {MenuName}" NextMenuNameCode="InputProps_menuparent"  InputType="CallbackQueryList"></Input>
+                    <Input Name="Call - {CallingMenu}" NextMenuNameCode="InputProps_menuparent"  InputType="CallbackQueryList"></Input>
+                
+                    <Input Name="⬅️ Назад" NextMenuNameCode="InputPropsListMenu"  InputType="CallbackQueryBack"></Input>
+                </Menu>
+
+
+                <Menu 
+                    Name="Input props" 
+                    MenuType="StaticListButtonsCallbackQuery" 
+                    MenuCode="InputProps_menuparent"
+                    Navigation="StartMenu_admin/MenuItemPropsMenu/InputPropsListMenu/InputProps/InputProps_menuparent"
+                    Content="{b}🤖:{t}Input{eb}{n}{b}Текст кнопки{eb}:{t}{pre}{InputName}{epre}"
+                    IsAwaytingText="False"
+                    NeedToDelite="True">
+                    
+                    
+                    <Input Name="⬅️ Назад" NextMenuNameCode="InputProps"  InputType="CallbackQueryBack"></Input>
+                </Menu>
+
+
+
+
+
+        <!--Конец. Информация о меню -->
 
 
 

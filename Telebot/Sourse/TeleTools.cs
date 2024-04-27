@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -35,6 +36,10 @@ namespace Telebot.Sourse
         /// </summary>
         private string InputType_4 = "CallbackQueryList";
 
+        /// <summary>
+        /// CallbackQueryList
+        /// </summary>
+        private string InputType_5 = "CallbackQueryBack";
 
 
 
@@ -378,7 +383,23 @@ namespace Telebot.Sourse
         }
 
 
+        public string FormateMenuPropsText(string textline, Menu_Process menu)
+        {
 
+            string cont = textline;
+
+            cont = cont.Replace("{MenuCode}", menu.ProcessMenuCode);
+            cont = cont.Replace("{Name}", menu.MyName);
+            cont = cont.Replace("{Navigation}", menu.Navigation);
+            cont = cont.Replace("{IsAwaytingText}", menu.IsAwaytingText.ToString());
+            cont = cont.Replace("{NeedToDelite}", menu.NeedToDelite.ToString());
+            cont = cont.Replace("{Ninput}", menu.Inputs.Count().ToString());
+            cont = cont.Replace("{Content}", menu.MenuProcessContent);
+            cont = cont.Replace("{MenuType}", menu.ProcessType.MyName);
+            cont = cont.Replace("{UserType}", menu.UserType.MyName);
+
+            return cont;
+        }
 
 
         public async Task<Message[]> SendStaticMenu_forXMLLoad(MyChat _myChat, ITelegramBotClient client, CancellationToken canslationToken, Update update, context db)
@@ -401,7 +422,7 @@ namespace Telebot.Sourse
                         List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
                         inlineKeyboardButtons.Add(lineBTN);
                     }
-                    else if (item.input_Type.Code == "CallbackQueryBool")
+                    else if (item.input_Type.Code == "CallbackQueryList")
                     {
                         var dinamicBtn = _myChat.DinamicButons.FirstOrDefault(p => p.MyName == item.MyName);
                         if (dinamicBtn == null)
@@ -421,6 +442,13 @@ namespace Telebot.Sourse
                             inlineKeyboardButtons.Add(lineBTN);
 
                         }
+                    }
+                    else if (item.input_Type.Code == "CallbackQueryBack")
+                    {
+                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: item.NextProcessMenu.GetEntityTypeId() + _myChat.bsckInformation ?? "") };
+                        inlineKeyboardButtons.Add(lineBTN);
+
+
                     }
 
 
@@ -503,7 +531,13 @@ namespace Telebot.Sourse
                         //  inlineKeyboardButtons.Add(lineBTN);
 
                     }
-
+                    else if (item.input_Type.Code == InputType_5)
+                    {
+                        var callingprocess = item?.NextProcessMenu;
+                        if (callingprocess == null) continue;
+                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData:( $"m:{callingprocess.MyId}|"+_myChat.bsckInformation??"")) };
+                        inlineKeyboardButtons.Add(lineBTN);
+                    }
 
 
 
@@ -532,7 +566,12 @@ namespace Telebot.Sourse
 
 
 
-
+        /// <summary>
+        /// без : - важна символ двоеточея уже есть
+        /// </summary>
+        /// <param name="entyCode"></param>
+        /// <param name="update"></param>
+        /// <returns></returns>
         public int getentyIdByUpdate(string entyCode, Update update)
         {
 
