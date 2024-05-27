@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Text.RegularExpressions;
 using Telebot.Sourse.Handlers;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+
 
 namespace Telebot.Sourse.Item.IItem
 {  
@@ -57,6 +59,41 @@ namespace Telebot.Sourse.Item.IItem
         /// кноки для списков 
         /// </summary>
         public virtual List<Dinamic_Butons> DinamicButons { set; get; } = new List<Dinamic_Butons>();
+
+
+        public virtual List<Log> Logs { set; get; } = new List<Log>();
+
+
+
+        public void AddLog(Telegram.Bot.Types.Update update, context db)
+        {
+
+            if (update.Type == Telegram.Bot.Types.Enums.UpdateType.CallbackQuery)
+            {
+                if (Logs.Count() > 50)
+                {
+                    var firsLog = Logs.FirstOrDefault();
+
+                    if (firsLog != null)
+                    { 
+                        Logs.Remove(firsLog);
+                    }
+                  
+                }
+
+                Logs.Add(new Log()
+                {
+                    BotClientId = BotClientId,
+                    dateTimeCreation = DateTime.Now,
+                    IsDelite = false,
+                    Callback = update.CallbackQuery.Data,
+                    TeleMessageId = update.CallbackQuery.Message.MessageId,
+
+                });
+            }
+
+            db.SaveChanges();
+        }
 
 
         public string? bsckInformation { set; get; }
@@ -126,7 +163,7 @@ namespace Telebot.Sourse.Item.IItem
 
 
 
-        public static async Task <MyChat> newChatObject(ITelegramBotClient bot, Update update, CancellationToken cts)
+        public static async Task <MyChat> newChatObject(ITelegramBotClient bot, Telegram.Bot.Types.Update update, CancellationToken cts)
         {
             Chat? curentChat = null;
             if (update.Type is Telegram.Bot.Types.Enums.UpdateType.Message) curentChat = update.Message.Chat;

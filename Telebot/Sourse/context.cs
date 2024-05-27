@@ -166,6 +166,14 @@ namespace Telebot.Sourse
  .WithOne(p => p.Reqst)
  .HasForeignKey(p => p.ReqstId);
 
+
+
+            modelBuilder
+.Entity<MyChat>()
+.HasMany(u => u.Logs)
+.WithOne(p => p.MyChat)
+.HasForeignKey(p => p.MyChatId);
+
             //     modelBuilder
             //.Entity<Process>()
             //.HasMany(u => u.PriviousProcess)

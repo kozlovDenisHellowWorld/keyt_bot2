@@ -528,7 +528,7 @@
 
 
                 <Menu 
-                    Name="Input props" 
+                    Name="Input props parent menu" 
                     MenuType="StaticListButtonsCallbackQuery" 
                     MenuCode="InputProps_menuparent"
                     Navigation="StartMenu_admin/MenuItemPropsMenu/InputPropsListMenu/InputProps/InputProps_menuparent"

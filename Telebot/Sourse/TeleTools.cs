@@ -445,7 +445,7 @@ namespace Telebot.Sourse
                     }
                     else if (item.input_Type.Code == "CallbackQueryBack")
                     {
-                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: item.NextProcessMenu.GetEntityTypeId() + _myChat.bsckInformation ?? "") };
+                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, item.NextProcessMenu.GetEntityTypeId()) };
                         inlineKeyboardButtons.Add(lineBTN);
 
 
@@ -535,13 +535,24 @@ namespace Telebot.Sourse
                     {
                         var callingprocess = item?.NextProcessMenu;
                         if (callingprocess == null) continue;
-                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData:( $"m:{callingprocess.MyId}|"+_myChat.bsckInformation??"")) };
+
+                        //string LogBack = _myChat.Logs
+                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, item.NextProcessMenu.GetEntityTypeId() )};
                         inlineKeyboardButtons.Add(lineBTN);
                     }
 
 
 
-
+                    //Start
+                    //Отослал кнопки
+                    //Пользователь ажал кнопку
+                    //Пришел Update
+                    //Записал Log
+                    //Обработал обтейт и получае Mext menu
+                    //Change menu -  изменяю меню и затераю dinamic btns и curent text
+                    //on end
+                    // on load
+                    // отпраяляю 
 
 
 

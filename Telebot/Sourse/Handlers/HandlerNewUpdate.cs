@@ -315,6 +315,10 @@ namespace Telebot.Sourse.Handlers
                 else if (update.Type == Telegram.Bot.Types.Enums.UpdateType.CallbackQuery) // если пришла кнопка 
                 {
 
+                    thisChat.AddLog(update,db);
+
+                
+
                     // if (thisChat.CurentProcess)
                     int? nextMenu_Myid = Menu_Process.GetNextProcessIdByCallbak(update);
                     if (nextMenu_Myid == null) return null;
