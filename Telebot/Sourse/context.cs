@@ -174,6 +174,24 @@ namespace Telebot.Sourse
 .WithOne(p => p.MyChat)
 .HasForeignKey(p => p.MyChatId);
 
+
+
+
+            modelBuilder
+.Entity<MyChat>()
+.HasMany(u => u.ReqOrderSet)
+.WithOne(p => p.Chat)
+.HasForeignKey(p => p.ChatId);
+
+
+            modelBuilder
+.Entity<ReqOrderSet>()
+.HasMany(u => u.TimeSets)
+.WithOne(p => p.Order)
+.HasForeignKey(p => p.OrderId);
+
+
+
             //     modelBuilder
             //.Entity<Process>()
             //.HasMany(u => u.PriviousProcess)
@@ -333,6 +351,9 @@ namespace Telebot.Sourse
 
 
 
+        public DbSet<ReqOrderSet> SetsAndOrders { set; get; }
+
+        public DbSet<DateSetTime> DateSetTimes { set; get; }
 
 
         public DbSet<User_Types> User_Types { set; get; }

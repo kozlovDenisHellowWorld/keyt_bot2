@@ -20,6 +20,9 @@ namespace Telebot.Sourse.Item
         public bool? IsDelite { set; get; }
         public int? MessageId { set; get; }
 
+        /// <summary>
+        /// Если 0 то update  не преходил и это собщение было отослоно без Update
+        /// </summary>
         public long? UupdateId { set; get; }
 
         public bool? NedTodelite { set; get; }
@@ -54,7 +57,8 @@ namespace Telebot.Sourse.Item
             priviosMSG.IsDelite = false;
             priviosMSG.MessageId = message.MessageId;
             priviosMSG.NedTodelite = needToDelete;
-            priviosMSG.UupdateId = update?.Id;
+            if (update != null) priviosMSG.UupdateId = update?.Id;
+            else priviosMSG.UupdateId = 0;
             priviosMSG.MyDescription = "Сообщение";
 
 
@@ -87,7 +91,8 @@ namespace Telebot.Sourse.Item
                 priviosMSG.IsDelite = false;
                 priviosMSG.MessageId = message.MessageId;
                 priviosMSG.NedTodelite = needToDelete;
-                priviosMSG.UupdateId = update.Id;
+            if (update!=null)    priviosMSG.UupdateId = update.Id;
+            else priviosMSG.UupdateId = 0;
                 priviosMSG.MyDescription = "Сообщение";
 
                 myMessagess.Add(priviosMSG);
