@@ -15,7 +15,7 @@ namespace Telebot
     public class TeleClient
     {
 
-        static bool needToUpdate = false;
+        static bool needToUpdate = true;
 
         private string Token;
 

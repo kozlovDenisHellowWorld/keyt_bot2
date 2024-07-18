@@ -29,6 +29,11 @@ namespace Telebot.Sourse.Item
         /// </summary>
         public bool? IsTarget { get; set; } = false;
 
+        /// <summary>
+        /// если сет выбран но при регистрации что то пошло не так 
+        /// </summary>
+        public bool? IsError { get; set; } = false;
+
 
         /// <summary>
         /// Дата и время сета 

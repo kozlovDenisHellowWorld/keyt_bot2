@@ -754,6 +754,8 @@ namespace Telebot.Sourse
             {
                 List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>();
 
+
+
                 foreach (var item in thisChat.CurentProcess.Inputs)
                 {
                     if (item.input_Type.Code == InputType_1)
@@ -873,11 +875,40 @@ namespace Telebot.Sourse
 
 
                 }
+
+
+                // InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
+
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
 
-                Message sentMessage = await iClient.SendTextMessageAsync(chatId: thisChat.ChatId, text: FormateText(thisChat.CurentProcess.MenuProcessContent), replyMarkup: inlineKeyboardMarkup, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: cancellationToken);
-                msgResult.Add(sentMessage);
-                thisChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(thisChat.BotClientId, thisChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
+               // Message sentMessage = await iClient.SendTextMessageAsync(chatId: thisChat.ChatId, text: FormateText(thisChat.CurentProcess.MenuProcessContent), replyMarkup: inlineKeyboardMarkup, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: cancellationToken);
+                //msgResult.Add(sentMessage);
+                // thisChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(thisChat.BotClientId, thisChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
+
+
+                bool isDifferntText = update.CallbackQuery.Message.Text.SequenceEqual(thisChat.CurentTexrMessage??thisChat.CurentProcess.MenuProcessContent);
+
+
+                var curentKeyBord = update.CallbackQuery?.Message.ReplyMarkup;
+                bool IsDifferentKeyBord = curentKeyBord.InlineKeyboard.SequenceEqual(inlineKeyboardMarkup.InlineKeyboard);
+
+
+                if (isDifferntText == false && IsDifferentKeyBord == false)
+                {
+                    await iClient.EditMessageTextAsync(thisChat.ChatId, thisChat.PriviosMSGs.LastOrDefault().MessageId ?? 0, FormateText(thisChat.CurentTexrMessage ?? thisChat.CurentProcess.MenuProcessContent), ParseMode.Html, replyMarkup: inlineKeyboardMarkup);
+
+                }
+                else if (isDifferntText == false && IsDifferentKeyBord == true)
+                {
+                    await iClient.EditMessageTextAsync(thisChat.ChatId, thisChat.PriviosMSGs.LastOrDefault().MessageId ?? 0, FormateText(thisChat.CurentTexrMessage ?? thisChat.CurentProcess.MenuProcessContent), ParseMode.Html);
+
+                }
+                else if (isDifferntText == true && IsDifferentKeyBord == false)
+                {
+                    await iClient.EditMessageReplyMarkupAsync(thisChat.ChatId, thisChat.PriviosMSGs.LastOrDefault().MessageId ?? 0, replyMarkup: inlineKeyboardMarkup);
+                }
+
+
                 db.SaveChanges();
 
             }

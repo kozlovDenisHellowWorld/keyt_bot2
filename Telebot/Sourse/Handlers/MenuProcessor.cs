@@ -419,7 +419,7 @@ namespace Telebot.Sourse.Handlers
             var btn = curentChat.CurentProcess.Inputs.FirstOrDefault(p => p.input_Type.Code == "CallbackQueryList");
 
 
-            if (curentChat.user_Reg_Abon == null || curentChat.user_Reg_Name == null || curentChat.user_Reg_Abon == "" || curentChat.user_Reg_Name == "")
+            if (curentChat.user_Reg_Telephone == null || curentChat.user_Reg_Name == null || curentChat.user_Reg_Telephone == "" || curentChat.user_Reg_Name == "")
             {
                 curentChat.CurentTexrMessage = "🤖: Прости но я не могу тебя записать. Нужно расказать свои секретики.";
                 db.SaveChanges();
@@ -728,35 +728,39 @@ namespace Telebot.Sourse.Handlers
         [MenuHandler("ListMenuTime_park_Coose_OnLoad")]
         public async Task ListMenuTime_park_Coose_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
+            bool debugRule = false;// для того чтобы попробовать сделать эдит. когда мы в другом месте исправляем 
 
 
-            if (update.CallbackQuery.Data.Contains("set:"))
+
+            if (debugRule == true)
             {
-
-                string set_text = update?.CallbackQuery?.Data.Split('|').FirstOrDefault(d => d.Contains("set:"));
-                string dateTimeSet_text = set_text.Split(':').FirstOrDefault(s => !s.Contains("set"));
-                string format_ = "HH-m-d-MM-y";
-                DateTime targetDateTime;
-
-                DateTime.TryParseExact(dateTimeSet_text, format_, CultureInfo.GetCultureInfo("ru-RU"), DateTimeStyles.None, out targetDateTime);
-
-                foreach (var item in curentChat.ReqOrderSet.FirstOrDefault(r => r.IsCreate == false).TimeSets)
+                if (update.CallbackQuery.Data.Contains("set:"))
                 {
-                    if (item.SetdateTime == targetDateTime)
-                    {
 
-                        item.IsTarget = !item.IsTarget;
+                    string set_text = update?.CallbackQuery?.Data.Split('|').FirstOrDefault(d => d.Contains("set:"));
+                    string dateTimeSet_text = set_text.Split(':').FirstOrDefault(s => !s.Contains("set"));
+                    string format_ = "HH-m-d-MM-y";
+                    DateTime targetDateTime;
+
+                    DateTime.TryParseExact(dateTimeSet_text, format_, CultureInfo.GetCultureInfo("ru-RU"), DateTimeStyles.None, out targetDateTime);
+
+                    foreach (var item in curentChat.ReqOrderSet.FirstOrDefault(r => r.IsCreate == false).TimeSets)
+                    {
+                        if (item.SetdateTime == targetDateTime)
+                        {
+
+                            item.IsTarget = !item.IsTarget;
+
+                        }
+
 
                     }
 
+                    db.SaveChanges();
 
                 }
 
-                db.SaveChanges();
-
             }
-
-
             foreach (var item in curentChat?.ReqOrderSet?.FirstOrDefault(r => r.IsCreate == false).TimeSets)
             {
                 var btn = new Dinamic_Butons()
@@ -801,10 +805,15 @@ namespace Telebot.Sourse.Handlers
 
                 string set_text = update?.CallbackQuery?.Data.Split('|').FirstOrDefault(d => d.Contains("set:"));
                 string dateTimeSet_text = set_text.Split(':').FirstOrDefault(s => !s.Contains("set"));
-                string format_ = "HH-m-d-MM-y";
+                string[] format_ = { "HH-m-d-MM-y" };
+
+
                 DateTime targetDateTime;
 
                 DateTime.TryParseExact(dateTimeSet_text, format_, CultureInfo.GetCultureInfo("ru-RU"), DateTimeStyles.None, out targetDateTime);
+
+
+
 
                 foreach (var item in curentChat.ReqOrderSet.FirstOrDefault(r => r.IsCreate == false).TimeSets)
                 {
@@ -943,7 +952,7 @@ namespace Telebot.Sourse.Handlers
             if (reserd is not null)
             {
                 reserd.IsCreate = true;
-                reserd.IsDelite = true;
+                reserd.IsDelite = false;// было труе 
             }
             db.SaveChanges();
 

@@ -264,8 +264,8 @@
                 NeedToDelite="True">
                 
                 <Input Name="⬅️ Назад в главное меню" NextMenuNameCode="StopAndRemuveRegistration"  InputType="CallbackQueryBack"></Input>
-                <Input Name="TargetTime"  NextMenuNameCode="ListMenuTime_park_Coose"  InputType="CallbackQueryBool" NameIfTrue="{Time}🟢" NameIfFalse="{Time}⚪️"></Input>
-                <!--<Input Name="TargetTime"  NextMenuNameCode="ChooseTimeGo"  InputType="CallbackQueryBool" NameIfTrue="{Time}🟢" NameIfFalse="{Time}⚪️"></Input>-->
+                <!--<Input Name="TargetTime"  NextMenuNameCode="ListMenuTime_park_Coose"  InputType="CallbackQueryBool" NameIfTrue="{Time}🟢" NameIfFalse="{Time}⚪️"></Input>-->
+                <Input Name="TargetTime"  NextMenuNameCode="ChooseTimeGo"  InputType="CallbackQueryBool" NameIfTrue="{Time}🟢" NameIfFalse="{Time}⚪️"></Input>
                 <Input Name="Записаться 📝➡️" NextMenuNameCode="StartRegistration_sets_toPark"  InputType="CallbackQuery"></Input>
 
             </Menu>
