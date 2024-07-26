@@ -36,6 +36,7 @@
         <Type Name="👨🏻‍💼Авторизованный пользователь" CodeType="user" Description="Пользователи с этим типом могут оставлять обращения"  />
         <Type Name="🥷🏼Неавторизованный пользователь" CodeType="regularUser" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
         <Type Name="НЕИЗВЕСТНЫЙ  пользователь" CodeType="UNregularUser" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
+        <Type Name="НЕИЗВЕСТНЫЙ  пользователь" CodeType="UNregularUser1" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
     </UserType>
 
 
@@ -63,11 +64,127 @@
 
 
 
+<MenuProces Name="Процесс infotecs HR" UserType="regularUser">
+
+    <Menu 
+        Name="Admin start menu" 
+        MenuType="StaticListButtonsCallbackQuery" 
+        MenuCode="StartMenu_regularUser"
+        Navigation="StartMenu_regularUser"
+        Content="🤖 :  Как тебе помочь? Какую завку ты хочешь оставить?" 
+        IsAwaytingText="False"
+        NeedToDelite="True">
+
+        <Input Name="💡 Предложение" NextMenuNameCode="offer_report_start" InputType="CallbackQuery"></Input>
+        <Input Name="❓ Задайте вопрос" NextMenuNameCode="question_report_start" InputType="CallbackQuery"></Input>
+        <Input Name="🖍 Нашли ошибку в материалах" NextMenuNameCode="error_report_start" InputType="CallbackQuery"></Input>
+
+    </Menu>
+
+
+    <!-- Предложение  💡-->
+        <Menu Name="Offer input text 💡" 
+        MenuType="StaticListButtonsCallbackQuery" 
+        MenuCode="offer_report_start" 
+        Navigation="StartMenu_regularUser/offer_report_start" 
+        Content="🤖: Опишите ваше предложение 💡 ниже ⌨️" 
+        IsAwaytingText="True" 
+        NeedToDelite="True">
+
+            <Input Name="⬅️ Назад" NextMenuNameCode="offer_report_start_stop" InputType="CallbackQueryBack"></Input>
+            <Input Name="Получение текста" NextMenuNameCode="offer_confirmation" InputType="AwaytText"></Input>
+        </Menu>
+
+        <Menu Name="Offer input text 💡" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="offer_report_start_stop" 
+            Navigation="StartMenu_regularUser/offer_report_start/offer_report_start_stop" 
+            Content="🤖: Ты уверен, что хотите остановить заполнение заявки на предложение? Все внесённые данные будут потеряны." 
+            IsAwaytingText="True" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Продолжить" NextMenuNameCode="StartMenu_regularUser" InputType="CallbackQuery"></Input>
+            <Input Name="🗑 Забвть" NextMenuNameCode="offer_delite" InputType="CallbackQuery"></Input>
+        </Menu>
+
+
+
+
+        <Menu Name="Offer confirmation 💡" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="offer_confirmation" 
+            Navigation="StartMenu_regularUser/offer_report_start/offer_confirmation" 
+            Content="🤖: Вот текст предложения, которое ты ввёл:{n}{code}{text}{ecode}" 
+            IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="offer_report_start" InputType="CallbackQuery"></Input>
+            <Input Name="🏞 Добаваить фото" NextMenuNameCode="offer_report_input_photo" InputType="CallbackQuery"></Input>
+            <Input Name="🗑 Забыть" NextMenuNameCode="offer_delite" InputType="CallbackQuery"></Input>
+            <Input Name="📥 Отправить" NextMenuNameCode="offer_save" InputType="CallbackQuery"></Input>
+            
+        </Menu>
+
+
+        <Menu Name="Offer input photo 💡" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="offer_report_input_photo" 
+            Navigation="StartMenu_regularUser/offer_report_start/offer_confirmation/offer_report_input_photo" 
+            Content="🤖: Загрузи фото 🏞" 
+            IsAwaytingText="True" 
+            NeedToDelite="True">
+
+            <Input Name="⬅️ Назад" NextMenuNameCode="offer_confirmation" InputType="CallbackQueryBack"></Input>
+            <Input Name="Получение текста" NextMenuNameCode="offer_report_input_photo" InputType="AwaytText"></Input>
+        </Menu>
+
+
+
+      
+        <Menu Name="Offer confirmation 💡" 
+            MenuType="Message" 
+            MenuCode="offer_save" 
+            Navigation="StartMenu_regularUser/offer_report_start/offer_confirmation/offer_save" 
+            Content="🤖: Я зарегистрировал новое обращение и отправил завку исполнителю." 
+            IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="StartMenu_regularUser" InputType="DoSmth"></Input>
+
+            
+        </Menu>
+        
+        <Menu Name="Offer delite 💡" 
+            MenuType="Message" 
+            MenuCode="offer_delite" 
+            Navigation="StartMenu_regularUser/offer_report_start/offer_confirmation/offer_delite" 
+            Content="🤖: Я все забыл." 
+            IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="StartMenu_regularUser" InputType="DoSmth"></Input>
+
+            
+        </Menu>
+     
+
+
+    <!--End Предложение  💡-->
+
+
+
+</MenuProces>
+
+
+
+
+
 <!-- Вэйк-->   
-  <MenuProces Name="Процесс пользователя" UserType="regularUser">
+
+<MenuProces Name="Процесс пользователя" UserType="UNregularUser1">
 
     <!-- Стартовое меню  MenuCode="StartMenu_user" -->   
-        
+     
     <Menu 
         Name="Admin start menu" 
         MenuType="StaticListButtonsCallbackQuery" 
@@ -321,8 +438,10 @@
 
 
 </MenuProces>
+               
 
-  <!--     -->                 
+
+
 
 <MenuProces Name="Процесс пользователя" UserType="UNregularUser">
 
