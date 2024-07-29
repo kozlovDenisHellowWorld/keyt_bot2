@@ -270,9 +270,9 @@ namespace Telebot.Sourse.Handlers
                 foreach (var reqst in allReqsts)
                 {
                     string type = "";
-                    if (reqst.reqstTupe.Contains("Предложение")) type = "💡";
-                    else if (reqst.reqstTupe.Contains("Задать вопрос")) type = "❓";
-                    else if (reqst.reqstTupe.Contains("Ошибка в материалах")) type = "🖍";
+                    if (reqst.reqstType.Contains("Предложение")) type = "💡";
+                    else if (reqst.reqstType.Contains("Задать вопрос")) type = "❓";
+                    else if (reqst.reqstType.Contains("Ошибка в материалах")) type = "🖍";
 
                     string newornot = "";
                     if (reqst.isNew==true) newornot = "🆕";
@@ -360,7 +360,7 @@ namespace Telebot.Sourse.Handlers
                 string statusReq = "✅ Отработана";
                 if (reqst.isDone == false|| reqst.isDone==null) statusReq = "⚠️ не отработана";
 
-                string menuCont = $"📃 <b>Запрос:</b> \n🆔: {reqst.MyId}\nДата создания: {reqst.dateTimeCreation}\nТип запроса: {reqst.reqstTupe}\n\n<b>Текст запроса:</b>\n<i>{reqst.reqstContent}</i>\n\n🗣 <b>Автор</b>\nUser name: {"@"+reqst.user.Username ?? ""}" +
+                string menuCont = $"📃 <b>Запрос:</b> \n🆔: {reqst.MyId}\nДата создания: {reqst.dateTimeCreation}\nТип запроса: {reqst.reqstType}\n\n<b>Текст запроса:</b>\n<i>{reqst.reqstContent}</i>\n\n🗣 <b>Автор</b>\nUser name: {"@"+reqst.user.Username ?? ""}" +
                     $"\nLast name: {reqst.user.LastName ?? ""}\nFirst name: {reqst.user.FirstName ?? ""}" +
                     $"\nUser type: {reqst.user.UserType.ToString()}\n\nСтатус заявки: {statusReq}";
 
@@ -948,7 +948,7 @@ namespace Telebot.Sourse.Handlers
                     {
 
                         worksheet.Cells[line, 1].Value = item?.dateTimeCreation.Value.ToString("d");
-                        worksheet.Cells[line, 2].Value = item?.reqstTupe;
+                        worksheet.Cells[line, 2].Value = item?.reqstType;
                         worksheet.Cells[line, 3].Value = item?.user?.FirstName ?? "-";
                         worksheet.Cells[line, 4].Value = item?.user?.LastName ?? "-";
                         worksheet.Cells[line, 5].Value = "@" + item?.user?.Username ?? "-";

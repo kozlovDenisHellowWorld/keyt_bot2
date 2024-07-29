@@ -149,11 +149,11 @@ namespace Telebot.Sourse.Handlers
                             item.isNewForUser = false;
                         }
                         Message message1 = null;
-                        if (newReqForUser.Last().reqstTupe.Contains("Предложение")) message1 =  await new TeleTools().SendStaticMSG(myChat, client, cancellationToken, $"🤖: Спасибо за ваше предложение. Мы обязательно рассмотрим его и сообщим вам о результатах. Если у вас есть еще какие-то идеи или пожелания, не стесняйтесь сообщать нам. Мы всегда рады обратной связи от наших пользователей. HR отдел InfoTeCS.", null);
-                        if (newReqForUser.Last().reqstTupe.Contains("Задать вопрос")) message1 =  await new TeleTools().SendStaticMSG(myChat, client, cancellationToken, $"🤖: Спасибо за ваш вопрос. Чем я могу вам ещё помочь? Если у вас есть какие-то дополнительные вопросы или проблемы, не стесняйтесь обращаться к нам. Мы всегда готовы помочь нашим сотрудникам. HR отдел InfoTeCS.", null);
-                        if (newReqForUser.Last().reqstTupe.Contains("Ошибка в материалах")) message1 =  await new TeleTools().SendStaticMSG(myChat, client, cancellationToken, $"🤖: Благодарим вас за обращение. Мы очень ценим вашу обратную связь и будем рады исправить ошибки в наших материалах. Спасибо за вашу помощь в улучшении нашего сервиса! HR отдел InfoTeCS.", null);
+                        if (newReqForUser.Last().reqstType.Contains("Предложение")) message1 =  await new TeleTools().SendStaticMSG(myChat, client, cancellationToken, $"🤖: Спасибо за ваше предложение. Мы обязательно рассмотрим его и сообщим вам о результатах. Если у вас есть еще какие-то идеи или пожелания, не стесняйтесь сообщать нам. Мы всегда рады обратной связи от наших пользователей. HR отдел InfoTeCS.", null);
+                        if (newReqForUser.Last().reqstType.Contains("Задать вопрос")) message1 =  await new TeleTools().SendStaticMSG(myChat, client, cancellationToken, $"🤖: Спасибо за ваш вопрос. Чем я могу вам ещё помочь? Если у вас есть какие-то дополнительные вопросы или проблемы, не стесняйтесь обращаться к нам. Мы всегда готовы помочь нашим сотрудникам. HR отдел InfoTeCS.", null);
+                        if (newReqForUser.Last().reqstType.Contains("Ошибка в материалах")) message1 =  await new TeleTools().SendStaticMSG(myChat, client, cancellationToken, $"🤖: Благодарим вас за обращение. Мы очень ценим вашу обратную связь и будем рады исправить ошибки в наших материалах. Спасибо за вашу помощь в улучшении нашего сервиса! HR отдел InfoTeCS.", null);
                         
-                        Message message2 =  await new TeleTools().SendStaticMSG(myChat, client, cancellationToken, $"🤖: Вот данные по запросу.\n🆔: <b>{newReqForUser.Last().MyId}</b>\nТип: <b>{newReqForUser.Last().reqstTupe}</b>", null);
+                        Message message2 =  await new TeleTools().SendStaticMSG(myChat, client, cancellationToken, $"🤖: Вот данные по запросу.\n🆔: <b>{newReqForUser.Last().MyId}</b>\nТип: <b>{newReqForUser.Last().reqstType}</b>", null);
 
 
                         var privMsg1 = PriviosMSG.createMessage(myChat.BotClientId, true, message1, update);
@@ -454,7 +454,7 @@ namespace Telebot.Sourse.Handlers
 
                 string curetnProcessCode = setCodeMenu(processCodeAdmin.request1_get) + reqest.SetUserIncallBack();
 
-                reqest.reqstTupe = " Предложение";
+                reqest.reqstType = " Предложение";
                 reqest.reqstContent = update?.Message?.Text;
                 db.Requst.Update(reqest);
                 db.SaveChanges();
@@ -816,7 +816,7 @@ namespace Telebot.Sourse.Handlers
 
                 string curetnProcessCode = setCodeMenu(processCodeAdmin.request2_get) + reqest.SetUserIncallBack();
 
-                reqest.reqstTupe = "Задать вопрос";
+                reqest.reqstType = "Задать вопрос";
                 reqest.reqstContent = update?.Message?.Text;
                 db.Requst.Update(reqest);
                 db.SaveChanges();
@@ -1176,7 +1176,7 @@ namespace Telebot.Sourse.Handlers
 
                 string curetnProcessCode = setCodeMenu(processCodeAdmin.request3_get) + reqest.SetUserIncallBack();
 
-                reqest.reqstTupe = "Ошибка в материалах";
+                reqest.reqstType = "Ошибка в материалах";
                 if (update?.Message?.Text != null&&update?.Message?.Text != "")
                 {
                     reqest.reqstContent = update?.Message?.Text;

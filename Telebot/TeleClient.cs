@@ -612,6 +612,7 @@ namespace Telebot
         private async Task myUpdate(ITelegramBotClient iClient, Update update, CancellationToken cancellationToken)
         {
 
+            await Task.Delay(100);
             bool isUpdateValide = new TeleTools().checkUpdadate(iClient, update, cancellationToken);
 
             if (isUpdateValide == false) return;

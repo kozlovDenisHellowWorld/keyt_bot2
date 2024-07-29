@@ -254,9 +254,13 @@ namespace Telebot.Sourse
         }
 
 
-
+        /// <summary>
+        /// Конструктор для БД context
+        /// </summary>
         public context()
         {
+            
+
             // Database.EnsureDeleted();
             Database.EnsureCreated();
 

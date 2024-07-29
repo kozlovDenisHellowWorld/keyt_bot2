@@ -36,7 +36,7 @@
         <Type Name="👨🏻‍💼Авторизованный пользователь" CodeType="user" Description="Пользователи с этим типом могут оставлять обращения"  />
         <Type Name="🥷🏼Неавторизованный пользователь" CodeType="regularUser" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
         <Type Name="НЕИЗВЕСТНЫЙ  пользователь" CodeType="UNregularUser" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
-        <Type Name="НЕИЗВЕСТНЫЙ  пользователь" CodeType="UNregularUser1" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
+        <Type Name="НЕИЗВЕСТНЫЙ  пользователь 1" CodeType="UNregularUser1" Description="Пользователи с этим типом могут оставлять обращения" isDefoult="True"/>
     </UserType>
 
 
@@ -99,12 +99,12 @@
             MenuType="StaticListButtonsCallbackQuery" 
             MenuCode="offer_report_start_stop" 
             Navigation="StartMenu_regularUser/offer_report_start/offer_report_start_stop" 
-            Content="🤖: Ты уверен, что хотите остановить заполнение заявки на предложение? Все внесённые данные будут потеряны." 
-            IsAwaytingText="True" 
+            Content="🤖: Ты уверен, что хотите остановить заполнение заявки? Все внесённые данные будут потеряны." 
+            IsAwaytingText="False" 
             NeedToDelite="True">
 
-            <Input Name="📝 Продолжить" NextMenuNameCode="StartMenu_regularUser" InputType="CallbackQuery"></Input>
-            <Input Name="🗑 Забвть" NextMenuNameCode="offer_delite" InputType="CallbackQuery"></Input>
+            <Input Name="📝 Продолжить" NextMenuNameCode="offer_report_start" InputType="CallbackQuery"></Input>
+            <Input Name="🗑 Забыть" NextMenuNameCode="offer_delite" InputType="CallbackQuery"></Input>
         </Menu>
 
 
@@ -114,7 +114,7 @@
             MenuType="StaticListButtonsCallbackQuery" 
             MenuCode="offer_confirmation" 
             Navigation="StartMenu_regularUser/offer_report_start/offer_confirmation" 
-            Content="🤖: Вот текст предложения, которое ты ввёл:{n}{code}{text}{ecode}" 
+            Content="🤖: Вот текст предложения, которое ты ввёл:{n}{pre}{text} {epre}{n}{n}{b}Отправить?{eb}" 
             IsAwaytingText="False" 
             NeedToDelite="True">
 
@@ -145,9 +145,9 @@
             MenuType="Message" 
             MenuCode="offer_save" 
             Navigation="StartMenu_regularUser/offer_report_start/offer_confirmation/offer_save" 
-            Content="🤖: Я зарегистрировал новое обращение и отправил завку исполнителю." 
+            Content="🤖: Я зарегистрировал новое обращение и отправил завку исполнителю.{n}{pre}Номер обращения: {IdReq} {epre}{n}{pre}Тип обращения: {TypeReq} {epre}{n}{n}#Новое_обращени" 
             IsAwaytingText="False" 
-            NeedToDelite="True">
+            NeedToDelite="False">
 
             <Input Name="📝 Изменить" NextMenuNameCode="StartMenu_regularUser" InputType="DoSmth"></Input>
 
@@ -171,7 +171,181 @@
 
     <!--End Предложение  💡-->
 
+    <!-- Вопрос  ❓-->
+        <Menu Name="Question input text ❓" 
+        MenuType="StaticListButtonsCallbackQuery" 
+        MenuCode="question_report_start" 
+        Navigation="StartMenu_regularUser/question_report_start" 
+        Content="🤖: Опишите ваше предложение ❓ ниже ⌨️" 
+        IsAwaytingText="True" 
+        NeedToDelite="True">
 
+            <Input Name="⬅️ Назад" NextMenuNameCode="question_report_start_stop" InputType="CallbackQueryBack"></Input>
+            <Input Name="Получение текста" NextMenuNameCode="question_confirmation" InputType="AwaytText"></Input>
+        </Menu>
+
+        <Menu Name="uestion input text ❓" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="question_report_start_stop" 
+            Navigation="StartMenu_regularUser/question_report_start/question_report_start_stop" 
+            Content="🤖: Ты уверен, что хотите остановить заполнение заявки на предложение? Все внесённые данные будут потеряны." 
+            IsAwaytingText="True" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Продолжить" NextMenuNameCode="StartMenu_regularUser" InputType="CallbackQuery"></Input>
+            <Input Name="🗑 Забыть" NextMenuNameCode="question_delite" InputType="CallbackQuery"></Input>
+        </Menu>
+
+
+
+
+        <Menu Name="question confirmation ❓" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="question_confirmation" 
+            Navigation="StartMenu_regularUser/question_report_start/question_confirmation" 
+            Content="🤖: Вот текст предложения, которое ты ввёл:{n}{code}{text}{ecode}" 
+            IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="question_report_start" InputType="CallbackQuery"></Input>
+            <Input Name="🏞 Добаваить фото" NextMenuNameCode="question_report_input_photo" InputType="CallbackQuery"></Input>
+            <Input Name="🗑 Забыть" NextMenuNameCode="question_delite" InputType="CallbackQuery"></Input>
+            <Input Name="📥 Отправить" NextMenuNameCode="question_save" InputType="CallbackQuery"></Input>
+            
+        </Menu>
+
+
+        <Menu Name="question input photo ❓" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="question_report_input_photo" 
+            Navigation="StartMenu_regularUser/question_report_start/question_confirmation/question_report_input_photo" 
+            Content="🤖: Загрузи фото 🏞" 
+            IsAwaytingText="True" 
+            NeedToDelite="True">
+
+            <Input Name="⬅️ Назад" NextMenuNameCode="question_confirmation" InputType="CallbackQueryBack"></Input>
+            <Input Name="Получение текста" NextMenuNameCode="question_report_input_photo" InputType="AwaytText"></Input>
+        </Menu>
+
+
+
+      
+        <Menu Name="question confirmation ❓" 
+            MenuType="Message" 
+            MenuCode="question_save" 
+            Navigation="StartMenu_regularUser/question_report_start/question_confirmation/question_save" 
+            Content="🤖: Я зарегистрировал новое обращение и отправил завку исполнителю.{n}{pre}Номер обращения: {IdReq} {epre}{n}{pre}Тип обращения: {TypeReq} {epre}{n}{n}#Новое_обращени"             IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="StartMenu_regularUser" InputType="DoSmth"></Input>
+
+            
+        </Menu>
+        
+        <Menu Name="question delite ❓" 
+            MenuType="Message" 
+            MenuCode="question_delite" 
+            Navigation="StartMenu_regularUser/question_report_start/question_confirmation/question_delite" 
+            Content="🤖: Я все забыл." 
+            IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="StartMenu_regularUser" InputType="DoSmth"></Input>
+
+            
+        </Menu>
+     
+
+
+    <!--End Вопрос  ❓-->
+
+
+    <!--🖍 Нашли ошибку в материалах-->
+        <Menu Name="error input text 🖍" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="error_report_start" 
+            Navigation="StartMenu_regularUser/error_report_start" 
+            Content="🤖: Опиши ошибку и где вы ее нашли  🖍 ниже ⌨️" 
+            IsAwaytingText="True" 
+            NeedToDelite="True">
+
+            <Input Name="⬅️ Назад" NextMenuNameCode="error_report_start_stop" InputType="CallbackQueryBack"></Input>
+            <Input Name="Получение текста" NextMenuNameCode="error_confirmation" InputType="AwaytText"></Input>
+        </Menu>
+
+        <Menu Name="uestion input text 🖍" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="error_report_start_stop" 
+            Navigation="StartMenu_regularUser/error_report_start/error_report_start_stop" 
+            Content="🤖: Ты уверен, что хочешь остановить заполнение ? Все внесённые данные будут потеряны." 
+            IsAwaytingText="True" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Продолжить" NextMenuNameCode="StartMenu_regularUser" InputType="CallbackQuery"></Input>
+            <Input Name="🗑 Забыть" NextMenuNameCode="error_delite" InputType="CallbackQuery"></Input>
+        </Menu>
+
+
+
+
+        <Menu Name="error confirmation 🖍" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="error_confirmation" 
+            Navigation="StartMenu_regularUser/error_report_start/error_confirmation" 
+            Content="🤖: Вот текст заччвк:{n}{code}{text}{ecode}.{n}Забыть заявку?" 
+            IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="error_report_start" InputType="CallbackQuery"></Input>
+            <Input Name="🏞 Добаваить фото" NextMenuNameCode="error_report_input_photo" InputType="CallbackQuery"></Input>
+            <Input Name="🗑 Забыть" NextMenuNameCode="error_delite" InputType="CallbackQuery"></Input>
+            <Input Name="📥 Отправить" NextMenuNameCode="error_save" InputType="CallbackQuery"></Input>
+            
+        </Menu>
+
+
+        <Menu Name="error input photo 🖍" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="error_report_input_photo" 
+            Navigation="StartMenu_regularUser/error_report_start/error_confirmation/error_report_input_photo" 
+            Content="🤖: Загрузи фото 🏞" 
+            IsAwaytingText="True" 
+            NeedToDelite="True">
+
+            <Input Name="⬅️ Назад" NextMenuNameCode="error_confirmation" InputType="CallbackQueryBack"></Input>
+            <Input Name="Получение текста" NextMenuNameCode="error_report_input_photo" InputType="AwaytText"></Input>
+        </Menu>
+
+
+
+      
+        <Menu Name="error confirmation 🖍" 
+            MenuType="Message" 
+            MenuCode="error_save" 
+            Navigation="StartMenu_regularUser/error_report_start/error_confirmation/error_save" 
+            Content="🤖: Я зарегистрировал новое обращение и отправил завку исполнителю." 
+            IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="StartMenu_regularUser" InputType="DoSmth"></Input>
+
+            
+        </Menu>
+        
+        <Menu Name="error delite 🖍" 
+            MenuType="Message" 
+            MenuCode="error_delite" 
+            Navigation="StartMenu_regularUser/error_report_start/error_confirmation/error_delite" 
+            Content="🤖: Я все забыл." 
+            IsAwaytingText="False" 
+            NeedToDelite="True">
+
+            <Input Name="📝 Изменить" NextMenuNameCode="StartMenu_regularUser" InputType="DoSmth"></Input>
+
+            
+        </Menu>
+
+    <!--End 🖍 Нашли ошибку в материалах-->
 
 </MenuProces>
 

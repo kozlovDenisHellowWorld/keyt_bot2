@@ -19,7 +19,7 @@ namespace Telebot.Sourse.Item
         public bool? IsDelite { get; set; }
 
 
-        public string? reqstTupe { get; set; }
+        public string? reqstType { get; set; }
         public string? reqstContent { get; set; }
 
         public bool? isCreated { get; set; }
@@ -68,7 +68,26 @@ namespace Telebot.Sourse.Item
         }
 
 
+        public static requst newRequst(string Type, long? botClientId)
+        {
+            var result = new requst() {
+                BotClientId = botClientId,
+                dateTimeCreation = DateTime.Now,
+                isCreated = false,
+                IsDelite = false,
+                isDone = false,
+                isNew = true,
+                reqstType= Type,
+                 isNewForUser= true,
+            }; 
 
+
+
+
+
+
+            return result;
+        }
 
 
 

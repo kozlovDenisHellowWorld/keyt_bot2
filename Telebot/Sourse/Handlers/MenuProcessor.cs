@@ -14,7 +14,7 @@ namespace Telebot.Sourse.Handlers
     public class MenuProcessor
     {
 
-
+        #region Dawinchi
 
         [MenuHandler("StartMenu_OnLoad")]
         public async Task Handle_StartMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
@@ -1049,6 +1049,386 @@ namespace Telebot.Sourse.Handlers
 
 
         }
+
+        #endregion
+
+        #region  Катя
+        [MenuHandler("StartMenu_regularUser_OnLoad")]
+        public async Task Handle_StartMenu_regularUser_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            
+        }
+
+        #region  Предложение
+        [MenuHandler("offer_report_start_OnLoad")]
+        public async Task Handle_offer_report_start_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+
+
+            if (curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "💡 Предложение") == null)
+            {
+                var newReqwest = requst.newRequst("💡 Предложение", client.BotId);
+                curentChat.Requsts.Add(newReqwest);
+                db.SaveChanges();
+            }
+            
+            
+        }
+
+        [MenuHandler("offer_report_start_OnEnd")]
+        public async Task Handle_offer_report_start_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            if (update.Type == UpdateType.Message)
+            {
+                var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false);
+                if (curentReq != null)
+                {
+                    curentReq.reqstContent = update.Message?.Text;
+                    db.SaveChanges();
+                    return;
+                }
+                else
+                {
+                    concoldebuger.badMSG("Method exeeption : offer_report_startStartMenu_regularUse_OnEnd -  curentReq is null | ");
+                }
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : offer_report_startStartMenu_regularUse_OnEnd -  is not UpdateType.Message ");
+            }
+        }
+
+
+        [MenuHandler("offer_confirmation_OnLoad")]
+        public async Task Handle_offer_confirmation_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "💡 Предложение");
+            if (curentReq != null)
+            {
+                string text = curentReq.reqstContent;
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent;
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{text}", text);
+            }
+            else
+            {
+                curentChat.CurentTexrMessage = "Что то пошло не так начни заного";
+                concoldebuger.badMSG("Method exeeption : offer_confirmation_OnLoad  -  curentReq is null | ");
+            }
+        }
+
+        [MenuHandler("offer_report_input_photot_OnEnd")]
+        public async Task Handle_offer_report_input_photot_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "💡 Предложение");
+            if (curentReq != null)
+            {
+                var photo = myPhoto.createPhot(update.Message.Photo.LastOrDefault()) ;
+                curentReq.Photoes.Add(photo);
+
+            }
+            else
+            {
+              
+            }
+
+        }
+
+        [MenuHandler("offer_delite_OnLoad")]
+        public async Task Handle_offer_delite_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "💡 Предложение");
+            if (curentReq != null)
+            {
+                curentChat.Requsts.Remove(curentReq);
+                db.Requst.Remove(curentReq);
+                db.SaveChanges();
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : ofer_delite_OnLoad -  curentReq is null | ");
+            }
+        }
+
+
+        [MenuHandler("offer_save_OnLoad")]
+        public async Task Handle_offer_save_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "💡 Предложение");
+            if (curentReq != null)
+            {
+               curentReq.isCreated=true;
+                curentReq.user = curentChat.AllChatUsers.FirstOrDefault();
+
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent.Replace("{IdReq}", curentReq.MyId.ToString());
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{TypeReq}", curentReq.reqstType);
+                db.SaveChanges();
+
+                
+
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : offer_save_OnLoad -  curentReq is null");
+            }
+        }
+
+
+
+        #endregion
+
+
+        #region  Вопрос
+        [MenuHandler("question_report_start_OnLoad")]
+        public async Task Handle_question_report_start_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+
+
+            if (curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "❓ Задайте вопрос") == null)
+            {
+                var newReqwest = requst.newRequst("❓ Задайте вопрос", client.BotId);
+                curentChat.Requsts.Add(newReqwest);
+                db.SaveChanges();
+            }
+
+
+        }
+
+        [MenuHandler("question_report_start_OnEnd")]
+        public async Task Handle_question_report_start_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            if (update.Type == UpdateType.Message)
+            {
+                var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false);
+                if (curentReq != null)
+                {
+                    curentReq.reqstContent = update.Message?.Text;
+                    db.SaveChanges();
+                    return;
+                }
+                else
+                {
+                    concoldebuger.badMSG("Method exeeption : question_report_startStartMenu_regularUse_OnEnd -  curentReq is null | ");
+                }
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : question_report_startStartMenu_regularUse_OnEnd -  is not UpdateType.Message ");
+            }
+        }
+
+
+        [MenuHandler("question_confirmation_OnLoad")]
+        public async Task Handle_question_confirmation_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "❓ Задайте вопрос");
+            if (curentReq != null)
+            {
+                string text = curentReq.reqstContent;
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent;
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{text}", text);
+            }
+            else
+            {
+                curentChat.CurentTexrMessage = "Что то пошло не так начни заного";
+                concoldebuger.badMSG("Method exeeption : question_confirmation_OnLoad  -  curentReq is null | ");
+            }
+        }
+
+        [MenuHandler("question_report_input_photot_OnEnd")]
+        public async Task Handle_question_report_input_photot_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "❓ Задайте вопрос");
+            if (curentReq != null)
+            {
+                var photo = myPhoto.createPhot(update.Message.Photo.LastOrDefault());
+                curentReq.Photoes.Add(photo);
+
+            }
+            else
+            {
+
+            }
+
+        }
+
+        [MenuHandler("question_delite_OnLoad")]
+        public async Task Handle_question_delite_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "❓ Задайте вопрос");
+            if (curentReq != null)
+            {
+                curentChat.Requsts.Remove(curentReq);
+                db.Requst.Remove(curentReq);
+                db.SaveChanges();
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : ofer_delite_OnLoad -  curentReq is null | ");
+            }
+        }
+
+
+        [MenuHandler("question_save_OnLoad")]
+        public async Task Handle_question_save_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "❓ Задайте вопрос");
+            if (curentReq != null)
+            {
+                curentReq.isCreated = true;
+                curentReq.user = curentChat.AllChatUsers.FirstOrDefault();
+
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent.Replace("{IdReq}", curentReq.MyId.ToString());
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{TypeReq}", curentReq.reqstType);
+                db.SaveChanges();
+
+
+
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : question_save_OnLoad -  curentReq is null");
+            }
+        }
+
+
+
+        #endregion
+
+
+        #region  Ошибка
+        [MenuHandler("error_report_start_OnLoad")]
+        public async Task Handle_error_report_start_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+
+
+            if (curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "🖍 Ошибка в материалах") == null)
+            {
+                var newReqwest = requst.newRequst("🖍 Ошибка в материалах", client.BotId);
+                curentChat.Requsts.Add(newReqwest);
+                db.SaveChanges();
+            }
+
+
+        }
+
+        [MenuHandler("error_report_start_OnEnd")]
+        public async Task Handle_error_report_start_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            if (update.Type == UpdateType.Message)
+            {
+                var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false);
+                if (curentReq != null)
+                {
+                    curentReq.reqstContent = update.Message?.Text;
+                    db.SaveChanges();
+                    return;
+                }
+                else
+                {
+                    concoldebuger.badMSG("Method exeeption : error_report_startStartMenu_regularUse_OnEnd -  curentReq is null | ");
+                }
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : error_report_startStartMenu_regularUse_OnEnd -  is not UpdateType.Message ");
+            }
+        }
+
+
+        [MenuHandler("error_confirmation_OnLoad")]
+        public async Task Handle_error_confirmation_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "🖍 Ошибка в материалах");
+            if (curentReq != null)
+            {
+                string text = curentReq.reqstContent;
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent;
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{text}", text);
+            }
+            else
+            {
+                curentChat.CurentTexrMessage = "Что то пошло не так начни заного";
+                concoldebuger.badMSG("Method exeeption : error_confirmation_OnLoad  -  curentReq is null | ");
+            }
+        }
+
+        [MenuHandler("error_report_input_photot_OnEnd")]
+        public async Task Handle_error_report_input_photot_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "🖍 Ошибка в материалах");
+            if (curentReq != null)
+            {
+                var photo = myPhoto.createPhot(update.Message.Photo.LastOrDefault());
+                curentReq.Photoes.Add(photo);
+
+            }
+            else
+            {
+
+            }
+
+        }
+
+        [MenuHandler("error_delite_OnLoad")]
+        public async Task Handle_error_delite_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "🖍 Ошибка в материалах");
+            if (curentReq != null)
+            {
+                curentChat.Requsts.Remove(curentReq);
+                db.Requst.Remove(curentReq);
+                db.SaveChanges();
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : ofer_delite_OnLoad -  curentReq is null | ");
+            }
+        }
+
+
+        [MenuHandler("error_save_OnLoad")]
+        public async Task Handle_error_save_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var curentReq = curentChat.Requsts.FirstOrDefault(r => r.isCreated == false && r.reqstType == "🖍 Ошибка в материалах");
+            if (curentReq != null)
+            {
+                curentReq.isCreated = true;
+                curentReq.user = curentChat.AllChatUsers.FirstOrDefault();
+
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent.Replace("{IdReq}", curentReq.MyId.ToString());
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{TypeReq}", curentReq.reqstType);
+                db.SaveChanges();
+
+
+
+            }
+            else
+            {
+                concoldebuger.badMSG("Method exeeption : error_save_OnLoad -  curentReq is null");
+            }
+        }
+
+
+
+        #endregion
+
+
+        #region Мои заявки
+
+
+
+        #endregion
+
+
+        #endregion
+
+
+
+
+
 
     }
 }

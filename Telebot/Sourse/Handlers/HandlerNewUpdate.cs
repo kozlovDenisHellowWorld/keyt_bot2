@@ -299,6 +299,10 @@ namespace Telebot.Sourse.Handlers
                     db.myChats.Update(thisChat);
                     db.SaveChanges();
                 }
+                else if (thisChat.CurentProcess.ProcessType.Code != "DinamickListButtonsCallbackQuery" && thisChat.CurentProcess.IsAwaytingText == false)
+                {
+                    return "пришла строчка котору не надо обрабатывать ";
+                }
                 else if (thisChat.CurentProcess.ProcessType.Code == "DinamickListButtonsCallbackQuery")
                 {
                     nextProcess = thisChat.CurentProcess;
