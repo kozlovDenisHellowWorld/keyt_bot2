@@ -1417,7 +1417,55 @@ namespace Telebot.Sourse.Handlers
 
 
         #region Мои заявки
+        [MenuHandler("list_report_OnLoad")]
+        public async Task Handle_list_report_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
 
+            var reqs = curentChat.Requsts.Where(r => r.isDone == false).ToList();
+
+            var button = curentChat.CurentProcess.Inputs.FirstOrDefault(i => i.MyName == "Id:{IdReq} - {Type}");
+
+            foreach (var item in reqs)
+            {
+
+                string text_btn = button.MyName;
+                text_btn = text_btn.Replace("{IdReq}", item.MyId.ToString());
+                if (item.reqstType== "💡 Предложение")   text_btn = text_btn.Replace("{Type}", "💡");
+                if (item.reqstType == "❓ Задайте вопрое") text_btn = text_btn.Replace("{Type}", "❓");
+                if (item.reqstType == "🖍 Ошибка в материалах") text_btn = text_btn.Replace("{Type}", "🖍 ");
+                curentChat.DinamicButons.Add(new Dinamic_Butons() { 
+                    Content= text_btn,
+                    CallbackQwery=(button.NextProcessMenu.GetEntityTypeId()+item.GetEntityTypeId())});
+
+            }
+            db.SaveChanges();
+
+
+        }
+
+
+        [MenuHandler("report_info_OnLoad")]
+        public async Task Handle_report_info_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            if (update.Type == UpdateType.CallbackQuery)
+            {
+                int iReq = requst.GetUserIdFromCode(update.CallbackQuery.Data);
+
+                var req = curentChat.Requsts.FirstOrDefault(r => r.MyId == iReq);
+
+
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent;
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{IdReq}", req.MyId.ToString());
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{TypeReq}", req.reqstType);
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{text}", req.reqstContent);
+                db.SaveChanges();
+
+
+            }
+
+
+
+        }
 
 
         #endregion

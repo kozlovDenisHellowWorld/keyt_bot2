@@ -21,8 +21,8 @@
     DebugToken="6240171220:AAHfx5pWo1auNgBvbPENlGiVDn7b7bJZctI"
     
    
-    ReliseDBName="NewStartBD"
-    ReliseToken="6240171220:AAHfx5pWo1auNgBvbPENlGiVDn7b7bJZctI"
+    ReliseDBName="Hr_req_db"
+    ReliseToken="6240171220:AAEnB2-u_c9xYAzEurAptDlVLlxRBxjyKYM"
    
    
 
@@ -78,7 +78,7 @@
         <Input Name="💡 Предложение" NextMenuNameCode="offer_report_start" InputType="CallbackQuery"></Input>
         <Input Name="❓ Задайте вопрос" NextMenuNameCode="question_report_start" InputType="CallbackQuery"></Input>
         <Input Name="🖍 Нашли ошибку в материалах" NextMenuNameCode="error_report_start" InputType="CallbackQuery"></Input>
-
+        <Input Name="🗄 Список активных заявок" NextMenuNameCode="list_report" InputType="CallbackQuery"></Input>
     </Menu>
 
 
@@ -203,7 +203,7 @@
             MenuType="StaticListButtonsCallbackQuery" 
             MenuCode="question_confirmation" 
             Navigation="StartMenu_regularUser/question_report_start/question_confirmation" 
-            Content="🤖: Вот текст предложения, которое ты ввёл:{n}{code}{text}{ecode}" 
+            Content="🤖: Вот текст предложения, которое ты ввёл:{n}{pre}{text} {epre}{n}{n}{b}Отправить?{eb}" 
             IsAwaytingText="False" 
             NeedToDelite="True">
 
@@ -287,12 +287,11 @@
 
 
 
-
         <Menu Name="error confirmation 🖍" 
             MenuType="StaticListButtonsCallbackQuery" 
             MenuCode="error_confirmation" 
             Navigation="StartMenu_regularUser/error_report_start/error_confirmation" 
-            Content="🤖: Вот текст заччвк:{n}{code}{text}{ecode}.{n}Забыть заявку?" 
+            Content="🤖: Вот текст предложения, которое ты ввёл:{n}{pre}{text} {epre}{n}{n}{b}Отправить?{eb}" 
             IsAwaytingText="False" 
             NeedToDelite="True">
 
@@ -323,7 +322,7 @@
             MenuType="Message" 
             MenuCode="error_save" 
             Navigation="StartMenu_regularUser/error_report_start/error_confirmation/error_save" 
-            Content="🤖: Я зарегистрировал новое обращение и отправил завку исполнителю." 
+            Content="🤖:  Я зарегистрировал новое обращение и отправил завку исполнителю.{n}{pre}Номер обращения: {IdReq} {epre}{n}{pre}Тип обращения: {TypeReq} {epre}{n}{n}#Новое_обращени" 
             IsAwaytingText="False" 
             NeedToDelite="True">
 
@@ -346,6 +345,40 @@
         </Menu>
 
     <!--End 🖍 Нашли ошибку в материалах-->
+
+    <!--Список активных заявок-->
+
+        <Menu 
+            Name="choose Date" 
+            MenuType="DinamickListButtonsCallbackQuery" 
+            MenuCode="list_report"
+            Navigation="StartMenu_regularUser/list_report"
+            Content="🤖: Вот твои активные заявки:" 
+            IsAwaytingText="False"
+            NeedToDelite="True">
+
+            <Input Name="⬅️ Назад" NextMenuNameCode="StartMenu_regularUser"  InputType="CallbackQueryBack"></Input>
+            <Input Name="Id:{IdReq} - {Type}" NextMenuNameCode="report_info"  InputType="CallbackQueryList"></Input>
+        </Menu>
+
+
+
+        <Menu Name="Report info" 
+            MenuType="StaticListButtonsCallbackQuery" 
+            MenuCode="report_info" 
+            Navigation="StartMenu_regularUser/offer_report_start" 
+            Content="🤖:Обращение{n}{b}Номер обращения:{eb} {pre}{IdReq} {epre}{n}{b}Тип обращения:{eb} {pre}{TypeReq} {epre}{n}{n}{b}Текст:{eb} {pre}{text} {epre}"            
+            IsAwaytingText="True" 
+            NeedToDelite="True">
+
+            <Input Name="⬅️ Назад" NextMenuNameCode="list_report" InputType="CallbackQueryBack"></Input>
+        </Menu>
+
+    <!--End Список активных заявок-->
+
+
+
+
 
 </MenuProces>
 
