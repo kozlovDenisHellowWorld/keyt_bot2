@@ -1056,9 +1056,32 @@ namespace Telebot.Sourse.Handlers
         [MenuHandler("StartMenu_regularUser_OnLoad")]
         public async Task Handle_StartMenu_regularUser_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
-            
+            using (var db1 = new context())
+            {
+                var botProps = db1.BotProperties.FirstOrDefault(b => b.BotClientId == client.BotId);
+                if (botProps.startPhoto != null)
+                {
+                    Message message = await client.SendPhotoAsync(curentChat.ChatId, photo: InputFile.FromFileId(botProps.startPhoto.FileId), caption: "Приветственное фото", parseMode: ParseMode.Html, cancellationToken: ctl);
+
+                    curentChat.PriviosMSGs.Add(PriviosMSG.createMessage(botClientId: client.BotId, true, message, update));
+                    while (true)
+                    {
+                        try
+                        {
+                            db1.SaveChanges();
+                            break;
+                        }
+                        catch
+                        {
+                            concoldebuger.badMSG("Ошибка тут !! 2");
+                        }
+                    }
+                }
+            }
         }
 
+
+        #region regularUser
         #region  Предложение
         [MenuHandler("offer_report_start_OnLoad")]
         public async Task Handle_offer_report_start_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
@@ -1469,6 +1492,61 @@ namespace Telebot.Sourse.Handlers
 
 
         #endregion
+
+
+        #endregion
+
+
+
+        #region admin
+
+
+        #region Стартовое фото
+        [MenuHandler("get_start_photo_start_OnLoad")]
+        public async Task Handle_get_start_photo_start_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            using (var db1=new context())
+            {
+                var botProps = db1.BotProperties.FirstOrDefault(b => b.BotClientId == client.BotId);
+                if (botProps.startPhoto != null)
+                {
+                    Message message = await client.SendPhotoAsync(curentChat.ChatId, photo: InputFile.FromFileId(botProps.startPhoto.FileId), caption: "Приветственное фото", parseMode: ParseMode.Html, cancellationToken: ctl);
+
+                    curentChat.PriviosMSGs.Add(PriviosMSG.createMessage(botClientId: client.BotId, true, message, update));
+                    while (true)
+                    {
+                        try
+                        {
+                            db1.SaveChanges();
+                            break;
+                        }
+                        catch
+                        {
+                            concoldebuger.badMSG("Ошибка тут !! 2");
+                        }
+                    }
+                }
+            }
+            
+          
+        }
+        [MenuHandler("get_start_photo_start_OnEnd")]
+        public async Task Handle_get_start_photo_start_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            if (update.Type == UpdateType.Message)
+            {
+                var botProps = db.BotProperties.FirstOrDefault(b => b.BotClientId == client.BotId);
+                botProps.startPhoto = myPhoto.createPhot(update.Message.Photo.LastOrDefault());
+                
+                db.SaveChanges();
+            }
+        }
+        #endregion
+
+
+        #endregion
+
 
 
         #endregion

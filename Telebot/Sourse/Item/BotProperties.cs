@@ -28,6 +28,9 @@ namespace Telebot.Sourse.Item
         public bool? NeedToUpdate { get; set; }
 
 
+        public virtual int? startPhotoID { set; get; }
+        public virtual myPhoto? startPhoto { set; get; }
+
 
         /// <summary>
         /// Бот - B

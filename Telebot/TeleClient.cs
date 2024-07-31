@@ -37,7 +37,8 @@ namespace Telebot
 
 
         //string pathXML = @"E:\Den\kate_2bot\keyt_bot2\BeauteRoom\Inst.xml";
-        string pathXML = @"D:\kate_bot\keyt_bot2\BeauteRoom\Inst.xml";
+       // string pathXML = @"D:\kate_bot\keyt_bot2\BeauteRoom\Inst.xml";
+        string pathXML =( Directory.GetCurrentDirectory()+"\\Inst.xml");
 
 
         public TeleClient(string token)
@@ -236,7 +237,7 @@ namespace Telebot
                     {
                         debagDBname = elem.GetAttribute("DebagDBname") ?? string.Empty;
                         debugToken = elem.GetAttribute("DebugToken") ?? string.Empty;
-                        reliseToken = elem.GetAttribute("DebagDBname") ?? string.Empty;
+                        reliseToken = elem.GetAttribute("ReliseToken") ?? string.Empty;
                         reliseDBName = elem.GetAttribute("ReliseDBName") ?? string.Empty;
                         isDebugDiferent = bool.Parse(elem.GetAttribute("IsDebugDiferent") ?? "False");
                         NeedToUpdate = bool.Parse(elem.GetAttribute("NeedToUpdate") ?? "False");
@@ -248,13 +249,17 @@ namespace Telebot
                 {
                     Token = debugToken;
                     BDName = debagDBname;
+                    needToUpdate = NeedToUpdate;
+                    concoldebuger.sistemMSG("Режим работы Debug");
                 }
                 else
                 {
                     Token = reliseToken;
                     BDName = reliseDBName;
+                    needToUpdate = NeedToUpdate;
+                    concoldebuger.sistemMSG("Режим работы Relise");
                 }
-                
+
             }
             catch
             {
@@ -595,10 +600,10 @@ namespace Telebot
 
             Console.WriteLine($"-------{DateTime.Now}");
 
-
-
-
-
+            concoldebuger.badMSG(exception.Message);
+            concoldebuger.badMSG("     ");
+            concoldebuger.badMSG("     ");
+            concoldebuger.badMSG(exception.InnerException.Message);
             if (exception.InnerException is not null) concoldebuger.badMSG(exception.InnerException.ToString(), client, arg3);
             Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 

@@ -380,7 +380,7 @@ namespace Telebot.Sourse.Handlers
             await thisChat.CurentProcess.ExecuteOnLoad(update, iClient, thisChat, db, cancellationToken);
 
 
-
+            await Task.Delay(200);
             await new TeleTools().SendStaticMenu_forXMLLoad(thisChat, iClient, cancellationToken, update, db);
 
 

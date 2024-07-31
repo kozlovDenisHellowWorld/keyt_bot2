@@ -541,7 +541,18 @@ namespace Telebot.Sourse
                             _myChat.DinamicButons.Clear();
 
 
-                            db.SaveChanges();
+                            while (true)
+                            {
+                                try
+                                {
+                                    db.SaveChanges();
+                                    break;
+                                }
+                                catch
+                                {
+                                    concoldebuger.badMSG("Ошибка тут !! 1");
+                                }
+                            }
                         }
                         //   List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}") };
                         //  inlineKeyboardButtons.Add(lineBTN);
@@ -615,7 +626,23 @@ namespace Telebot.Sourse
                 Message sentMessage = await client.SendTextMessageAsync(chatId: _myChat.ChatId, text: FormateText(_myChat.CurentTexrMessage??_myChat.CurentProcess.MenuProcessContent), replyMarkup: inlineKeyboardMarkup, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: canslationToken);
                 msgResult.Add(sentMessage);
                 _myChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(_myChat.BotClientId, _myChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
-                db.SaveChanges();
+
+
+                bool issaved = false;
+                while (true)
+                {
+                    try
+                    {
+                        db.SaveChanges();
+                        break;
+                    }
+                    catch
+                    {
+                        concoldebuger.badMSG("Ошибка тут !! 1");
+                    }
+                }
+                
+                
 
             }
 

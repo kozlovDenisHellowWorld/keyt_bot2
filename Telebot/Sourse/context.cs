@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using OfficeOpenXml.FormulaParsing.LexicalAnalysis;
 using System;
 using System.Diagnostics;
+using System.Xml;
 using System.Xml.Linq;
 using Telebot.Sourse.Handlers;
 using Telebot.Sourse.Item;
 using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace Telebot.Sourse
 {
@@ -23,16 +26,59 @@ namespace Telebot.Sourse
         public  string databaseName { 
             get 
             {
-                if (IsloadXML == true) return DbName;
-                string databas = "Hr_req_db";
-                if (Debugger.IsAttached) databas = "NewStartBD";
-                return databas;
+                return GetXmlDBName(pathXML);
             }
         
         }
 
+        string pathXML = (Directory.GetCurrentDirectory() + "\\Inst.xml");
+
+        private string GetXmlDBName(string instansePath)
+        {
+            string filePath = "";
+
+            filePath = instansePath;
+
+            // Создаем новый XmlDocument
+            XmlDocument xmlDoc = new XmlDocument();
 
 
+            string debagDBname = "";
+            string reliseDBName = "";
+
+            try
+            {
+
+                // Загружаем XML-файл
+                xmlDoc.Load(filePath);
+
+                XmlNodeList nodes = xmlDoc.GetElementsByTagName("BotInst");
+                foreach (XmlNode node in nodes)
+                {
+                    if (node is XmlElement elem)
+                    {
+                        debagDBname = elem.GetAttribute("DebagDBname") ?? string.Empty;
+                        reliseDBName = elem.GetAttribute("ReliseDBName") ?? string.Empty;
+                    }
+                }
+
+                if (Debugger.IsAttached)
+                {
+                    return debagDBname;
+                }
+                else
+                {
+                  return reliseDBName;
+                }
+            }
+            catch
+            {
+                return $"defooultName{DateTime.Now.ToString("dd-MM-yy-HH-mm-ss")}";
+            }
+
+
+
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -103,15 +103,15 @@ namespace Telebot.Sourse.Item
                 object[] methodParameters = { update, client, curentChat,db,cancellationToken };
                 
                 
-                concoldebuger.badMSG("OnLoadHadler   2_____________________________________________________________________________1 --- OnLoadHadler");
+                concoldebuger.badMSG("OnLoadHadler   2 --- OnLoadHadler");
 
-                //await  Task.Run(() => OnLoadHadler.Invoke(menuProcessor, methodParameters) );
-                OnLoadHadler.Invoke(menuProcessor, methodParameters);
+                await  Task.Run(() => OnLoadHadler.Invoke(menuProcessor, methodParameters) );
+                //OnLoadHadler.Invoke(menuProcessor, methodParameters);
 
                // await Task.Run(() => OnLoadHadler.Invoke(menuProcessor, methodParameters));
 
                 //  await new Task(()=> OnLoadHadler.Invoke(menuProcessor, methodParameters)).WaitAsync(new TimeSpan(100000));
-                concoldebuger.badMSG("OnLoadHadler- end   9    await curentChat.CurentProcess.ExecuteOnEnd_____________________________________________________________________________ --- OnLoadHadler");
+                concoldebuger.badMSG("OnLoadHadler- end   9    await curentChat.CurentProcess.ExecuteOnEnd________ OnLoadHadler");
 
                 //Отчет об исполнении CONSOL
                 string textRezult = $"Execute On Load - Process navigation: {this.Navigation}|Discription: был выполнен успешно метод при старте нового меню|true";

@@ -114,7 +114,14 @@ namespace Telebot.Sourse.Handlers
             Console.ResetColor();
 
         }
+        public static async void sistemMSG(string msg)
+        {
+            //  await client.SendTextMessageAsync(adminId, ("Progra--" + msg), cancellationToken: cts);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"Progra--" + msg);
+            Console.ResetColor();
 
+        }
 
     }
 }
