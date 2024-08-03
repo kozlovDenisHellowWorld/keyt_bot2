@@ -7,7 +7,8 @@ using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 namespace Telebot
 {
 
@@ -44,7 +45,7 @@ namespace Telebot
         public TeleClient(string token)
         {
 
-
+          
 
             Token = token;
 
@@ -57,7 +58,18 @@ namespace Telebot
 
         }
 
+        public  void OnProcessExit(object sender, EventArgs e)
+        {
+           
+        }
 
+        public  void OnCancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            // Действия при нажатии Ctrl+C
+            Console.WriteLine("Обработка завершения...");
+            e.Cancel = true; // Отменить завершение, если нужно
+                             // Здесь можно выполнить необходимые действия
+        }
 
         public TeleClient()
         {
@@ -603,7 +615,7 @@ namespace Telebot
             concoldebuger.badMSG(exception.Message);
             concoldebuger.badMSG("     ");
             concoldebuger.badMSG("     ");
-            concoldebuger.badMSG(exception.InnerException.Message);
+            //concoldebuger.badMSG(exception.InnerException.Message);
             if (exception.InnerException is not null) concoldebuger.badMSG(exception.InnerException.ToString(), client, arg3);
             Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 

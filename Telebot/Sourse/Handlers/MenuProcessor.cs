@@ -1453,9 +1453,9 @@ namespace Telebot.Sourse.Handlers
 
                 string text_btn = button.MyName;
                 text_btn = text_btn.Replace("{IdReq}", item.MyId.ToString());
-                if (item.reqstType== "💡 Предложение")   text_btn = text_btn.Replace("{Type}", "💡");
-                if (item.reqstType == "❓ Задайте вопрое") text_btn = text_btn.Replace("{Type}", "❓");
-                if (item.reqstType == "🖍 Ошибка в материалах") text_btn = text_btn.Replace("{Type}", "🖍 ");
+                if (item.reqstType.Contains("💡"))   text_btn = text_btn.Replace("{Type}", "💡");
+                if (item.reqstType.Contains("❓")) text_btn = text_btn.Replace("{Type}", "❓");
+                if (item.reqstType.Contains("🖍")) text_btn = text_btn.Replace("{Type}", "🖍 ");
                 curentChat.DinamicButons.Add(new Dinamic_Butons() { 
                     Content= text_btn,
                     CallbackQwery=(button.NextProcessMenu.GetEntityTypeId()+item.GetEntityTypeId())});
@@ -1543,6 +1543,199 @@ namespace Telebot.Sourse.Handlers
             }
         }
         #endregion
+
+
+        #region список заявков
+
+        [MenuHandler("offer_menu_start_OnLoad")]
+        public async Task Handle_offer_menu_start_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            
+
+
+        }
+
+
+        [MenuHandler("offer_menu_list_new_offer_OnLoad")]
+        public async Task Handle_offer_menu_list_new_offer_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            var offers = db.Requst.Where(r => r.isNew == true).ToList();
+            var buttex = curentChat.CurentProcess.Inputs.FirstOrDefault(i=>i.MyName== "{date}|{user}");
+            foreach (var offer in offers)
+            {
+                string userName = offer.user.FirstName??offer.user.Username??offer.user.LastName??offer.user.Id.ToString();
+                string type = "💡";
+                if (offer.reqstType.Contains("❓")) type = "❓";
+                if (offer.reqstType.Contains("🖍")) type = "🖍";
+                string btnName = type +" | "+ offer.dateTimeCreation.Value.ToString("dd.MM")+" | "+ userName;
+
+                curentChat.DinamicButons.Add(new Dinamic_Butons() { Content=btnName,CallbackQwery= (buttex.NextProcessMenu.GetEntityTypeId()+offer.GetEntityTypeId())});
+
+            }
+            db.SaveChanges();
+
+        }
+
+        [MenuHandler("offer_menu_new_offer_info_OnLoad")]
+        public async Task Handle_offer_menu_new_offer_info_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            if (update.Type is UpdateType.CallbackQuery)
+            {
+                int reqId = requst.GetUserIdFromCode(update.CallbackQuery.Data);
+
+                if (reqId == 0) return;
+                var req =db.Requst.FirstOrDefault(r=>r.MyId==reqId);
+
+                if (req == null)
+                {
+                    curentChat.CurentTexrMessage = "🤖:  Не нашел ничего. Что то пошло не так.";
+                    return;
+                }
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent;
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{name}", req.user.GetUserLinkInline_Name());
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{type}", req.reqstType);
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{text}", req.reqstContent);
+
+
+                var btn = curentChat.CurentProcess.Inputs.FirstOrDefault(i=>i.input_Type.Code== "CallbackQueryList");
+
+                curentChat.DinamicButons.Add(new Dinamic_Butons()
+                {
+                    CallbackQwery = (btn.NextProcessMenu.GetEntityTypeId() + req.GetEntityTypeId()),
+                    Content = btn.MyName
+
+                }) ;
+
+
+                db.SaveChanges();
+
+
+            }
+
+            
+
+        }
+
+        [MenuHandler("offer_menu_new_offer_info_getInworke_OnLoad")]
+        public async Task Handle_offer_menu_new_offer_info_getInworke_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            if (update.Type is UpdateType.CallbackQuery)
+            {
+                int reqId = requst.GetUserIdFromCode(update.CallbackQuery.Data);
+
+                if (reqId == 0) return;
+                var req = db.Requst.FirstOrDefault(r => r.MyId == reqId);
+
+                req.isNew = false;
+
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent.Replace("{Idreq}",req.MyId.ToString());
+
+                db.SaveChanges();
+
+
+            }
+
+
+
+        }
+
+
+
+        [MenuHandler("offer_menu_list_in_worke_offer_OnLoad")]
+        public async Task Handle_offer_menu_list_in_worke_offer_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            var offers = db.Requst.Where(r => r.isNew != true&&r.isDone==false&&r.IsDelite!=true).ToList();
+            var buttex = curentChat.CurentProcess.Inputs.FirstOrDefault(i => i.MyName == "{date}|{user}");
+            foreach (var offer in offers)
+            {
+                string userName = offer.user.FirstName ?? offer.user.Username ?? offer.user.LastName ?? offer.user.Id.ToString();
+                string type = "💡";
+                if (offer.reqstType.Contains("❓")) type = "❓";
+                if (offer.reqstType.Contains("🖍")) type = "🖍";
+                string btnName = type + " | " + offer.dateTimeCreation.Value.ToString("dd.MM") + " | " + userName;
+
+                curentChat.DinamicButons.Add(new Dinamic_Butons() { Content = btnName, CallbackQwery = (buttex.NextProcessMenu.GetEntityTypeId() + offer.GetEntityTypeId()) });
+
+            }
+            db.SaveChanges();
+
+        }
+
+        [MenuHandler("offer_menu_in_worke_offer_info_OnLoad")]
+        public async Task Handle_offer_menu_in_worke_offer_info_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            if (update.Type is UpdateType.CallbackQuery)
+            {
+                int reqId = requst.GetUserIdFromCode(update.CallbackQuery.Data);
+
+                if (reqId == 0) return;
+                var req = db.Requst.FirstOrDefault(r => r.MyId == reqId);
+
+                if (req == null)
+                {
+                    curentChat.CurentTexrMessage = "🤖:  Не нашел ничего. Что то пошло не так.";
+                    return;
+                }
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent;
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{name}", req.user.GetUserLinkInline_Name());
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{type}", req.reqstType);
+                curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{text}", req.reqstContent);
+
+
+                var btn = curentChat.CurentProcess.Inputs.FirstOrDefault(i => i.input_Type.Code == "CallbackQueryList");
+
+                curentChat.DinamicButons.Add(new Dinamic_Butons()
+                {
+                    CallbackQwery = (btn.NextProcessMenu.GetEntityTypeId() + req.GetEntityTypeId()),
+                    Content = btn.MyName
+
+                });
+
+
+                db.SaveChanges();
+
+
+            }
+
+
+
+        }
+
+        [MenuHandler("offer_menu_in_worke_offer_info_getInworke_OnLoad")]
+        public async Task Handle_offer_menu_in_worke_offer_info_getInworke_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            if (update.Type is UpdateType.CallbackQuery)
+            {
+                int reqId = requst.GetUserIdFromCode(update.CallbackQuery.Data);
+
+                if (reqId == 0) return;
+                var req = db.Requst.FirstOrDefault(r => r.MyId == reqId);
+
+                req.isDone = true;
+
+                db.SaveChanges();
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+        #endregion
+
 
 
         #endregion

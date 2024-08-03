@@ -16,6 +16,8 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+       
+
         Console.WriteLine("Hello, World!");
         Console.WriteLine("___________________________");
         TeleClient Hr_bot;
@@ -25,7 +27,8 @@ internal class Program
 
         Hr_bot = new TeleClient();
 
-        
+        AppDomain.CurrentDomain.ProcessExit += new EventHandler(Hr_bot.OnProcessExit);
+        Console.CancelKeyPress += new ConsoleCancelEventHandler(Hr_bot.OnCancelKeyPress);
 
 
         Console.ReadKey();
@@ -33,4 +36,7 @@ internal class Program
 
 
     }
+
+
+ 
 }

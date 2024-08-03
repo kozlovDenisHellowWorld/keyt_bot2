@@ -56,6 +56,10 @@
               "target": "Package",
               "version": "[1.11.51, )"
             },
+            "Microsoft.AspNetCore.Hosting": {
+              "target": "Package",
+              "version": "[2.2.7, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.9, )"
@@ -156,6 +160,10 @@
             "HtmlAgilityPack": {
               "target": "Package",
               "version": "[1.11.51, )"
+            },
+            "Microsoft.AspNetCore.Hosting": {
+              "target": "Package",
+              "version": "[2.2.7, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

@@ -191,7 +191,32 @@ namespace Telebot.Sourse.Item.IItem
 
 
 
+        public void SetProcessCode (string codeNeedToAdd)
+        {
+            if (bsckInformation != "" || bsckInformation != null)
+            {
+                var allcods = codeNeedToAdd.Split('|');
+                var ent = codeNeedToAdd.Split(':')[0];
+                bsckInformation = "";
 
+                foreach (var item in allcods)
+                {
+                    if (item.Contains("ent"))
+                    {
+
+                        bsckInformation += codeNeedToAdd;
+                    }
+                    else {
+                        bsckInformation += item;
+                    }
+                }
+
+            }
+            else 
+            {
+                bsckInformation = codeNeedToAdd;
+            }
+        }
 
 
 

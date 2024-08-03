@@ -396,7 +396,7 @@
             NeedToDelite="True">
 
             <Input Name="Загрузть стартово фото" NextMenuNameCode="get_start_photo_start" InputType="CallbackQuery"></Input>
-            <Input Name="Заявки" NextMenuNameCode="StartMenu_admin" InputType="CallbackQuery"></Input>
+            <Input Name="Заявки" NextMenuNameCode="offer_menu_start" InputType="CallbackQuery"></Input>
             <Input Name="Пользователи" NextMenuNameCode="StartMenu_admin" InputType="CallbackQuery"></Input>
         </Menu>
 
@@ -423,13 +423,13 @@
             <Menu Name="Offer confirmation 💡" 
                 MenuType="StaticListButtonsCallbackQuery" 
                 MenuCode="offer_menu_start" 
-                Navigation="StartMenu_regularUser/offer_report_start/offer_confirmation" 
+                Navigation="StartMenu_regularUser/offer_report_start" 
                 Content="🤖: Какие заявким тебе нужны" 
                 IsAwaytingText="False" 
                 NeedToDelite="True">
 
-                <Input Name="Новые заяки" NextMenuNameCode="StartMenu_admin" InputType="CallbackQuery"></Input>
-                <Input Name="В работе" NextMenuNameCode="StartMenu_admin" InputType="CallbackQuery"></Input>
+                <Input Name="Новые заяки" NextMenuNameCode="offer_menu_list_new_offer" InputType="CallbackQuery"></Input>
+                <Input Name="В работе" NextMenuNameCode="offer_menu_list_in_worke_offer" InputType="CallbackQuery"></Input>
                 <Input Name="Отработанные заявки" NextMenuNameCode="StartMenu_admin" InputType="CallbackQuery"></Input>
                 <Input Name="Excell" NextMenuNameCode="StartMenu_admin" InputType="CallbackQuery"></Input>
                 <Input Name="Поиск заявок по Id" NextMenuNameCode="StartMenu_admin" InputType="CallbackQuery"></Input>
@@ -437,6 +437,93 @@
 
                 
             </Menu>
+
+            <!--Новые -->
+            <Menu 
+                Name="Список новых заявок" 
+                MenuType="DinamickListButtonsCallbackQuery" 
+                MenuCode="offer_menu_list_new_offer"
+                Navigation="StartMenu_admin/offer_menu_start/offer_menu_list_new_offer"
+                Content="🤖: Новые заявки" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+
+                <Input Name="⬅️ Назад" NextMenuNameCode="offer_menu_start"  InputType="CallbackQueryBack"></Input>
+                <Input Name="{date}|{user}" NextMenuNameCode="offer_menu_new_offer_info"  InputType="CallbackQueryList"></Input>
+            </Menu>
+
+            <Menu 
+                Name="Информация о заявке" 
+                MenuType="DinamickListButtonsCallbackQuery" 
+                MenuCode="offer_menu_new_offer_info"
+                Navigation="StartMenu_admin/offer_menu_start/offer_menu_list_new_offer/offer_menu_new_offer_info"
+                Content="🤖: {b}Заявка{eb}{n}👤: {name}{n}Тип: {code}{type}{ecode}{n}Тексn: {pre} {text} {epre}" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+
+                <Input Name="⬅️ Назад" NextMenuNameCode="offer_menu_list_new_offer"  InputType="CallbackQueryBack"></Input>
+                <Input Name="В работу" NextMenuNameCode="offer_menu_new_offer_info_getInworke" InputType="CallbackQueryList"></Input>
+                
+                
+            </Menu>
+            
+            <Menu 
+                Name="Действие - изменить статус новая -> в работе" 
+                MenuType="Message" 
+                MenuCode="offer_menu_new_offer_info_getInworke"
+                Navigation="StartMenu_admin/offer_menu_start/offer_menu_list_new_offer/offer_menu_new_offer_info/offer_menu_new_offer_info_getInworke"
+                Content="🤖: {b}Заявку взял в работу{eb}{n}🆔: {Idreq}" 
+                IsAwaytingText="False"
+                NeedToDelite="False">
+            
+                <Input InputType="DoSmth" Name="Изменение статуса" NextMenuNameCode="offer_menu_list_new_offer"></Input>
+            </Menu>
+            <!--End Новые -->
+
+
+
+            <!--В работе-->
+            <Menu 
+                Name="in_Worke offer list" 
+                MenuType="DinamickListButtonsCallbackQuery" 
+                MenuCode="offer_menu_list_in_worke_offer"
+                Navigation="StartMenu_admin/offer_menu_start/offer_menu_list_in_worke_offer"
+                Content="🤖: Заявки на работе" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+
+                <Input Name="⬅️ Назад" NextMenuNameCode="offer_menu_start"  InputType="CallbackQueryBack"></Input>
+                <Input Name="{date}|{user}" NextMenuNameCode="offer_menu_in_worke_offer_info"  InputType="CallbackQueryList"></Input>
+            </Menu>
+
+            <Menu 
+                Name="in_worke offer list" 
+                MenuType="DinamickListButtonsCallbackQuery" 
+                MenuCode="offer_menu_in_worke_offer_info"
+                Navigation="StartMenu_admin/offer_menu_start/offer_menu_list_in_worke_offer/offer_menu_in_worke_offer_info"
+                Content="🤖: {b}Заявка{eb}{n}👤: {name}{n}Тип: {code}{type}{ecode}{n}Тексn: {pre} {text} {epre}" 
+                IsAwaytingText="False"
+                NeedToDelite="True">
+
+                <Input Name="⬅️ Назад" NextMenuNameCode="offer_menu_list_in_worke_offer"  InputType="CallbackQueryBack"></Input>
+                <Input Name="Отработано" NextMenuNameCode="offer_menu_in_worke_offer_info_getInworke" InputType="CallbackQueryList"></Input>
+                
+                
+            </Menu>
+
+            <Menu 
+                Name="Application on offer delite💡" 
+                MenuType="Message" 
+                MenuCode="offer_menu_in_worke_offer_info_getInworke"
+                Navigation="StartMenu_admin/offer_menu_start/offer_menu_list_in_worke_offer/offer_menu_in_worke_offer_info/offer_menu_in_worke_offer_info_getInworke"
+                Content="🤖: {b}Заявку взял в работу{eb}{n}🆔: {Idreq}" 
+                IsAwaytingText="False"
+                NeedToDelite="False">
+            
+                <Input InputType="DoSmth" Name="Сохранение 💡 и возврарт в главное меню." NextMenuNameCode="offer_menu_start"></Input>
+            </Menu>
+
+        <!-- Заявки -->
 
     </MenuProces>
 

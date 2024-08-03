@@ -484,8 +484,9 @@ namespace Telebot.Sourse
                 _myChat.PriviosMSGs.AddRange(PriviosMSG.createMessage(_myChat.BotClientId, _myChat.CurentProcess.NeedToDelite ?? true, msgResult, update));
 
                 _myChat.SetProcess(_myChat.CurentProcess.Inputs.FirstOrDefault().NextProcessMenu);
-
-                await SendStaticMenu_forXMLLoad(_myChat, client, canslationToken, update, db);
+                //вот тут поправил 
+                await    _myChat.CurentProcess.ExecuteOnLoad(update, client,_myChat,db,canslationToken);
+                await  SendStaticMenu_forXMLLoad(_myChat, client, canslationToken, update, db);
             }
             else if (_myChat.CurentProcess.ProcessType.Code == "DinamickListButtonsCallbackQuery")
             {
@@ -710,6 +711,15 @@ namespace Telebot.Sourse
                         var callingprocess = item?.NextProcessMenu;
                         if (callingprocess == null) continue;
                         List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, callbackData: $"m:{callingprocess.MyId}|") };
+                        inlineKeyboardButtons.Add(lineBTN);
+                    }
+                    else if (item.input_Type.Code == InputType_5)
+                    {
+                        var callingprocess = item?.NextProcessMenu;
+                        if (callingprocess == null) continue;
+
+                        //string LogBack = _myChat.Logs
+                        List<InlineKeyboardButton> lineBTN = new List<InlineKeyboardButton>() { InlineKeyboardButton.WithCallbackData(text: item.MyName, item.NextProcessMenu.GetEntityTypeId()) };
                         inlineKeyboardButtons.Add(lineBTN);
                     }
                     else if (item.input_Type.Code == "CallbackQueryBool")

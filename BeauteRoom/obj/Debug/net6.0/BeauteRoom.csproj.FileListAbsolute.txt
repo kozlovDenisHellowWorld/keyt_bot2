@@ -664,3 +664,13 @@ D:\kate_bot\keyt_bot2\BeauteRoom\obj\Debug\net6.0\BeauteRoom.pdb
 D:\kate_bot\keyt_bot2\BeauteRoom\obj\Debug\net6.0\BeauteRoom.genruntimeconfig.cache
 D:\kate_bot\keyt_bot2\BeauteRoom\obj\Debug\net6.0\ref\BeauteRoom.dll
 D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Inst.xml
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.AspNetCore.Hosting.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.AspNetCore.Http.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Extensions.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Features.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.AspNetCore.WebUtilities.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.Extensions.ObjectPool.dll
+D:\kate_bot\keyt_bot2\BeauteRoom\bin\Debug\net6.0\Microsoft.Net.Http.Headers.dll
