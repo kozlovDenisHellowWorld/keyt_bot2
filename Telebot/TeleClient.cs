@@ -350,7 +350,7 @@ namespace Telebot
                     {
                         debagDBname = elem.GetAttribute("DebagDBname") ?? string.Empty;
                         debugToken = elem.GetAttribute("DebugToken") ?? string.Empty;
-                        reliseToken = elem.GetAttribute("DebagDBname") ?? string.Empty;
+                        reliseToken = elem.GetAttribute("ReliseToken") ?? string.Empty;
                         reliseDBName = elem.GetAttribute("ReliseDBName") ?? string.Empty;
                         isDebugDiferent = bool.Parse(elem.GetAttribute("IsDebugDiferent") ?? "False");
                         NeedToUpdate = bool.Parse(elem.GetAttribute("NeedToUpdate") ?? "False");
@@ -468,6 +468,10 @@ namespace Telebot
                         XmlNodeList menus = menuProcess.SelectNodes("Menu") ?? null;
 
                         var userTcode = menuProcess.Attributes["UserType"]?.Value ?? string.Empty;
+                        var name = menuProcess.Attributes["Name"]?.Value ?? "dddd";
+                        var _isActive = Convert.ToBoolean(menuProcess.Attributes["isActive"]?.Value ?? "False");
+
+                        if (_isActive == false) continue;
 
                         var thisUserType = userTypes.FirstOrDefault(t => t.TypeCode == userTcode);
 

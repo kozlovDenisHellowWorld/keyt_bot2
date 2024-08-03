@@ -1482,6 +1482,218 @@ namespace Telebot.Sourse
         }
 
 
+
+
+
+        public async Task<string> CreateTunel(  string UserID)
+        {
+            
+            bool conrol_registraation = true;
+
+           
+
+
+
+            string startPath1 = "https://dawinchiwakepark.ru";
+
+
+
+            int trying = 0;
+            while (trying != 10)
+            {
+                ChromeOptions options = new ChromeOptions();
+                //  options.AddArgument("--headless"); // Запуск браузера в "тихом" режиме (без открытия окна)
+
+                options.AddArgument("ignore-certificate-errors");
+                options.AddArgument("--ignore-certificate-errors-spki-list");
+                options.AddArgument("--ignore-ssl-errors");
+                options.AddArgument("test-type");
+                options.AddArguments("-incognito");
+                options.AddArgument("no-sandbox");
+                options.AddArgument("--start-maximized");
+                options.AddArgument("log-level=3");
+                IWebDriver driver = new ChromeDriver(options);
+                driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(6);
+
+                try
+                {
+                    using (null)
+                    {
+
+
+
+
+                        conrol_registraation = false;
+
+                        try
+                        {
+                            await Task.Run(() => driver.Navigate().GoToUrl(startPath1));
+
+                        }
+                        catch (WebDriverTimeoutException)
+                        {
+                            // Обрабатываем ошибку "таймаута", но продолжаем работу с тем, что уже загружено
+                        }
+
+
+                        // concoldebuger.badMSG("ждем 10 секунд -------------------------4");
+
+                        //await Task.Delay(4000);
+
+
+
+                        IWebElement nameInput = driver.FindElement(By.XPath("//input[@id='name']"));
+                       // nameInput.SendKeys(UserName); // replace "Your Name" with the desired input
+
+                        await Task.Delay(200);
+
+                        IWebElement phoneInput = driver.FindElement(By.XPath("//input[@id='--7']"));
+                      
+
+
+                        IWebElement dropdown = driver.FindElement(By.XPath("//select[@id='-']"));
+                        SelectElement select = new SelectElement(dropdown);
+                        select.SelectByText("kk");
+                        await Task.Delay(500);
+
+
+
+                        IWebElement buttonAbonTypeGONext = driver.FindElement(By.XPath("//button[@class='wizard-btn btn-fill wizard-btn-wd btn-next']"));
+                        buttonAbonTypeGONext.Click();
+                        await Task.Delay(500);
+
+                        // Находим элемент "Сет по абонементу" по XPath
+                        IWebElement setAbonementu = driver.FindElement(By.XPath("//div[@class='time-slot']/label[contains(text(), 'Сет по абонементу')]"));
+
+                        // Выбираем элемент "Сет по абонементу"
+                        setAbonementu.Click();
+                        await Task.Delay(1000);
+                        IWebElement buttonAbonTypeGONext2 = driver.FindElement(By.XPath("//button[@class='wizard-btn btn-fill wizard-btn-wd btn-next']"));
+                        buttonAbonTypeGONext2.Click();
+                        await Task.Delay(1000);
+
+
+                        
+
+
+
+
+
+                        IWebElement buttonAbonTypeGONext3 = driver.FindElement(By.XPath("//button[@class='wizard-btn btn-fill wizard-btn-wd btn-next']"));
+                        buttonAbonTypeGONext3.Click();
+                        await Task.Delay(1000);
+
+
+
+
+                        using (null)
+                        {
+                            IWebElement errorElement = null;
+                            try
+                            {
+                                errorElement = driver.FindElement(By.XPath("//span[@class='error' and text()='No query results for model [App\\Promocode].']"));
+                                if (errorElement != null)
+                                {
+                                    driver.Close();
+                                  // result = $"Ошибка при регистрации|{setDateTime.ToString("HH:mm dd-MM-yy")}|";
+
+                                    break;
+                                }
+
+                            }
+                            catch
+                            {
+
+                            }
+
+
+
+
+
+
+                            try
+                            {
+
+                                errorElement = driver.FindElement(By.XPath("//span[@class='error' and text()=''No query results for model [App\\Promocode]."));
+                                if (errorElement != null)
+                                {
+                                    driver.Close();
+                                  //  result = $"Ошибка при регистрации|{setDateTime.ToString("HH:mm dd-MM-yy")}|";
+
+                                    break;
+                                }
+
+
+
+                            }
+                            catch
+                            {
+
+                            }
+
+
+
+
+
+                            try
+                            {
+
+
+                                errorElement = driver.FindElement(By.XPath($"//span[contains(@class, 'error')]"));
+                                if (errorElement != null)
+                                {
+                                    string text = errorElement.Text;
+
+                                    driver.Close();
+
+
+
+                                   // result = $"Ошибка при регистрации|{setDateTime.ToString("HH:mm dd-MM-yy")}|";
+
+                                    break;
+                                }
+
+                            }
+                            catch
+                            {
+
+                            }
+
+
+                        }
+
+                        conrol_registraation = true;
+
+
+                    }
+                }
+                catch
+                {
+                    conrol_registraation = false;
+
+                    trying++;
+                   // if (trying == 10) result = $"Ошибка при регистрации|{setDateTime.ToString("HH:mm dd-MM-yy")}|";
+
+                }
+                driver.Close();
+                if (conrol_registraation == true) break;
+
+            }
+
+
+
+
+
+
+
+
+            return "";
+
+        }
+
+
+
+
     }
 
 }

@@ -8,6 +8,8 @@ using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Update = Telegram.Bot.Types.Update;
 
 namespace Telebot.Sourse.Handlers
 {
@@ -1560,7 +1562,7 @@ namespace Telebot.Sourse.Handlers
         public async Task Handle_offer_menu_list_new_offer_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
 
-            var offers = db.Requst.Where(r => r.isNew == true).ToList();
+            var offers = db.Requst.Where(r => r.isNew == true&&r.isCreated==true).ToList();
             var buttex = curentChat.CurentProcess.Inputs.FirstOrDefault(i=>i.MyName== "{date}|{user}");
             foreach (var offer in offers)
             {
@@ -1648,7 +1650,7 @@ namespace Telebot.Sourse.Handlers
         public async Task Handle_offer_menu_list_in_worke_offer_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
 
-            var offers = db.Requst.Where(r => r.isNew != true&&r.isDone==false&&r.IsDelite!=true).ToList();
+            var offers = db.Requst.Where(r => r.isNew != true&&r.isDone==false&&r.IsDelite==false && r.isCreated == true).ToList();
             var buttex = curentChat.CurentProcess.Inputs.FirstOrDefault(i => i.MyName == "{date}|{user}");
             foreach (var offer in offers)
             {
@@ -1743,6 +1745,80 @@ namespace Telebot.Sourse.Handlers
 
 
         #endregion
+
+
+
+
+        #region VPN
+
+        [MenuHandler("vpn_menu_try_createTunel_OnLoad")]
+        public async Task Handle_vpn_menu_try_createTunel_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+
+         //   new TeleTools().CreateTunel("11");
+
+
+
+
+
+            //var nextProcess = curentChat.CurentProcess?.Inputs.FirstOrDefault(i => i.MyName == "Next_menu")?.NextProcessMenu;
+
+
+
+            //// concoldebuger.badMSG("ListMenuTime_park_OnLoad- await   7     await curentChat.CurentProcess.ExecuteOnEnd_____________________________________________________________________________ --- OnLoadHadler");
+
+
+            //await curentChat.CurentProcess.ExecuteOnEnd(update, client, curentChat, db, ctl);
+
+            //curentChat.SetProcess(nextProcess);
+
+            //        db.SaveChanges();
+
+            //        await new TeleTools().remooveMenu(client, ctl, curentChat);
+
+            //await curentChat.CurentProcess.ExecuteOnLoad(update, client, curentChat, db, ctl);
+
+            //var messages = await new TeleTools().SendStaticMenu_forXMLLoad(curentChat, client, ctl, update, db);
+
+        }
+
+
+
+        [MenuHandler("vpn_menu_try_createTunel_isCreated_OnLoad")]
+        public async Task Handle_vpn_menu_try_createTunel_isCreated_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+
+
+
+            //var nextProcess = curentChat.CurentProcess?.Inputs.FirstOrDefault(i => i.MyName == "Next_menu")?.NextProcessMenu;
+
+
+
+            //// concoldebuger.badMSG("ListMenuTime_park_OnLoad- await   7     await curentChat.CurentProcess.ExecuteOnEnd_____________________________________________________________________________ --- OnLoadHadler");
+
+
+            //await curentChat.CurentProcess.ExecuteOnEnd(update, client, curentChat, db, ctl);
+
+            //curentChat.SetProcess(nextProcess);
+
+            //        db.SaveChanges();
+
+            //        await new TeleTools().remooveMenu(client, ctl, curentChat);
+
+            //await curentChat.CurentProcess.ExecuteOnLoad(update, client, curentChat, db, ctl);
+
+            //var messages = await new TeleTools().SendStaticMenu_forXMLLoad(curentChat, client, ctl, update, db);
+
+        }
+
+
+        #endregion
+
+
+
+
 
 
 

@@ -5491,23 +5491,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yparo\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Denis\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\kate_bot\\keyt_bot2\\BeauteRoom\\BeauteRoom.csproj",
+      "projectUniqueName": "E:\\Den\\работа 21\\keyt_bot2\\BeauteRoom\\BeauteRoom.csproj",
       "projectName": "BeauteRoom",
-      "projectPath": "D:\\kate_bot\\keyt_bot2\\BeauteRoom\\BeauteRoom.csproj",
-      "packagesPath": "C:\\Users\\yparo\\.nuget\\packages\\",
-      "outputPath": "D:\\kate_bot\\keyt_bot2\\BeauteRoom\\obj\\",
+      "projectPath": "E:\\Den\\работа 21\\keyt_bot2\\BeauteRoom\\BeauteRoom.csproj",
+      "packagesPath": "C:\\Users\\Denis\\.nuget\\packages\\",
+      "outputPath": "E:\\Den\\работа 21\\keyt_bot2\\BeauteRoom\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\yparo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Denis\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -5522,8 +5522,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\kate_bot\\keyt_bot2\\Telebot\\Telebot.csproj": {
-              "projectPath": "D:\\kate_bot\\keyt_bot2\\Telebot\\Telebot.csproj"
+            "E:\\Den\\работа 21\\keyt_bot2\\Telebot\\Telebot.csproj": {
+              "projectPath": "E:\\Den\\работа 21\\keyt_bot2\\Telebot\\Telebot.csproj"
             }
           }
         }
@@ -5599,7 +5599,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

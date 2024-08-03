@@ -5462,23 +5462,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yparo\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Denis\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\kate_bot\\keyt_bot2\\Telebot\\Telebot.csproj",
+      "projectUniqueName": "E:\\Den\\работа 21\\keyt_bot2\\Telebot\\Telebot.csproj",
       "projectName": "Telebot",
-      "projectPath": "D:\\kate_bot\\keyt_bot2\\Telebot\\Telebot.csproj",
-      "packagesPath": "C:\\Users\\yparo\\.nuget\\packages\\",
-      "outputPath": "D:\\kate_bot\\keyt_bot2\\Telebot\\obj\\",
+      "projectPath": "E:\\Den\\работа 21\\keyt_bot2\\Telebot\\Telebot.csproj",
+      "packagesPath": "C:\\Users\\Denis\\.nuget\\packages\\",
+      "outputPath": "E:\\Den\\работа 21\\keyt_bot2\\Telebot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\yparo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Denis\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -5570,7 +5570,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
