@@ -1,9 +1,13 @@
-﻿using System.Net.WebSockets;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Globalization;
+//play right
 using Telebot.Sourse.Item;
 using Telebot.Sourse.Item.IItem;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-
+using Telegram.Bot.Types.Enums;
 
 namespace Telebot.Sourse.Handlers
 {
@@ -13,7 +17,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("StartMenu_OnLoad")]
-        public void Handle_StartMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_StartMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             Console.WriteLine("start - StartMenu_OnLoad");
         }
@@ -22,7 +26,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("StartMenu_OnEnd")]
-        public void Handle_StartMenu_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_StartMenu_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             Console.WriteLine("end - StartMenu_OnEnd");
         }
@@ -30,14 +34,14 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("OfferInputMenu_OnLoad")]
-        public void Handle_OfferInputMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_OfferInputMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             Console.WriteLine("OnLoad- OfferInputMenu_OnLoad");
         }
 
 
         [MenuHandler("ListMenuAllAdmins_OnLoad")]
-        public void Handle_ListMenuAllAdmins_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_ListMenuAllAdmins_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -56,7 +60,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("AdminPropsMenu_OnLoad")]
-        public void Handle_AdminPropsMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_AdminPropsMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -105,7 +109,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("ChangeUserTypeInAdminProps_OnLoad")]
-        public void Handle_ChangeUserTypeInAdminPropss_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_ChangeUserTypeInAdminPropss_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -136,7 +140,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("ListMenuAllUsers_OnLoad")]
-        public void Handle_ListMenuAllUsers_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_ListMenuAllUsers_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -155,7 +159,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("UserPropsMenu_OnLoad")]
-        public void Handle_UserPropsMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_UserPropsMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -215,7 +219,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("ChangeUserTypeInUserProps_OnLoad")]
-        public void Handle_ChangeUserTypeInUserProps_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_ChangeUserTypeInUserProps_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -242,7 +246,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("MenuPropsListMenu_OnLoad")]
-        public void Handle_MenuPropsListMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_MenuPropsListMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -282,7 +286,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("MenuAndActionProps_OnLoad")]
-        public void Handle_MenuAndActionProps_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_MenuAndActionProps_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -309,7 +313,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("InputPropsListMenu_OnLoad")]
-        public void Handle_InputPropsListMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_InputPropsListMenu_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -319,7 +323,7 @@ namespace Telebot.Sourse.Handlers
             {
 
                 string callback = btnTempleyt.NextProcessMenu.GetEntityTypeId() + item.GetEntityTypeId();
-                string btnContent =item.MyId.ToString()+")"+ btnTempleyt.MyName.Replace("{InputName}", item.MyName);
+                string btnContent = item.MyId.ToString() + ")" + btnTempleyt.MyName.Replace("{InputName}", item.MyName);
                 curentChat.DinamicButons.Add(new Dinamic_Butons()
                 {
                     BotClientId = client.BotId,
@@ -341,7 +345,7 @@ namespace Telebot.Sourse.Handlers
 
 
         [MenuHandler("InputProps_OnLoad")]
-        public void Handle_InputProps_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        public async Task Handle_InputProps_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
         {
             db.myChats.Update(curentChat);
 
@@ -355,7 +359,7 @@ namespace Telebot.Sourse.Handlers
 
             curentChat.bsckInformation = targetUnput.GetEntityTypeId();
 
-            text = text.Replace("{InputName}",targetUnput.MyName);
+            text = text.Replace("{InputName}", targetUnput.MyName);
             text = text.Replace("{InputType}", targetUnput.input_Type.Code);
             text = text.Replace("{MenuBelow}", targetUnput.MenuProcess.MyName);
             text = text.Replace("{NextMenu}", targetUnput.NextProcessMenu.MenuProcessContent);
@@ -386,7 +390,7 @@ namespace Telebot.Sourse.Handlers
             });
 
 
-            curentChat.CurentTexrMessage=text;
+            curentChat.CurentTexrMessage = text;
 
 
 
@@ -394,6 +398,655 @@ namespace Telebot.Sourse.Handlers
 
 
             db.SaveChanges();
+
+        }
+
+
+
+        [MenuHandler("ListMenuDate_park_OnLoad")]
+        public async Task Handle_ListMenuDate_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            var nedtoBreak = curentChat.ReqOrderSet.Where(r => r.IsCreate == false).ToList();
+
+            foreach (var item in nedtoBreak)
+            {
+                item.IsCreate = true;
+                item.IsDelite = true;
+            }
+            db.SaveChanges();
+
+            var btn = curentChat.CurentProcess.Inputs.FirstOrDefault(p => p.input_Type.Code == "CallbackQueryList");
+
+
+            if (curentChat.user_Reg_Telephone == null || curentChat.user_Reg_Name == null || curentChat.user_Reg_Telephone == "" || curentChat.user_Reg_Name == "")
+            {
+                curentChat.CurentTexrMessage = "🤖: Прости но я не могу тебя записать. Нужно расказать свои секретики.";
+                db.SaveChanges();
+                return;
+            }
+
+
+            for (int i = 0; i < 10; i++)
+            {
+
+                DateTime dateTime = DateTime.Now;
+                dateTime = dateTime.AddDays(i);
+
+
+
+                curentChat.DinamicButons.Add(new Dinamic_Butons()
+                {
+                    BotClientId = client.BotId,
+                    dateTimeCreation = DateTime.Now,
+                    IsDelite = false,
+                    MyName = dateTime.ToString("d MMMM - dddd"),
+                    CallbackQwery = btn.NextProcessMenu.GetEntityTypeId() + $"day-{dateTime.ToString("MM-d")}",
+                    Content = dateTime.ToString("d MMMM - dddd"),
+                });
+            }
+
+
+            db.SaveChanges();
+
+            //    string startPath = "https://dawinchiwakepark.ru/";
+
+
+            //    string startPath1 = "https://dawinchiwakepark.ru/dashboard";
+
+
+            //    var getDawinch = new WebReqGet(startPath);
+            //    getDawinch.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7";
+            //    getDawinch.Host = "dawinchiwakepark.ru";
+            //    getDawinch.Useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
+            //    getDawinch.Headers.Add("Accept-Encoding", "gzip, deflate, br, zstd");
+            //    getDawinch.Headers.Add("Accept-Language", "ru-RU,ru;q=0.9");
+            //    getDawinch.Headers.Add("sec-ch-ua", " \"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\"");
+            //    getDawinch.Headers.Add("sec-ch-ua-mobile", "?0");
+            //    getDawinch.Headers.Add("sec-ch-ua-platform", "\"Windows\"");
+            //    getDawinch.Headers.Add("Sec-Fetch-Dest", "document");
+            //    getDawinch.Headers.Add("Sec-Fetch-Mode", "navigate");
+            //    getDawinch.Headers.Add("Sec-Fetch-Site", "none");
+            //    getDawinch.Headers.Add("Sec-Fetch-User", "?1");
+            //    getDawinch.Headers.Add("Upgrade-Insecure-Requests", "1");
+            //    getDawinch.Headers.Add("Connection", "keep-alive");
+
+
+            //    getDawinch.Run(new CookieContainer());
+
+
+            //    //byte[] bytes = Encoding.UTF8.GetBytes(getDawinch.Response);
+            //    //string decodedString = Encoding.UTF8.GetString(bytes);
+
+
+
+            //    ChromeOptions options = new ChromeOptions();
+            //    AutoResetEvent waitHandle = new AutoResetEvent(false);
+
+
+            //    IWebDriver driver = new ChromeDriver(options);
+
+
+
+            //    // Создание и запуск задачи для загрузки сайта в отдельном потоке
+            //    Task.Run(() => driver.Navigate().GoToUrl(startPath1));
+
+            //    // Здесь можно продолжать выполнение других действий в основном потоке
+
+            //    // Пример: ожидание выполнения задачи загрузки в течение 5 секунд
+
+
+            //    for (int i = 0; i < 10; i++)
+            //    {
+            //        concoldebuger.goodMSG(i.ToString() + " ыыыы");
+
+            //    }
+            //    // Работа с элементами, которые уже загружены
+            //    //IWebElement element = driver.FindElement(By.XPath("//xpath_of_element"));
+            //    //string text = element.Text;
+
+
+            //    // Продолжение работы с другими элементами или действиями
+
+
+
+            //    await Task.Delay(5000);
+            //    Console.WriteLine("******* вышли ");
+            //}
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+        [MenuHandler("ListMenuTime_park_OnLoad")]
+        public async Task ListMenuTime_park_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            //concoldebuger.goodMSG("ждем 10 секунд ------------------------1-");
+            string data = update.CallbackQuery.Data.ToString();
+
+
+            //concoldebuger.goodMSG("ListMenuTime_park_OnLoad- start   4_____________________________________________________________________________ --- OnLoadHadler");
+
+
+
+            // string _dateM = data.Split('|').FirstOrDefault(d => d.Contains("day")).Split('-')[1];
+            //string _dateD = data.Split('|').FirstOrDefault(d => d.Contains("day")).Split('-')[2];
+
+            int _dateM = 0;
+            int _dateD = 0;
+
+
+            if (int.TryParse(data.Split('|').FirstOrDefault(d => d.Contains("day")).Split('-')[1], out _dateM))
+            {
+
+            }
+            else
+            {
+                _dateM = 0;
+
+            }
+
+            if (int.TryParse(data.Split('|').FirstOrDefault(d => d.Contains("day")).Split('-')[2], out _dateD))
+            {
+
+            }
+            else
+            {
+                _dateD = 0;
+
+            }
+
+            DateTime taregetDateTime = new DateTime(DateTime.Now.Year, _dateM, _dateD);
+
+
+            string startPath1 = "https://dawinchiwakepark.ru/dashboard";
+
+            ChromeOptions options = new ChromeOptions();
+            //   options.AddArgument("--headless"); // Запуск браузера в "тихом" режиме (без открытия окна)
+            IWebDriver driver = new ChromeDriver(options);
+            // concoldebuger.badMSG("ждем 10 секунд -------------------------2");
+
+            //   concoldebuger.badMSG("ListMenuTime_park_OnLoad- await   5  await using_____________________________________________________________________________ --- OnLoadHadler");
+
+            using (null)
+            {
+                //  concoldebuger.badMSG("ListMenuTime_park_OnLoad- await   6  await Task.Run(() => driver.Navigate().GoToUrl(startPath1))_____________________________________________________________________________ --- OnLoadHadler");
+
+                await Task.Run(() => driver.Navigate().GoToUrl(startPath1));
+                // concoldebuger.badMSG("ждем 10 секунд -------------------------4");
+
+                await Task.Delay(4000);
+
+                IWebElement button_park = driver.FindElement(By.XPath("//a[contains(text(), 'С трамплинами (Park)')]"));
+                button_park.Click();
+                await Task.Delay(500);
+
+
+                IWebElement nextElement = driver.FindElement(By.XPath("//div[@class='inline-block']/h2[@class='text-center']"));
+                string curentDateText = nextElement.Text;
+                string format = "dd MMMM";
+                DateTime currentDate;
+
+                if (DateTime.TryParseExact(curentDateText, format, CultureInfo.GetCultureInfo("ru-RU"), DateTimeStyles.None, out currentDate))
+                {
+
+                }
+                else return;
+
+                if (currentDate != taregetDateTime)
+                {
+                    IWebElement button_park_Calender = driver.FindElement(By.CssSelector("button.bg-transparent"));
+                    button_park_Calender.Click();
+                    await Task.Delay(200);
+
+                    //-------------
+
+
+                    string currentDateText_Calendar = driver.FindElement(By.CssSelector("span.day__month_btn")).Text;
+                    string format_calendar = "MMMM yyyy"; // ВОТ ТУТ ВОЗМОЖНО ОШИБКА БУДЕТ ММММ!!!
+                    DateTime currentDate_Calendar;
+                    DateTime.TryParseExact(currentDateText_Calendar, /*format  - тут изменил но вроде неправельно было*/format_calendar, CultureInfo.GetCultureInfo("ru-RU"), DateTimeStyles.None, out currentDate_Calendar);
+
+                    if (currentDate_Calendar.Month != taregetDateTime.Month)
+                    {
+                        driver.FindElement(By.CssSelector("span.next")).Click();
+
+                    }
+                    driver.FindElement(By.XPath($"//span[contains(@class, 'cell day') and text()='{taregetDateTime.Day}']")).Click();
+
+                }
+
+                await Task.Delay(2000);
+
+
+                List<DateTime> EmptyTime = new List<DateTime>();
+                List<DateSetTime> Datesettimes = new List<DateSetTime>();
+
+                //  IList<IWebElement> divElements = driver.FindElements(By.XPath("//div[contains(@class, 'border-r')   and contains(@class, 'border-b') and contains(@class, 'p-1') and contains(@class, 'text-xs') and contains(@class, 'align-middle') and contains(@class, 'flex-1')  and contains(@class, 'sm:h-32') and contains(@class, 'md:h-24')]"));
+
+                //IList<IWebElement> divElements = driver.FindElements(By.CssSelector(".border-r.border-b.p-1.text-xs.align-middle.flex-1.sm\\:h-32.md\\:h-24"));
+                //IList<IWebElement> divElements = driver.FindElements(By.CssSelector("[class='border-r border-b p-1 text-xs align-middle flex-1 sm:h-32 md:h-24']"));
+
+                //IList<IWebElement> divElements = driver.FindElements(By.XPath("//div[not(contains(@class, 'booked')) and not(contains(@class, 'reservation')) and contains(@class, 'border-r') and contains(@class, 'border-b') and contains(@class, 'p-1') and contains(@class, 'text-xs') and contains(@class, 'align-middle') and contains(@class, 'flex-1') and contains(@class, 'sm:h-32') and contains(@class, 'md:h-24')]"));
+
+                IList<IWebElement> divElements = driver.FindElements(By.XPath("//div[contains(@class, 'border-r') and contains(@class, 'border-b') and contains(@class, 'p-1') and contains(@class, 'text-xs') and contains(@class, 'align-middle') and contains(@class, 'flex-1') and contains(@class, 'sm:h-32') and contains(@class, 'md:h-24')]"));
+                await Task.Delay(200);
+
+                foreach (var item in divElements)
+                {
+                    string classText = item.GetAttribute("class");
+
+                    if (classText.Contains("booked")) continue;
+                    if (classText.Contains("temporary")) continue;
+                    if (classText.Contains("temporary-long")) continue;
+                    if (classText.Contains("reservation")) continue;
+                    if (classText.Contains("past")) continue;
+
+
+
+
+                    string dateTimeValue = item.GetAttribute("datetime");
+
+                    int hours = int.Parse(dateTimeValue.Split(':')[0]);
+                    int minutes = int.Parse(dateTimeValue.Split(':')[1]);
+                    EmptyTime.Add(new DateTime(DateTime.Now.Year, taregetDateTime.Month, taregetDateTime.Day, hours, minutes, 0));
+
+
+                    Datesettimes.Add(new DateSetTime()
+                    {
+                        BotClientId = client.BotId,
+                        dateTimeCreation = DateTime.Now,
+                        SetdateTime = new DateTime(DateTime.Now.Year, taregetDateTime.Month, taregetDateTime.Day, hours, minutes, 0)
+                    });
+
+                }
+
+                //1 необходимо сделать объект кторый вберет в себя завку на регистрирацию. у этого объеката будет два типа поля выбранные даты и даты которые вообще есть (два масива в каждой завке тоесть получится что при оформлении у нас остануться данныве о том какая читуация была на момент регистрации)
+
+                // 2 вот ту надо создать это завку и заполнить мачив с возможными сетами 
+
+                //3 после чего перейти к в новый процесс и там уже ебашить  таблицу с динаимк батонз 
+
+                //4 при изменение будут перезаполнятся динамик батонз 
+
+
+
+                driver.Close();
+
+
+                var newOrder = new ReqOrderSet()
+                {
+                    Date = new DateTime(taregetDateTime.Year, taregetDateTime.Month, taregetDateTime.Day),
+                    BotClientId = client.BotId,
+                    dateTimeCreation = DateTime.Now,
+                    IsCreate = false,
+                    IsDelite = false,
+                    TimeSets = Datesettimes,
+                    MyName = "Заявка на бронь сетов"
+                };
+
+                db.myChats.Update(curentChat);
+
+                curentChat.ReqOrderSet.Add(newOrder);
+
+
+                var nextProcess = curentChat.CurentProcess?.Inputs.FirstOrDefault(i => i.MyName == "Next_menu")?.NextProcessMenu;
+
+
+
+                // concoldebuger.badMSG("ListMenuTime_park_OnLoad- await   7     await curentChat.CurentProcess.ExecuteOnEnd_____________________________________________________________________________ --- OnLoadHadler");
+
+
+                await curentChat.CurentProcess.ExecuteOnEnd(update, client, curentChat, db, ctl);
+
+                curentChat.SetProcess(nextProcess);
+
+                db.SaveChanges();
+
+                await new TeleTools().remooveMenu(client, ctl, curentChat);
+
+                await curentChat.CurentProcess.ExecuteOnLoad(update, client, curentChat, db, ctl);
+
+                var messages = await new TeleTools().SendStaticMenu_forXMLLoad(curentChat, client, ctl, update, db);
+
+
+            }
+        }
+
+
+
+
+
+        [MenuHandler("ListMenuTime_park_Coose_OnLoad")]
+        public async Task ListMenuTime_park_Coose_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            bool debugRule = false;// для того чтобы попробовать сделать эдит. когда мы в другом месте исправляем 
+
+
+
+            if (debugRule == true)
+            {
+                if (update.CallbackQuery.Data.Contains("set:"))
+                {
+
+                    string set_text = update?.CallbackQuery?.Data.Split('|').FirstOrDefault(d => d.Contains("set:"));
+                    string dateTimeSet_text = set_text.Split(':').FirstOrDefault(s => !s.Contains("set"));
+                    string format_ = "HH-m-d-MM-y";
+                    DateTime targetDateTime;
+
+                    DateTime.TryParseExact(dateTimeSet_text, format_, CultureInfo.GetCultureInfo("ru-RU"), DateTimeStyles.None, out targetDateTime);
+
+                    foreach (var item in curentChat.ReqOrderSet.FirstOrDefault(r => r.IsCreate == false).TimeSets)
+                    {
+                        if (item.SetdateTime == targetDateTime)
+                        {
+
+                            item.IsTarget = !item.IsTarget;
+
+                        }
+
+
+                    }
+
+                    db.SaveChanges();
+
+                }
+
+            }
+            foreach (var item in curentChat?.ReqOrderSet?.FirstOrDefault(r => r.IsCreate == false).TimeSets)
+            {
+                var btn = new Dinamic_Butons()
+                {
+                    dateTimeCreation = DateTime.Now,
+                    BotClientId = item.BotClientId,
+                };
+
+                if (item.IsTarget.Value == true)
+                {
+                    btn.CallbackQwery = curentChat.CurentProcess.Inputs.FirstOrDefault(i => i.MyName == "TargetTime").NextProcessMenu.GetEntityTypeId() + $"set:{item.SetdateTime.Value.ToString("HH-m-d-MM-y")}|T|";
+
+                    string content = curentChat.CurentProcess.Inputs.FirstOrDefault(i => i.MyName == "TargetTime").NameIfTrue;
+                    content = content.Replace("{Time}", item.SetdateTime.Value.ToString("HH:mm"));
+
+                    btn.Content = content;
+                }
+                else
+                {
+                    btn.CallbackQwery = curentChat.CurentProcess.Inputs.FirstOrDefault(i => i.MyName == "TargetTime").NextProcessMenu.GetEntityTypeId() + $"set:{item.SetdateTime.Value.ToString("HH-m-d-MM-y")}|";
+
+                    string content = curentChat.CurentProcess.Inputs.FirstOrDefault(i => i.MyName == "TargetTime").NameIfFalse;
+                    content = content.Replace("{Time}", item.SetdateTime.Value.ToString("HH:mm"));
+
+                    btn.Content = content;
+                }
+
+                curentChat.DinamicButons.Add(btn);
+
+
+            }
+
+            db.SaveChanges();
+
+        }
+
+        [MenuHandler("ChooseTimeGo_OnLoad")]
+        public async Task ChooseTimeGo_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            if (update.CallbackQuery.Data.Contains("set:"))
+            {
+
+                string set_text = update?.CallbackQuery?.Data.Split('|').FirstOrDefault(d => d.Contains("set:"));
+                string dateTimeSet_text = set_text.Split(':').FirstOrDefault(s => !s.Contains("set"));
+                string[] format_ = { "HH-m-d-MM-y" };
+
+
+                DateTime targetDateTime;
+
+                DateTime.TryParseExact(dateTimeSet_text, format_, CultureInfo.GetCultureInfo("ru-RU"), DateTimeStyles.None, out targetDateTime);
+
+
+
+
+                foreach (var item in curentChat.ReqOrderSet.FirstOrDefault(r => r.IsCreate == false).TimeSets)
+                {
+                    if (item.SetdateTime == targetDateTime)
+                    {
+
+                        item.IsTarget = !item.IsTarget;
+
+                    }
+
+
+                }
+
+                db.SaveChanges();
+
+            }
+
+        }
+
+        [MenuHandler("StopAndRemuveRegistration_OnLoad")]
+        public async Task StopAndRemuveRegistration_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent;
+
+            var reserd = curentChat.ReqOrderSet.FirstOrDefault(r => r.IsCreate == false);
+            if (reserd is not null)
+            {
+                reserd.IsCreate = true;
+                reserd.IsDelite = true;
+            }
+            db.SaveChanges();
+
+        }
+
+
+
+        [MenuHandler("StartRegistration_sets_toPark_OnLoad")]
+        public async Task StartRegistration_sets_toPark_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            string setTimeTexst = "";
+
+            var targetSet = curentChat.ReqOrderSet.FirstOrDefault(r => r.IsCreate == false).TimeSets.Where(t => t.IsTarget == true);
+
+            var dateTimeSets = new List<DateTime>();
+
+            foreach (var item in targetSet)
+            {
+                dateTimeSets.Add(item.SetdateTime ?? new DateTime());
+
+            }
+
+
+            if (targetSet is not null && targetSet.Count() > 0)
+            {
+
+                //if (curentChat.user_Reg_Abon is null || curentChat.user_Reg_Name is null || curentChat.user_Reg_Telephone is null)
+                //{
+                //    curentChat.CurentTexrMessage = "🤖: Я не могу тебя за регистрировать. В начале нужно расказать мне твой телефон и имя";
+                //    return;
+
+                //}
+
+
+                setTimeTexst += "🗓:" + targetSet.FirstOrDefault().SetdateTime.Value.ToString("dd.MM") + "\nПарк";
+
+                foreach (var item in targetSet)
+                {
+                    setTimeTexst += $"\n🕟 {item.SetdateTime.Value.ToString("HH:mm")}";
+                }
+                curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent.Replace("{sets}", setTimeTexst);
+                curentChat.CurentTexrMessage += "\n#SETRegistration";
+
+
+                List<string> registration_result = new List<string>();
+
+                foreach (var item in targetSet)
+                {
+                    Task.Run(async () =>
+                    {
+                      using (null)
+                                {
+
+                                    string answer = (await new TeleTools().SetRegistration("С трамплинами (Park)", item.SetdateTime ?? new DateTime(), curentChat.user_Reg_Name, curentChat.user_Reg_Telephone, curentChat.user_Reg_Abon));
+
+
+
+                                    registration_result.Add(answer);
+                                    if (answer.Contains("Ошибка"))
+                                    {
+
+                                        string messageErr = $"🤖:Ошибка ⚠️\nПрости у меня не получилось зарегистрировать вот этот сет <pre>🗓:{item.SetdateTime.Value.ToString("dd.MM - dddd")}\n🕟:{item.SetdateTime.Value.ToString("HH:mm")}</pre> \nПроблемы могут быть с номером телефона. Проверь введеный телефон и попробуй заного.";
+                                        Message sentMessage = await client.SendTextMessageAsync(chatId: curentChat.ChatId, text: messageErr, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: ctl);
+
+
+
+                                        //Task.Run(async () =>
+                                        //{
+                                        //     using (null)
+                                        //    {
+
+                                        //    }
+                                        //});
+
+
+                                        //    string messageErr = $"🤖:Ошибка ⚠️\nПрости у меня не получилось зарегистрировать вот этот сет <pre>🗓:{item.SetdateTime.Value.ToString("dd.MM - dddd")}\n🕟:{item.SetdateTime.Value.ToString("HH:mm")}</pre> \nПроблемы могут быть с номером телефона. Проверь введеный телефон и попробуй заного.";
+                                        //Message sentMessage = await client.SendTextMessageAsync(chatId: curentChat.ChatId, text: messageErr, parseMode: ParseMode.Html, disableNotification: true, cancellationToken: ctl);
+
+                                    }
+
+                                }
+
+                            });
+
+
+                }
+
+
+
+
+
+            }
+            else
+            {
+                curentChat.CurentTexrMessage = "🤖: Что то пошло не так. Попробуй заного. Или ты не выбрал ни одно сета";
+            }
+
+
+
+
+
+
+
+            var reserd = curentChat.ReqOrderSet.FirstOrDefault(r => r.IsCreate == false);
+            if (reserd is not null)
+            {
+                reserd.IsCreate = true;
+                reserd.IsDelite = false;// было труе 
+            }
+            db.SaveChanges();
+
+        }
+
+
+
+
+
+
+
+
+
+        [MenuHandler("InputTelePHForRegistration_OnEnd")]
+        public async Task InputTelePHForRegistration_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            if (update.Type == UpdateType.Message)
+            {
+
+                curentChat.user_Reg_Telephone = update.Message.Text;
+                db.SaveChanges();
+            }
+
+
+
+        }
+
+
+        [MenuHandler("InputNikName_OnEnd")]
+        public async Task InputNikName_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            if (update.Type == UpdateType.Message)
+            {
+
+                curentChat.user_Reg_Name = update.Message.Text;
+                db.SaveChanges();
+            }
+
+
+
+        }
+
+        [MenuHandler("InputAbonNumber_OnEnd")]
+        public async Task InputAbonNumber_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            if (update.Type == UpdateType.Message)
+            {
+                
+                curentChat.user_Reg_Abon = update.Message.Text;
+                db.SaveChanges();
+
+
+            }
+
+
+
+        }
+
+
+
+        [MenuHandler("RegInformationRemember_OnLoad")]
+        public async Task RegInformationRemember_OnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+
+            curentChat.CurentTexrMessage = curentChat.CurentProcess.MenuProcessContent.Replace("{tel}", curentChat.user_Reg_Telephone + "   ")??"-";
+            curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{name}", curentChat.user_Reg_Name + "   ")??"-";
+            curentChat.CurentTexrMessage = curentChat.CurentTexrMessage.Replace("{abon}", curentChat.user_Reg_Abon + "   ")??"-";
+
+        }
+
+        [MenuHandler("ParInfo_AllSets_OnLoad")]
+        public async Task ParInfo_AllSets_OnLoad(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken ctl)
+        {
+            var allSetsInDAy =  await new TeleTools().GetAllSets("С трамплинами (Park)", client, DateTime.Now.AddDays(4),false);
+
+           var last_msg= curentChat.PriviosMSGs.LastOrDefault();
+
+            string assets = "<b>{SetTime}</b> - <code>{infoUser}</code>\n";
+
+            string textMsg = "";
+
+            if (last_msg != null)
+            {
+                foreach (var item in allSetsInDAy)
+                {
+                    textMsg += assets.Replace("{SetTime}", item.SetdateTime.Value.ToString("HH:mm")).Replace("infoUser", item.name);
+                }
+
+            
+            }
+
+            client.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, last_msg.MessageId??00, textMsg, ParseMode.Html);
+
+
 
         }
 

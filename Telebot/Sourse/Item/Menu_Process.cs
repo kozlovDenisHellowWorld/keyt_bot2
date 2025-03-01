@@ -58,8 +58,10 @@ namespace Telebot.Sourse.Item
 
 
 
-        public void ExecuteOnLoad(Update update, ITelegramBotClient client, MyChat curentChat,context db, CancellationToken cancellationToken)
+        public  async Task  ExecuteOnLoad(Update update, ITelegramBotClient client, MyChat curentChat,context db, CancellationToken cancellationToken)
         {
+            //update - может быть null в случае когда пользователь должго не заходил и сработал функцинал "позвать"
+
             if (this.ProcessType.Code != "EditMenu")
             {
 
@@ -99,7 +101,17 @@ namespace Telebot.Sourse.Item
                 // Исполнение метода
                 MenuProcessor menuProcessor = new MenuProcessor();
                 object[] methodParameters = { update, client, curentChat,db,cancellationToken };
+                
+                
+                concoldebuger.badMSG("OnLoadHadler   2_____________________________________________________________________________1 --- OnLoadHadler");
+
+                //await  Task.Run(() => OnLoadHadler.Invoke(menuProcessor, methodParameters) );
                 OnLoadHadler.Invoke(menuProcessor, methodParameters);
+
+               // await Task.Run(() => OnLoadHadler.Invoke(menuProcessor, methodParameters));
+
+                //  await new Task(()=> OnLoadHadler.Invoke(menuProcessor, methodParameters)).WaitAsync(new TimeSpan(100000));
+                concoldebuger.badMSG("OnLoadHadler- end   9    await curentChat.CurentProcess.ExecuteOnEnd_____________________________________________________________________________ --- OnLoadHadler");
 
                 //Отчет об исполнении CONSOL
                 string textRezult = $"Execute On Load - Process navigation: {this.Navigation}|Discription: был выполнен успешно метод при старте нового меню|true";
@@ -114,7 +126,7 @@ namespace Telebot.Sourse.Item
         }
 
 
-        public void ExecuteOnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken cancellationToken)
+        public async Task ExecuteOnEnd(Update update, ITelegramBotClient client, MyChat curentChat, context db, CancellationToken cancellationToken)
         {
             //поиск метода 
 
@@ -141,7 +153,7 @@ namespace Telebot.Sourse.Item
 
                 // Исполнение метода
                 MenuProcessor menuProcessor = new MenuProcessor();
-                object[] methodParameters = { update, client, curentChat };
+                object[] methodParameters = { update, client, curentChat, db, cancellationToken };
                 OnEndHadler.Invoke(menuProcessor, methodParameters);
 
                 //Отчет об исполнении CONSOL
@@ -212,6 +224,16 @@ namespace Telebot.Sourse.Item
         {
             return $"m:{MyId}|";
         }
+
+
+        public static int GetIdFromUpdate(Update update)
+        {
+
+            return new TeleTools().getentyIdByUpdate("m", update);
+
+
+        }
+
 
     }
 }

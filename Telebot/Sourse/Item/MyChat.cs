@@ -22,6 +22,28 @@ namespace Telebot.Sourse.Item.IItem
 
 
 
+
+        /// <summary>
+        /// Телефон на который будем регистрировать сеты 
+        /// </summary>
+        public string? user_Reg_Telephone { set; get; }
+
+
+        /// <summary>
+        /// имя на которое будем регистрировать
+        /// </summary>
+        public string? user_Reg_Name { set; get; }
+
+
+        /// <summary>
+        ///  абонимент
+        /// </summary>
+        public string? user_Reg_Abon { set; get; }
+
+
+
+
+
         public long ChatId { set; get; }
 
         /// <summary>
@@ -62,6 +84,18 @@ namespace Telebot.Sourse.Item.IItem
 
 
         public virtual List<Log> Logs { set; get; } = new List<Log>();
+
+
+        public virtual List<ReqOrderSet> ReqOrderSet { set; get; } = new List<ReqOrderSet>();
+
+
+
+
+
+
+
+
+
 
 
 

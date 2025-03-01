@@ -68,9 +68,21 @@
               "target": "Package",
               "version": "[7.0.9, )"
             },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "OpenAI-DotNet": {
               "target": "Package",
               "version": "[7.0.5, )"
+            },
+            "RafaelEstevam.WebDriverController": {
+              "target": "Package",
+              "version": "[0.4.2, )"
+            },
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.21.0, )"
             },
             "Telegram.Bot": {
               "target": "Package",
@@ -157,9 +169,25 @@
               "target": "Package",
               "version": "[7.0.9, )"
             },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "OpenAI-DotNet": {
               "target": "Package",
               "version": "[7.0.5, )"
+            },
+            "RafaelEstevam.WebDriverController": {
+              "target": "Package",
+              "version": "[0.4.2, )"
+            },
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.21.0, )"
+            },
+            "System.Collections": {
+              "target": "Package",
+              "version": "[4.3.0, )"
             },
             "Telegram.Bot": {
               "target": "Package",

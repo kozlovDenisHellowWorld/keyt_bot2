@@ -82,6 +82,9 @@ E:\Den\kate_2bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.dll
 E:\Den\kate_2bot\keyt_bot2\Telebot\obj\Debug\net6.0\refint\Telebot.dll
 E:\Den\kate_2bot\keyt_bot2\Telebot\obj\Debug\net6.0\Telebot.pdb
 E:\Den\kate_2bot\keyt_bot2\Telebot\obj\Debug\net6.0\ref\Telebot.dll
+D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\selenium-manager\linux\selenium-manager
+D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\selenium-manager\macos\selenium-manager
+D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\selenium-manager\windows\selenium-manager.exe
 D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\Telebot.deps.json
 D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\Telebot.dll
 D:\kate_bot\keyt_bot2\Telebot\bin\Debug\net6.0\Telebot.pdb

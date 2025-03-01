@@ -97,8 +97,8 @@ namespace Telebot
                 concoldebuger.notifMSG($"Имя базы данных: {db.databaseName}", myClient, myCansToken.Token);
             }
 
-            if (needToUpdate == true) XmlMenus(pathXML);
-
+           // if (needToUpdate == true) XmlMenus(pathXML); так если нужно управлять с апдейтом
+            XmlMenus(pathXML);
 
             myClient.StartReceiving(
                 myUpdate,
@@ -126,19 +126,31 @@ namespace Telebot
             {
                 await Task.Delay(TimeSpan.FromMinutes(59));
 
+
+                //await Task.Delay(TimeSpan.FromMinutes(1));
+
+
                 concoldebuger.notifMSG($"{DateTime.Now}-- Удаление собщений ", myClient, myCansToken.Token);
                 // Получите текущую дату и время
                 DateTime now = DateTime.Now;
 
                 // Определите время, когда должна запускаться проверка (01:00)
+
+
+                #region Тут надо раскоментировать когда проверишь 
                 DateTime scheduledTime = new DateTime(now.Year, now.Month, now.Day, 23, 0, 0);
 
-                // Если текущее время больше или равно запланированному времени
-                if (now.Hour == scheduledTime.Hour)
+                if (now.Hour == scheduledTime.Hour) // Если текущее время больше или равно запланированному времени
                 {
                     // Выполните проверку сообщений
                     await CheckMessages();
                 }
+                #endregion
+
+
+                await CheckMessages();
+
+
 
                 // Подождите 1 минуту перед следующей проверкой
                 //  concoldebuger.notifMSG($"{DateTime.Now}-- Закончил проверку старых сообщений", myClient, myCansToken.Token);
@@ -149,17 +161,19 @@ namespace Telebot
         private async Task CheckMessages()
         {
             // Создайте объект, показывающий время начала периода последних 12 часов
-            DateTime startTime = DateTime.Now.AddHours(-12);
 
+
+            DateTime startTime = DateTime.Now.AddHours(-4);
             // DateTime startTime = DateTime.Now.AddMinutes(-1);
-            //  concoldebuger.notifMSG($"{DateTime.Now}-- получил время и дату скоторого будем удалять", myClient, myCansToken.Token);
-
-            // Вместо "myDbContext" укажите свой контекст базы данных
-
-            new adminHendlerHR().start_new_sasion(startTime, myClient, myCansToken.Token);
-            new userHendlerHR().start_new_sasion(startTime, myClient, myCansToken.Token);
 
 
+
+            // new adminHendlerHR().start_new_sasion(startTime, myClient, myCansToken.Token);
+            // new userHendlerHR().start_new_sasion(startTime, myClient, myCansToken.Token);
+
+
+
+            await new TeleTools().start_new_sasion("regularUser", startTime, myClient, myCansToken.Token);
 
 
         }
@@ -240,9 +254,9 @@ namespace Telebot
                     Token = reliseToken;
                     BDName = reliseDBName;
                 }
-
+                
             }
-            catch 
+            catch
             {
 
                 Sourse.Handlers.concoldebuger.goodMSG("Не загрузились токен");
@@ -345,19 +359,25 @@ namespace Telebot
                     XmlNodeList usertypeNodes = xmlDoc.SelectNodes("//UserType/Type");
                     foreach (XmlNode node in usertypeNodes)
                     {
-                        var type = new User_Types();
-                        type.TypeCode = node.Attributes["CodeType"]?.Value ?? string.Empty;
-                        type.MyName = node.Attributes["Name"]?.Value ?? string.Empty;
-                        type.MyDescription = node.Attributes["Description"]?.Value ?? string.Empty;
-                        type.IsDefoult = bool.Parse(node.Attributes["isDefoult"]?.Value ?? "false");
-                        //   type.BotClientId = myClient.BotId;
-                        type.IsDelite = false;
-                        type.dateTimeCreation = DateTime.Now;
-                        userTypes.Add(type);
+                        var typeCode = node.Attributes["CodeType"]?.Value ?? string.Empty;
 
+                        if (!db.User_Types.Any(t => t.TypeCode == typeCode))
+                        {
+
+                            var type = new User_Types();
+                            type.TypeCode = node.Attributes["CodeType"]?.Value ?? string.Empty;
+                            type.MyName = node.Attributes["Name"]?.Value ?? string.Empty;
+                            type.MyDescription = node.Attributes["Description"]?.Value ?? string.Empty;
+                            type.IsDefoult = bool.Parse(node.Attributes["isDefoult"]?.Value ?? "false");
+                            //   type.BotClientId = myClient.BotId;
+                            type.IsDelite = false;
+                            type.dateTimeCreation = DateTime.Now;
+                            userTypes.Add(type);
+                        }
                     }
 
                     db.User_Types.AddRange(userTypes);
+
 
                     db.SaveChanges();
 
@@ -367,16 +387,25 @@ namespace Telebot
 
                     foreach (XmlNode node in menuTypesNodes)
                     {
-                        var type = new Menu_ProcessType();
+                        var typeCode = node.Attributes["CodeType"]?.Value ?? string.Empty;
 
-                        type.Code = node.Attributes["CodeType"]?.Value ?? string.Empty;
-                        type.MyName = node.Attributes["Name"]?.Value ?? string.Empty;
-                        type.dateTimeCreation = DateTime.Now;
-                        type.IsDelite = false;
-                        //type.BotClientId=myClient.BotId;
-                        type.MyDescription = "Вид меню";
+                        // Проверяем существование элемента в базе данных
+                        if (!db.Menu_ProcessTypes.Any(t => t.Code == typeCode))
+                        {
 
-                        menuTypes.Add(type);
+                            var type = new Menu_ProcessType();
+
+                            type.Code = node.Attributes["CodeType"]?.Value ?? string.Empty;
+                            type.MyName = node.Attributes["Name"]?.Value ?? string.Empty;
+                            type.dateTimeCreation = DateTime.Now;
+                            type.IsDelite = false;
+                            //type.BotClientId=myClient.BotId;
+                            type.MyDescription = "Вид меню";
+
+                            menuTypes.Add(type);
+
+                        }
+
                     }
 
                     db.Menu_ProcessTypes.AddRange(menuTypes);
@@ -387,21 +416,29 @@ namespace Telebot
                     List<Input_Type> buttonTypes = new List<Input_Type>();
                     foreach (XmlNode node in buttonTypesNodes)
                     {
-                        var type = new Input_Type();
 
-                        type.Code = node.Attributes["CodeType"]?.Value ?? string.Empty;
-                        type.MyName = node.Attributes["Name"]?.Value ?? string.Empty;
-                        type.dateTimeCreation = DateTime.Now;
-                        type.IsDelite = false;
-                        // type.BotClientId = myClient.BotId;
-                        type.MyDescription = "Вид инпута";
-                        buttonTypes.Add(type);
+                        var typeCode = node.Attributes["CodeType"]?.Value ?? string.Empty;
+
+                        // Проверяем существование элемента в базе данных
+                        if (!db.Menu_ProcessTypes.Any(t => t.Code == typeCode))
+                        {
+
+                            var type = new Input_Type();
+
+                            type.Code = node.Attributes["CodeType"]?.Value ?? string.Empty;
+                            type.MyName = node.Attributes["Name"]?.Value ?? string.Empty;
+                            type.dateTimeCreation = DateTime.Now;
+                            type.IsDelite = false;
+                            // type.BotClientId = myClient.BotId;
+                            type.MyDescription = "Вид инпута";
+                            buttonTypes.Add(type);
+                        }
                     }
                     db.Input_Types.AddRange(buttonTypes);
                     db.SaveChanges();
 
 
-              
+
                     XmlNodeList menuProcesses = xmlDoc?.SelectNodes("//MenuProces") ?? null;
                     if (menuProcesses is null) return;
 
@@ -423,55 +460,58 @@ namespace Telebot
 
                         foreach (XmlNode menu in menus)
                         {
-
-                            var _curentMenu = new Menu_Process();
-                            _curentMenu.MyName = menu.Attributes["Name"]?.Value ?? string.Empty;
-                            _curentMenu.UserType = thisUserType;
-                            string menuType = menu.Attributes["MenuType"]?.Value ?? string.Empty;
-                            _curentMenu.ProcessType = menuTypes?.FirstOrDefault(type => type.Code == menuType);
-
-                            _curentMenu.ProcessMenuCode = menu.Attributes["MenuCode"]?.Value ?? string.Empty;
-
-                            _curentMenu.Navigation = menu.Attributes["Navigation"]?.Value ?? string.Empty;
-
-                            _curentMenu.MenuProcessContent = menu.Attributes["Content"]?.Value ?? string.Empty;
-                            _curentMenu.MyDescription = menu.Attributes["Content"]?.Value ?? string.Empty;
-
-                            _curentMenu.NeedToDelite = Convert.ToBoolean(menu.Attributes["NeedToDelite"]?.Value ?? "False"); 
-
-                            _curentMenu.IsAwaytingText = Convert.ToBoolean(menu.Attributes["IsAwaytingText"]?.Value ?? "False");
-                            _curentMenu.IsDelite = false;
-                            _curentMenu.dateTimeCreation = DateTime.Now;
-
-
-
-
-
-                            XmlNodeList inputsXML = menu?.SelectNodes("Input");
-
-                            foreach (XmlNode input in inputsXML)
+                            var typeCode = menu.Attributes["MenuCode"]?.Value ?? string.Empty;
+                            if (!db.Menu_ProcessTypes.Any(t => t.Code == typeCode))
                             {
-                                Process_Input _input = new Process_Input();
 
-                                _input.MyName = input.Attributes["Name"]?.Value ?? string.Empty;
-                                _input.NextProcessMenuCode = input.Attributes["NextMenuNameCode"]?.Value ?? string.Empty;
-                                _input.NameIfFalse=input.Attributes["NameIfFalse"]?.Value ?? null;
-                                _input.NameIfTrue = input.Attributes["NameIfTrue"]?.Value ?? null;
+                                var _curentMenu = new Menu_Process();
+                                _curentMenu.MyName = menu.Attributes["Name"]?.Value ?? string.Empty;
+                                _curentMenu.UserType = thisUserType;
+                                string menuType = menu.Attributes["MenuType"]?.Value ?? string.Empty;
+                                _curentMenu.ProcessType = menuTypes?.FirstOrDefault(type => type.Code == menuType);
+
+                                _curentMenu.ProcessMenuCode = menu.Attributes["MenuCode"]?.Value ?? string.Empty;
+
+                                _curentMenu.Navigation = menu.Attributes["Navigation"]?.Value ?? string.Empty;
+
+                                _curentMenu.MenuProcessContent = menu.Attributes["Content"]?.Value ?? string.Empty;
+                                _curentMenu.MyDescription = menu.Attributes["Content"]?.Value ?? string.Empty;
+
+                                _curentMenu.NeedToDelite = Convert.ToBoolean(menu.Attributes["NeedToDelite"]?.Value ?? "False");
+
+                                _curentMenu.IsAwaytingText = Convert.ToBoolean(menu.Attributes["IsAwaytingText"]?.Value ?? "False");
+                                _curentMenu.IsDelite = false;
+                                _curentMenu.dateTimeCreation = DateTime.Now;
 
 
-                                string _inpTypr = input.Attributes["InputType"]?.Value ?? string.Empty;
-                                _input.input_Type = buttonTypes.FirstOrDefault(type => type.Code == _inpTypr);
-                                _input.MenuProcessCode = _curentMenu.MenuProcessContent;
-                                _input.dateTimeCreation = DateTime.Now;
-                                _curentMenu.Inputs.Add(_input);
 
+
+
+                                XmlNodeList inputsXML = menu?.SelectNodes("Input");
+
+                                foreach (XmlNode input in inputsXML)
+                                {
+                                    Process_Input _input = new Process_Input();
+
+                                    _input.MyName = input.Attributes["Name"]?.Value ?? string.Empty;
+                                    _input.NextProcessMenuCode = input.Attributes["NextMenuNameCode"]?.Value ?? string.Empty;
+                                    _input.NameIfFalse = input.Attributes["NameIfFalse"]?.Value ?? null;
+                                    _input.NameIfTrue = input.Attributes["NameIfTrue"]?.Value ?? null;
+
+
+                                    string _inpTypr = input.Attributes["InputType"]?.Value ?? string.Empty;
+                                    _input.input_Type = buttonTypes.FirstOrDefault(type => type.Code == _inpTypr);
+                                    _input.MenuProcessCode = _curentMenu.MenuProcessContent;
+                                    _input.dateTimeCreation = DateTime.Now;
+                                    _curentMenu.Inputs.Add(_input);
+
+
+                                }
+
+
+                                MenussInProces_1.Add(_curentMenu);
 
                             }
-
-
-                            MenussInProces_1.Add(_curentMenu);
-
-
 
                         }
 
@@ -491,7 +531,7 @@ namespace Telebot
                             }
 
                         }
-                        db.Menu_Proceses.UpdateRange(MenussInProces_1);
+                        db.Menu_Proceses.UpdateRange(MenussInProces_1); 
                         db.SaveChanges();
 
                     }
@@ -530,7 +570,7 @@ namespace Telebot
             {
                 var processs = db.Inputs.ToList(); ;
 
-                
+
 
             }
 
@@ -614,12 +654,12 @@ namespace Telebot
 
 
 
-           // if (usertype == MyUser.userType.admin) new adminHendlerHR().adminHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
-         //   if (usertype == MyUser.userType.regulareUser) new userHendlerHR().regularUserHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
+            // if (usertype == MyUser.userType.admin) new adminHendlerHR().adminHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
+            //   if (usertype == MyUser.userType.regulareUser) new userHendlerHR().regularUserHendler(update, iClient, cancellationToken, teleChatId, teleUserId);
 
 
 
-            string processHendler = await HandlerNewUpdate.processHendler(iClient, update, cancellationToken);
+            string processHendler = await new HandlerNewUpdate().processHendler(iClient, update, cancellationToken);
 
 
 
